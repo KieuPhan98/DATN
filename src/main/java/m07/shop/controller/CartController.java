@@ -1,20 +1,33 @@
 package m07.shop.controller;
 
+import m07.Utils.Utils;
 import m07.entity.*;
+import m07.enums.PaypalPaymentIntent;
+import m07.enums.PaypalPaymentMethod;
 import m07.repository.CustomersRepository;
 import m07.repository.OrderDetailRepository;
 import m07.repository.OrderRepository;
 import m07.repository.ProductRepository;
+import m07.service.PaypalService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payment;
+import com.paypal.base.rest.PayPalRESTException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,11 +38,21 @@ import java.util.List;
 
 @Controller
 public class CartController extends BaseController   {
+	
+	public static final String URL_PAYPAL_SUCCESS = "success";
+    public static final String URL_PAYPAL_CANCEL = "pay/cancel";
+	
+	private Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PaypalService paypalService;
+    
     @Autowired
     ProductRepository productRepository;
 
     @Autowired
     OrderRepository orderRepository;
+    
     @Autowired
     CustomersRepository customerRepository;
 
@@ -170,12 +193,47 @@ public class CartController extends BaseController   {
         order.setStatus("Cho duyet");
         Date date = new Date();
         order.setOrderDate(date);
-        orderRepository.save(order);
-        session.removeAttribute("carts");
-//        session.setAttribute("carts", null);
-//        session.invalidate();
-        model.addAttribute("orderId",order.getId()); 
-        return "checkout_success";
+        
+        String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
+        String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
+        try {
+            Payment payment = paypalService.createPayment(
+            		order.getTotalPrice(),
+                    "USD",
+                    PaypalPaymentMethod.paypal,
+                    PaypalPaymentIntent.sale,
+                    "payment description",
+                    cancelUrl,
+                    successUrl);
+            for(Links links : payment.getLinks()){
+                if(links.getRel().equals("approval_url")){
+                    return "redirect:" + links.getHref();
+                }
+            }
+        } catch (PayPalRESTException e) {
+            log.error(e.getMessage());
+        }
+        return "redirect:/";
+        
+    }
+    
+    
+    @GetMapping(URL_PAYPAL_SUCCESS)
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId , Model model,
+            Order order,
+            HttpServletRequest request){
+        try {
+        	 HttpSession session = request.getSession();
+            Payment payment = paypalService.executePayment(paymentId, payerId);
+            if(payment.getState().equals("approved")){
+                session.removeAttribute("carts");
+                model.addAttribute("orderId",order.getId()); 
+                return "checkout_success";
+            }
+        } catch (PayPalRESTException e) {
+            log.error(e.getMessage());
+        }
+        return "redirect:/";
     }
 
 
