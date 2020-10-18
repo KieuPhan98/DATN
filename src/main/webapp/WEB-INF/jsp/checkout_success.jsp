@@ -35,10 +35,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="checkout">
         <div class="container">
             <h2> <span>Cảm Ơn Bạn Đã Mua Hàng. Mã Đơn Hàng Của Bạn Là : ${orderId}</span></h2>
-
         </div>
     </div>
-
 
     <jsp:include page="footer.jsp"></jsp:include>
     <!-- Bootstrap Core JavaScript -->

@@ -2,16 +2,18 @@ package m07.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Nationalized;
+import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="Employee")
 public class Employee implements Serializable {
@@ -25,6 +27,10 @@ public class Employee implements Serializable {
 	@Nationalized
 	String FirstName;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	Date Birthday;
+	
 	@Nationalized
 	String Sex;
 	
@@ -32,7 +38,7 @@ public class Employee implements Serializable {
 	String Adress;
 	
 	String Phone;
-	String Birthday;
+	/*tring Birthday;*/
 	String Email;
 	String Password;
 	
@@ -47,6 +53,9 @@ public class Employee implements Serializable {
 	
 	@OneToMany(mappedBy="employee")
 	Collection<Cmt_Emp> cmt_emp;
+	
+	@OneToMany(mappedBy="employee")
+	Collection<DivisionDetail> divisionDetails;
 	
 	public Collection<Receiption> getReceiptions() {
 		return receiptions;
@@ -104,14 +113,6 @@ public class Employee implements Serializable {
 		Phone = phone;
 	}
 
-	public String getBirthday() {
-		return Birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		Birthday = birthday;
-	}
-
 	public String getEmail() {
 		return Email;
 	}
@@ -143,5 +144,21 @@ public class Employee implements Serializable {
 	public void setCmt_emp(Collection<Cmt_Emp> cmt_emp) {
 		this.cmt_emp = cmt_emp;
 	}
-	
+
+	public Collection<DivisionDetail> getDivisionDetails() {
+		return divisionDetails;
+	}
+
+	public void setDivisionDetails(Collection<DivisionDetail> divisionDetails) {
+		this.divisionDetails = divisionDetails;
+	}
+
+	public Date getBirthday() {
+		return Birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		Birthday = birthday;
+	}
+		
 }

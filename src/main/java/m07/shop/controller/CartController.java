@@ -190,9 +190,14 @@ public class CartController extends BaseController   {
             orderDetailRepository.save(orderDetail);
         }
         order.setTotalPrice(totalPrice);
+        System.out.println("total:" + order.getTotalPrice());
+        
         order.setStatus("Cho duyet");
+        
         Date date = new Date();
         order.setOrderDate(date);
+        
+        orderRepository.save(order);
         
         String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;

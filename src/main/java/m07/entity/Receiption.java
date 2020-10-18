@@ -3,6 +3,7 @@ package m07.entity;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -25,6 +27,28 @@ public class Receiption {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	Date createDate;
+	
+	@Column(name = "total_price")
+	private double totalPrice;
+	
+	@Nationalized 
+	String status;
+		
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getId() {
 		return id;

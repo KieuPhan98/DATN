@@ -92,10 +92,17 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Địa chỉ</label>                                         
                                         <form:input type="text" path="address" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Quận</label>                                         
+                                        <form:input type="text" path="district" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                             </div>
@@ -127,12 +134,20 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group" style="display:none">
                                         <label>shipperId</label>                                         
                                         <form:input type="text" path="shipperId" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
+                                
+                                <%-- <div class="col-md-6">
+                                    <div class="form-group" style="display:none">
+                                        <label>employeeId</label>                                         
+                                        <form:input type="text" path="employeeId" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div> --%>
+                                
                             </div>
                             <div class="row">
                                

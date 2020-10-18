@@ -53,7 +53,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <form:input path="receiver" placeholder="Tên Người nhận"  required="true" value="${fullName}"></form:input>
                 <form:input path="address" placeholder="Địa Chỉ..." required="true" value="${address}"></form:input>
                 
-                <form:select itemValue="district" path="district" class="form-control" value ="${district}">												
+                <form:select itemValue="district" path="district" class="form-control">	
+                	<%-- <form:option value="${district}">${district}</form:option> --%>											
 					<form:option value="Quận 1">Quận 1</form:option>
 					<form:option value="Quận 2">Quận 2</form:option>
 					<form:option value="Quận 3">Quận 3</form:option>
