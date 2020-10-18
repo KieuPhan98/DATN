@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import m07.entity.Customer;
-import m07.entity.Employee;
 import m07.entity.Order;
 import m07.entity.OrderDetail;
 import m07.repository.CustomersRepository;
@@ -93,8 +92,10 @@ public class ReportController {
     @RequestMapping(value = "/admin/editorder", method = RequestMethod.GET)
     public String editSupper(@RequestParam("id") int id,
                              ModelMap model) {
+    	System.out.println("Order Info : ====================================");
         model.addAttribute("order1", orderRepository.findOne(id));
         model.addAttribute("message","Updating");
+        System.out.println("Order Info : ====================================");
         return "admin/editStatusToShipping";
     }
 

@@ -18,8 +18,8 @@ import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "Receiption")
-public class Receiption {
+@Table(name = "OrderForSupplier")
+public class OrderForSupplier {
 	@Id
 	@GeneratedValue
 	int id;
@@ -33,22 +33,17 @@ public class Receiption {
 	
 	@Nationalized 
 	String status;
-		
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
+	@ManyToOne
+	@JoinColumn(name = "employeeId")
+	Employee employee;
+	
+	@ManyToOne
+	@JoinColumn(name = "supplyId")
+	Supplier supplier;
+	
+	@OneToMany(mappedBy = "orderForSupplier")
+	Collection<OrderForSuplierDetail> orderForSuplierDetail;
 
 	public int getId() {
 		return id;
@@ -65,13 +60,22 @@ public class Receiption {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
-	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	Employee employee;
-	
-	@OneToMany(mappedBy = "receiption")
-	Collection<ReceipDetail> receipDetails;
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public Employee getEmployee() {
 		return employee;
@@ -81,12 +85,20 @@ public class Receiption {
 		this.employee = employee;
 	}
 
-	public Collection<ReceipDetail> getReceipDetails() {
-		return receipDetails;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
-	public void setReceipDetails(Collection<ReceipDetail> receipDetails) {
-		this.receipDetails = receipDetails;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
-	
+
+	public Collection<OrderForSuplierDetail> getOrderForSuplierDetail() {
+		return orderForSuplierDetail;
+	}
+
+	public void setOrderForSuplierDetail(Collection<OrderForSuplierDetail> orderForSuplierDetail) {
+		this.orderForSuplierDetail = orderForSuplierDetail;
+	}
+		
 }

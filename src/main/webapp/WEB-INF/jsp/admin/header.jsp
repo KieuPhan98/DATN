@@ -84,6 +84,13 @@
                 </li>
                 
                 <li>
+                    <a href="/admin/importOrderFromSupplier">
+                        <i class="pe-7s-note2"></i>
+                        <p>PHIẾU NHẬP HÀNG</p>
+                    </a>
+                </li>
+                
+                <li>
                     <a href="/admin/reportmonth">
                         <i class="pe-7s-news-paper"></i>
                         <p>THỐNG KÊ THEO THÁNG</p>

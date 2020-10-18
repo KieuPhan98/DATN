@@ -48,7 +48,7 @@
         <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <b:property name="url" value="jdbc:mysql://localhost:3306/yumishop2" />
         <b:property name="username" value="root" />
-        <b:property name="password" value="12345678" />
+        <b:property name="password" value="123456789" />
     </b:bean>
 
 </b:beans>

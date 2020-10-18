@@ -20,6 +20,9 @@ public class Supplier implements Serializable {
 	
 	@OneToMany(mappedBy="supplier", fetch=FetchType.EAGER)
 	Collection<Product> products;
+	
+	@OneToMany(mappedBy="supplier", fetch=FetchType.EAGER)
+	Collection<OrderForSupplier> orderForSupplier;
 
 	public Integer getId() {
 		return id;
@@ -67,6 +70,14 @@ public class Supplier implements Serializable {
 
 	public void setProducts(Collection<Product> products) {
 		this.products = products;
+	}
+
+	public Collection<OrderForSupplier> getOrderForSupplier() {
+		return orderForSupplier;
+	}
+
+	public void setOrderForSupplier(Collection<OrderForSupplier> orderForSupplier) {
+		this.orderForSupplier = orderForSupplier;
 	}
 	
 }

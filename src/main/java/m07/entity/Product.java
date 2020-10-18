@@ -50,6 +50,9 @@ public class Product implements Serializable {
 	
 	@OneToMany(mappedBy = "products")
 	Collection<ReceipDetail> receipDetail;
+	
+	@OneToMany(mappedBy = "products")
+	Collection<OrderForSuplierDetail> orderForSuplierDetail;
 
 	public Product() {
 	}
@@ -132,8 +135,6 @@ public class Product implements Serializable {
 		this.quantity = quantity;
 	}
 
-	
-
 	public Collection<ReceipDetail> getReceipDetail() {
 		return receipDetail;
 	}
@@ -165,4 +166,13 @@ public class Product implements Serializable {
 	public void setOrderDetails(Collection<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+
+	public Collection<OrderForSuplierDetail> getOrderForSuplierDetail() {
+		return orderForSuplierDetail;
+	}
+
+	public void setOrderForSuplierDetail(Collection<OrderForSuplierDetail> orderForSuplierDetail) {
+		this.orderForSuplierDetail = orderForSuplierDetail;
+	}
+	
 }
