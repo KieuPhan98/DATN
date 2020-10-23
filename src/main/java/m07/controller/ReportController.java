@@ -49,6 +49,7 @@ public class ReportController {
         List<OrderDetail> orderDetailList = (List<OrderDetail>) orderDetailRepository.findAll();
         return orderDetailList;
     }
+    
 // don hang chua duyet
     @RequestMapping(value = "/admin/orderNew")
     public String showproorders(Model model){
@@ -58,38 +59,8 @@ public class ReportController {
         model.addAttribute("orders",listOrder);
         return "/admin/order1";
     }
-    
-    // don hang dang giao
-    @Transactional
-    @RequestMapping(value = "/admin/orderShipping")
-    public String showproorders1(Model model){
-        List<Order> orders = (List<Order>) orderRepository.lisorderbydesc1();
-        System.out.println("========================== OUTPUT DATA ==================");
-        for (Order order : orders) {
-        	System.out.println(order.toString());
-        }
-        model.addAttribute("orders",orders);
-        return "/admin/order2";
-    }
-
-    // don hang da hoan tat
-    @RequestMapping(value = "/admin/orderFinish")
-    public String showproorders2(Model model){
-        List<Order> order = (List<Order>) orderRepository.lisorderbydesc2();
-        model.addAttribute("orders",order);
-        return "/admin/order3";      
-    }
-    
-    // don hang da huy
-    @RequestMapping(value = "/admin/orderCancel")
-    public String showproorders3(Model model){
-        List<Order> order = (List<Order>) orderRepository.lisorderbydesc3();
-        model.addAttribute("orders",order);
-        return "/admin/order4";
-    }
-    
-// status to shipping
-    @RequestMapping(value = "/admin/editorder", method = RequestMethod.GET)
+ // status to shipping
+    @RequestMapping(value = "/admin/updateStatusToShipping", method = RequestMethod.GET)
     public String editSupper(@RequestParam("id") int id,
                              ModelMap model) {
     	System.out.println("Order Info : ====================================");
@@ -99,7 +70,7 @@ public class ReportController {
         return "admin/editStatusToShipping";
     }
 
-    @RequestMapping(value = "/admin/updateStatusShipping", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/updateStatusToShipping", method = RequestMethod.POST)
     @Transactional
     public String editorder(@ModelAttribute("order1") Order order, Model model, RedirectAttributes rs) {
     	
@@ -110,8 +81,7 @@ public class ReportController {
     	
     	Customer customer = customerRepository.getCustomer(order.getCustomer().getId());
     	System.out.println("Customer Info : ====================================");
-    	System.out.println(customer.getFullname());
-    	
+    	System.out.println(customer.getFullname());    	
     	
     	order.setCustomer(customer);
     	
@@ -127,12 +97,30 @@ public class ReportController {
             model.addAttribute("message", "Update failure");
             model.addAttribute("order", order);
         }
-        return "redirect:/admin/orderNew";
+        
+        if(order.getStatus().equals("Dang giao")) {
+        	return "redirect:/admin/orderShipping";
+        }
+        else {
+        	return "redirect:/admin/orderCancel";
+        }
     }
-   
-   // status to finish 
     
-    @RequestMapping(value = "/admin/editorder1", method = RequestMethod.GET)
+    // don hang dang giao
+    @Transactional
+    @RequestMapping(value = "/admin/orderShipping")
+    public String showproorders1(Model model){
+        List<Order> orders = (List<Order>) orderRepository.lisorderbydesc1();
+        System.out.println("========================== OUTPUT DATA ==================");
+        for (Order order : orders) {
+        	System.out.println(order.toString());
+        }
+        model.addAttribute("orders",orders);
+        return "/admin/order2";
+    }
+    
+    // status to finish    
+    @RequestMapping(value = "/admin/updateStatusToFinish", method = RequestMethod.GET)
     public String editSupper1(@RequestParam("id") int id,
                              ModelMap model) {
         model.addAttribute("order1", orderRepository.findOne(id));
@@ -167,8 +155,24 @@ public class ReportController {
             model.addAttribute("message", "Update failure");
             model.addAttribute("order", order);
         }
-        return "redirect:/admin/orderNew";
+        return "redirect:/admin/orderFinish";
     }
+    
+    // don hang da hoan tat
+    @RequestMapping(value = "/admin/orderFinish")
+    public String showproorders2(Model model){
+        List<Order> order = (List<Order>) orderRepository.lisorderbydesc2();
+        model.addAttribute("orders",order);
+        return "/admin/order3";      
+    }
+    
+    // don hang da huy
+    @RequestMapping(value = "/admin/orderCancel")
+    public String showproorders3(Model model){
+        List<Order> order = (List<Order>) orderRepository.lisorderbydesc3();
+        model.addAttribute("orders",order);
+        return "/admin/order4";
+    }     
     
     @RequestMapping(value = "/admin/detailOrder", method = RequestMethod.GET)
     public String detailOders(@RequestParam("id") Integer id,ModelMap model)
@@ -177,7 +181,6 @@ public class ReportController {
         return "admin/orderdetail";
     }
 
-    //// thống kê theo tháng
     @RequestMapping(value = "/admin/reportmonth")
     public String reportmonth(Model model) throws SQLException {
         /*OrderDetail orderDetail = new OrderDetail();

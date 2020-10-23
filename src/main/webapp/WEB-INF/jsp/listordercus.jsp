@@ -34,16 +34,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- checkout -->
     <div class="checkout">
         <div class="container">
-            <h2><span>Đơn Hàng Của bạn là:</span></h2>
+            <h2><span>ĐƠN HÀNG CỦA TÔI</span></h2>
             <div class="checkout-right">
                 <table class="timetable_sub">
                     <thead>
                     <tr>
-                        <th>OrderId</th>
-                        <th>Order Date</th>
-                        <th>Total Price</th>
-                        <th>Receiver</th>
-                        <th>Address</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Ngày mua</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái đơn hàng</th>
                     </tr>
                     </thead>
 
@@ -52,10 +52,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <td class="invert">${listordercus.id}</td>                           
                             <td class="invert">${listordercus.orderDate}</td>	
                             <td class="invert">${listordercus.totalPrice}</td>
-                            <td class="invert">${listordercus.receiver}</td>
-                            <td class="invert">${listordercus.address}</td>
+                            <td class="invert">${listordercus.totalPrice}</td>
+                            <td class="invert">${listordercus.status}</td>
                         </tr>
-
                     </c:forEach>
 
                     <!--quantity-->

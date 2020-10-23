@@ -94,7 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 				<!--quantity-->
-				<!-- <script>
+				<script>
 					$('.value-plus')
 							.on(
 									'click',
@@ -115,14 +115,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										if (newVal >= 1)
 											divUpd.text(newVal);
 									});
-				</script> -->
+				</script> 
 				<!--quantity-->
 			</table>
 		</div>
 
 		<div class="checkout-left">
 
-			<h2>TỔNG TIỀN: ${total}</h2>
+			<h2 style="margin: 15px">TỔNG TIỀN: ${total}</h2>
 			<div class="checkout-right-basket">
 
 				<c:if test="${id == null}">

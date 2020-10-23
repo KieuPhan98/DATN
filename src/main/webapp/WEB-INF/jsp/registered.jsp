@@ -29,6 +29,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
+    
+    <style>
+    	.form-control {
+    		margin-top: 15px;
+    	}
+    </style>
     <!-- start-smoth-scrolling -->
 </head>
 <body>
@@ -47,6 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="register">
     <div class="container">
         <h2><spring:message code="REGISTER" text="default text"/> </h2>
+      <!--<h2>ĐĂNG KÍ NGAY TẠI ĐÂY</h2> -->
         <div class="login-form-grids">
             <h5><spring:message code="Profile" text="default text"/></h5>
             <form:form action="/registered" method="post" modelAttribute="customer">

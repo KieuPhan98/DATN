@@ -77,7 +77,7 @@
 											<td>${orders.totalPrice}</td>
 											<td>
 												<button class="btn btn-info btn-fill pull-right">
-													<a href="/admin/editorder1?id=${orders.id}"
+													<a href="/admin/updateStatusToFinish?id=${orders.id}"
 														style="color: white">HOÀN TẤT</a>
 												</button>
 											</td>

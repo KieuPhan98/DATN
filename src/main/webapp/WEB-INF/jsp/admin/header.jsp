@@ -21,78 +21,84 @@
             <ul class="nav">
                 <li>
                     <a href="/admin/dashboard">
-                        <i class="pe-7s-graph"></i>
+                        <i class="pe-7s-graph3"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+                
                 <li class="active">
                     <a href="/admin/addcategory">
-                        <i class="pe-7s-user"></i>
+                        <i class="pe-7s-plus"></i>
                         <p>Thêm Danh Mục</p>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/tablelist">
-                        <i class="pe-7s-note2"></i>
-                        <p>LOẠI SP & THƯƠNG HIỆU</p>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="/admin/addproduct">
-                        <i class="pe-7s-news-paper"></i>
+                        <i class="pe-7s-plus"></i>
                         <p>THÊM SẢN PHẨM</p>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/listproduct">
-                        <i class="pe-7s-science"></i>
-                        <p>DANH SÁCH SẢN PHẨM</p>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="/admin/addsuppliers">
-                        <i class="pe-7s-map-marker"></i>
+                        <i class="pe-7s-plus"></i>
                         <p>THÊM THƯƠNG HIỆU</p>
                     </a>
                 </li>
+                
+                <li>
+                    <a href="/admin/tablelist">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>LOẠI SP & THƯƠNG HIỆU</p>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/admin/listproduct">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>DANH SÁCH SẢN PHẨM</p>
+                    </a>
+                </li>
+                
                 <li>
                     <a href="/admin/orderNew">
-                        <i class="pe-7s-bell"></i>
+                        <i class="pe-7s-diskette"></i>
                         <p>ĐƠN HÀNG MỚI</p>
                     </a>
                 </li>
                 
                 <li>
                     <a href="/admin/orderShipping">
-                        <i class="pe-7s-bell"></i>
+                        <i class="pe-7s-paper-plane"></i>
                         <p>ĐƠN HÀNG ĐANG GIAO</p>
                     </a>
                 </li>
                 
                  <li>
                     <a href="/admin/orderFinish">
-                        <i class="pe-7s-bell"></i>
-                        <p>ĐƠN HÀNG ĐÃ HOÀN TẤT</p>
+                        <i class="pe-7s-check"></i>
+                        <p>ĐƠN HÀNG HOÀN TẤT</p>
                     </a>
                 </li>
                 
                 <li>
                     <a href="/admin/orderCancel">
-                        <i class="pe-7s-bell"></i>
+                        <i class="pe-7s-junk"></i>
                         <p>ĐƠN HÀNG ĐÃ HỦY</p>
                     </a>
                 </li>
                 
                 <li>
                     <a href="/admin/importOrderFromSupplier">
-                        <i class="pe-7s-note2"></i>
+                        <i class="pe-7s-note"></i>
                         <p>PHIẾU NHẬP HÀNG</p>
                     </a>
                 </li>
                 
                 <li>
                     <a href="/admin/reportmonth">
-                        <i class="pe-7s-news-paper"></i>
+                        <i class="pe-7s-pin"></i>
                         <p>THỐNG KÊ THEO THÁNG</p>
                     </a>
                 </li>

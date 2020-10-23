@@ -95,7 +95,7 @@
 											
 											<td>
 												<button class="btn btn-info btn-fill pull-right">
-													<a href="/admin/editorder?id=${orders.id}"
+													<a href="/admin/updateStatusToShipping?id=${orders.id}"
 														style="color: white">DUYỆT</a>
 												</button>
 											</td>

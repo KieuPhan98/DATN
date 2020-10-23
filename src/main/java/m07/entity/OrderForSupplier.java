@@ -5,15 +5,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,7 +33,13 @@ public class OrderForSupplier {
 	private double totalPrice;
 	
 	@Nationalized 
-	String status;
+	String status;		
+	
+	@Column(unique=true) 
+	String receiption_id;	
+	 
+	@OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.LAZY)
+	private Receiption receiption;
 	
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
@@ -43,7 +50,11 @@ public class OrderForSupplier {
 	Supplier supplier;
 	
 	@OneToMany(mappedBy = "orderForSupplier")
-	Collection<OrderForSuplierDetail> orderForSuplierDetail;
+	Collection<OrderForSuplierDetail> orderForSuplierDetail; 
+	
+	/*
+	 * @OneToOne(mappedBy = "orderForSupplier") Receiption receiption;
+	 */
 
 	public int getId() {
 		return id;

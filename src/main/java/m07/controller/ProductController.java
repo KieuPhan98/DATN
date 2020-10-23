@@ -91,8 +91,7 @@ public class ProductController {
 
     // Edit product
     @RequestMapping(value = "/admin/editproduct", method = RequestMethod.GET)
-    public String editSupper(@RequestParam("id") int id,
-                             ModelMap model) {
+    public String editSupper(@RequestParam("id") int id, ModelMap model) {                          
         model.addAttribute("product1", productRepository.findOne(id));
         return "admin/editproduct";
     }
@@ -104,9 +103,7 @@ public class ProductController {
                            @RequestParam("file") MultipartFile file
             , HttpServletRequest httpServletRequest) {
 
-
         String path = httpServletRequest.getSession().getServletContext().getRealPath("/") + "resources/uploads/";
-
 
         try {
             FileUtils.forceMkdir(new File(path));
@@ -126,7 +123,7 @@ public class ProductController {
             model.addAttribute("message", "Update failure");
             model.addAttribute("product", product);
         }
-        return "admin/listproduct";
+        return "redirect:/admin/listproduct";
     }
 
     ///delete Category

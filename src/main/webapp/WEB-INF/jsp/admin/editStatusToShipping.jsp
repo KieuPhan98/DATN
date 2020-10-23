@@ -7,11 +7,10 @@
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>Đơn Hàng Mới</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-
 
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
@@ -22,10 +21,8 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -43,12 +40,12 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="header">
+                    <!-- <div class="header">
                         <h4 class="title">Update Order</h4>
-                    </div>
+                    </div> -->
                     <div class="content">
                         ${message}
-                        <form:form action="/admin/updateStatusShipping" method="post" modelAttribute="order1" >
+                        <form:form action="/admin/updateStatusToShipping" method="post" modelAttribute="order1" >
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -95,22 +92,22 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Địa chỉ</label>                                         
-                                        <form:input type="text" path="address" class="form-control" required="true"></form:input>
+                                        <form:input type="text" path="address" class="form-control" required="true" readonly="true"></form:input>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Quận</label>                                         
-                                        <form:input type="text" path="district" class="form-control" required="true"></form:input>
+                                        <form:input type="text" path="district" class="form-control" required="true" readonly="true"></form:input>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group" style="display:none">
+                                    <div class="form-group">
                                         <label>description</label>                                         
-                                        <form:input type="text" path="description" class="form-control" required="true"></form:input>
+                                        <form:input type="text" path="description" class="form-control" readonly="true"></form:input>
                                     </div>
                                 </div>
                             </div>

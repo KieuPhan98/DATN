@@ -159,7 +159,7 @@ public class CartController extends BaseController   {
             SecurityContextImpl context = (SecurityContextImpl) s;
             String loggedInUser = context.getAuthentication().getName();
             customer = customerRepository.getCustomer(loggedInUser);
-            //customer.setId(loggedInUser);//customer null nè, chắc v
+            //customer.setId(loggedInUser);//customer null nÃ¨, cháº¯c v
             order.setCustomer(customer);
         }
         
@@ -182,7 +182,7 @@ public class CartController extends BaseController   {
             double price = cartItem.getQuantity() * cartItem.getProduct().getUnitPrice();
             totalPrice += price;
            /* orderDetail.setTotalPrice(price);*/
-            orderDetail.setStatus("Chờ xác nhận");
+            orderDetail.setStatus("Chá»� xÃ¡c nháº­n");
             
             product.setQuantity(product.getQuantity()-cartItem.getQuantity());
             
