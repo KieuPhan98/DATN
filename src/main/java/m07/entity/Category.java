@@ -23,10 +23,7 @@ public class Category implements Serializable{
 	@GeneratedValue
 	Integer id;
 
-/*	@NotNull(message = "vui lòng nhập")
-	String nameVN;
-*/
-	@NotNull(message = "vui lòng nhập")
+	@NotNull(message = "vui long nhap")
 	@Nationalized
 	String name;
 
@@ -40,14 +37,6 @@ public class Category implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	/*public String getNameVN() {
-		return nameVN;
-	}
-
-	public void setNameVN(String nameVN) {
-		this.nameVN = nameVN;
-	}*/
 
 	public String getName() {
 		return name;

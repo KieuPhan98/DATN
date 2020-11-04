@@ -49,39 +49,62 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="header">
-							<h4 class="title">PHIẾU NHẬP HÀNG</h4>
-							<button class="btn btn-info btn-fill pull-right">
-								<a href="#" style="color: white">+ Thêm Phiếu Nhập</a>
-							</button>
+							<h4 class="title">PHIẾU NHẬP HÀNG</h4>			
+							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">Tạo mới</button>	
+							<label style = "margin:20px">Import file Excel <input id="test" type="file"></label>		
+							<a class="btn btn-info btn-fill pull-right" style = "margin:20px" href="/admin/createOrderForSupplier">Đơn đặt hàng đến nhà cung cấp</a>			
 						</div>
-						<div class="content table-responsive table-full-width">
-							<table class="table table-hover table-striped">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">							
+							<table class="table table-striped table-hover">
 								<thead>
-									<th>Mã Phiếu Nhập</th>
-									<th>Ngày lập phiếu</th>
-									<th>Tổng tiền</th>
-									<th>Trạng thái</th>
-									<th></th>
+									<tr style="font-weight: bold;">
+										<th class="col-sm-1">Mã</th>
+										<th class="col-sm-2">Nhân viên nhập</th>
+										<th class="col-sm-2">Nhà cung cấp</th>
+										<th class="col-sm-2">Ngày tạo</th>
+										<th class="col-sm-2">Tổng tiền</th>
+										<th class="col-sm-1">Xem chi tiết</th>
+										<th class="col-sm-1">Sửa</th>
+										<th class="col-sm-1">Xóa</th>
+									</tr>
 								</thead>
 								<tbody>
-									<%-- <c:forEach items="${orders}" var="orders"> --%>
-										<tr>
-											<td>PN01</td>
-											<td>15/10/2020</td>
-											<td>1500000</td>
-											<td>Hoàn thành</td>											
-											<td>
-												<button class="btn btn-info btn-fill pull-right">
-													<a href="#" style="color: white">CTPN</a>														
-												</button>
-											</td>
-										</tr>
-									<%-- </c:forEach> --%>
-
+								<c:forEach var="item" items="${listR}">
+									<tr>
+										<th class="col-sm-1">${item.ID }</th>
+										<th class="col-sm-2">${item.employee.name }</th>
+										<th class="col-sm-2">${item.provider_r.name }</th>
+										<th class="col-sm-2">${item.created_date }</th>
+										<th class="col-sm-2" >$ <f:formatNumber value="${item.amount}" pattern="#,###.00" /></span></th>
+										<th class="col-sm-1">
+										<a class="btn btn-primary" href="admin/receiption/${item.ID}.php">Xem chi tiết</a></th>
+										<%-- <th class="col-sm-1"><a type="submit"
+												class="btn btn-primary" href="admin/insertRD/${item.ID}.php">Insert Detail</a></th> --%>
+										<th class="col-sm-1" data-id="${item.ID }" data-employee="${item.employee.ID }" data-provider="${item.provider_r.ID }" 
+										data-date="${item.created_date }" data-amount="${item.amount }">
+											<button class="btn btn-primary btn-editR" style="float: right;" data-toggle="modal" data-target="#modalEditR">
+												Sửa</button>
+										</th>
+										<th class="col-sm-1">
+										<c:choose>
+										    <c:when test="${item.amount >0}">
+										       <div></div>
+										    </c:when>    
+										    <c:otherwise>
+										       <div class="pull-right action-buttons" data-id="${item.ID }">
+											<button class="trash btn btn-primary btn-deleteR" data-toggle="modal" data-target="#modalDeleteR"><em class="fa fa-trash"> Xóa</em></button></div>
+										    </c:otherwise>
+										</c:choose>
+										</th>
+									</tr>
+								</c:forEach>
 								</tbody>
 							</table>
-
 						</div>
+					</div>
+				</div>
 					</div>
 				</div>
 			</div>

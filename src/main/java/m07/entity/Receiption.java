@@ -87,6 +87,14 @@ public class Receiption {
 	 * @MapsId OrderForSupplier orderForSupplier;
 	 */
 
+	public OrderForSupplier getOrderForSupplier() {
+		return orderForSupplier;
+	}
+
+	public void setOrderForSupplier(OrderForSupplier orderForSupplier) {
+		this.orderForSupplier = orderForSupplier;
+	}
+
 	public Employee getEmployee() {
 		return employee;
 	}

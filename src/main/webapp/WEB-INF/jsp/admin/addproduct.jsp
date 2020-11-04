@@ -34,7 +34,6 @@
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     <script src=/resources/assets/js/jquery.validate.min.js"></script>
 
-
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -100,7 +99,6 @@
                                         <label>Nhà Cung Cấp</label>
                                         <form:select items="${supplierList}" itemLabel="name"
                                                      itemValue="id" path="supplier.id" class="form-control">
-
                                         </form:select>
 
                                     </div>
@@ -125,7 +123,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="row">
                                 <div class="col-md-12">

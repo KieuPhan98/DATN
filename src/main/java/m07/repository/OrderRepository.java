@@ -7,28 +7,28 @@ import org.springframework.data.jpa.repository.Query;
 
 import m07.entity.Employee;
 import m07.entity.Order;
+import m07.entity.OrderForSupplier;
 
 //public interface OrderRepository extends CrudRepository<Order, Integer> {
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    //List sản phẩm đã order by custommer ID
+    //List order by custommer ID
     @Query(value = "select *from orders where customerId = ?", nativeQuery = true)
     public List<Order> listoderbycus (String customerId);
 
-    // lọc đơn hàng có trạng thái chờ duyệt
+    // loc don hang co trang thai cho duyet
     @Query(value = "select *from orders where status = \"Cho duyet\" ORDER BY id desc", nativeQuery = true)
     public List<Order> lisorderbydesc ();
     
- // lọc đơn hàng có trạng thái dag giao
+ // loc don hang co trang thai dag giao
     @Query(value = "select *from orders where status = \"Dang giao\" ORDER BY id desc", nativeQuery = true)
     public List<Order> lisorderbydesc1 ();
     
- // lọc đơn hàng có trạng thái hoàn tất
+ // loc don hang co trang thai hoan tat
     @Query(value = "select *from orders where status = \"Hoan tat\" ORDER BY id desc", nativeQuery = true)
     public List<Order> lisorderbydesc2 ();
 
- // lọc đơn hàng có trạng thái đã hủy
+ // loc don hang co trang thai da huy
     @Query(value = "select *from orders where status = \"Da huy\" ORDER BY id desc", nativeQuery = true)
     public List<Order> lisorderbydesc3 ();
     
-
 }

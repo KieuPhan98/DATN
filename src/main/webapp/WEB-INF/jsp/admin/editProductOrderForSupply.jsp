@@ -33,7 +33,6 @@
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     <script src=/resources/assets/js/jquery.validate.min.js"></script>
 
-
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -48,112 +47,61 @@
                     </div>
                     <div class="content">
                         ${message}
-                            <form:form action="/admin/editproduct" method="post" modelAttribute="product1" enctype="multipart/form-data">
+                            <form:form action="/admin/editProductOrderForSupply" method="post" modelAttribute="product">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mã sản phẩm</label>
-                                        <form:input path="id" class="form-control" name="id" readonly = "true"></form:input>
+                                        <label>Mã chi tiết phiếu đặt</label>
+                                        <form:input path="id" type="text" class="form-control" name="id" readonly = "true"></form:input>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
+                                </div>   
+                                
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Tên hàng</label>
-                                        <form:input path="name" class="form-control" required="true"></form:input>
+                                        <label>Mã Phiếu Đặt</label>
+                                        <form:input path="orderForSupplier.id" type="text" class="form-control" readonly = "true"></form:input>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Đơn vị tính</label>
-                                        <form:input path="unitBrief" class="form-control" required="true"></form:input>
-                                    </div>
-                                </div>
+                                </div>                                                        
                             </div>
 
                             <div class="row">
-                               
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Số lượng</label>
-                                        <form:input type="number" min="1"  path="quantity" class="form-control" required="true"></form:input>
+                                        <form:input type="number" min="1" path="quantity" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
+                                
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
-                                            Ngày nhập </label>
-                                        <form:input type="date" path="productDate" class="form-control" required="true"></form:input>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nhà Cung Cấp</label>
-                                        <form:select items="${supplierList}" itemLabel="name"
-                                                     itemValue="id" path="supplier.id" class="form-control">
-                                        </form:select>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-
-                                    <div class="form-group">
-                                        <label>Loại</label>
-                                        <form:select items="${categoryList}" itemLabel="name"
-                                                     itemValue="id" path="category.id" class="form-control">
-
-                                        </form:select>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Hình Ảnh</label>
-                                        <input name="file" type="file" class="form-control" required="true">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Mô Tả</label>
-                                        <form:input path="description" class="form-control"></form:input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>giá</label>
+                                        <label>Đơn giá</label>
                                         <form:input path="unitPrice" class="form-control" required="true"></form:input>
                                     </div>
-                                </div>
+                                </div>                                                             
                             </div>
-
+                            
+                            <div class="row">                               
+                                <div class="col-md-12">
+                                        <label>Sản Phẩm</label>
+                                        <form:select items="${productList}" itemLabel="name"
+                                                     itemValue="id" path="products.id" class="form-control">
+                                        </form:select>
+                                </div>                               
+                            </div>                      
                             <button type="submit" class="btn btn-info btn-fill pull-right">Cập nhật</button>
                             <div class="clearfix"></div>
                         </form:form>
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
 </div>
-
 
 <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
 </div>
-
 
 </body>
 

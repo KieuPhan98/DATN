@@ -46,7 +46,7 @@ public class ProductController {
         return "admin/addproduct";
     }
 
-    // thêm category
+    // them category
     @RequestMapping(value = "/admin/addproduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") Product product,
                              ModelMap model,

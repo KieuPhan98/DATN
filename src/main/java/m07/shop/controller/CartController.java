@@ -5,6 +5,7 @@ import m07.entity.*;
 import m07.enums.PaypalPaymentIntent;
 import m07.enums.PaypalPaymentMethod;
 import m07.repository.CustomersRepository;
+import m07.repository.DistrictRepository;
 import m07.repository.OrderDetailRepository;
 import m07.repository.OrderRepository;
 import m07.repository.ProductRepository;
@@ -58,6 +59,9 @@ public class CartController extends BaseController   {
 
     @Autowired
     OrderDetailRepository orderDetailRepository;
+    
+    @Autowired
+    DistrictRepository districtRepository;
 
     @RequestMapping(value = "addToCart",
             method = RequestMethod.GET)
@@ -101,14 +105,10 @@ public class CartController extends BaseController   {
 	public String deleteGh(@RequestParam (value = "id") String id, HttpServletRequest request) {
 		int index=0;
 		int productId = Integer.valueOf(id);
-        Product product = 
-                productRepository.findOne(productId);
+        Product product = productRepository.findOne(productId);
         HttpSession session = request.getSession();
-        List<CartItem> carts =
-                (List<CartItem>) session.getAttribute("carts");
-		
+        List<CartItem> carts = (List<CartItem>) session.getAttribute("carts");
 		carts.remove(index);
-		
 		return "cart";
 	}
     
@@ -120,12 +120,10 @@ public class CartController extends BaseController   {
             SecurityContextImpl context = (SecurityContextImpl) s;
             String loggedInUser = context.getAuthentication().getName();
             model.addAttribute("id", loggedInUser);
-            
         }
         return "cart";
     }
 
-    
     @RequestMapping(value = "/checkout")
     public String checkOut(Model model , HttpServletRequest request) {
         HttpSession httpSession = request.getSession();
@@ -147,6 +145,13 @@ public class CartController extends BaseController   {
         return "checkout";
     }
 
+    @ModelAttribute("districtList")
+    public List<District> districtList(Model model) {
+        List<District> districtList =
+                (List<District>) districtRepository.findAll();
+        return districtList;
+    }
+    
     // handle form submit 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public String doCheckOut(Model model,
@@ -182,7 +187,7 @@ public class CartController extends BaseController   {
             double price = cartItem.getQuantity() * cartItem.getProduct().getUnitPrice();
             totalPrice += price;
            /* orderDetail.setTotalPrice(price);*/
-            orderDetail.setStatus("Chá»� xÃ¡c nháº­n");
+            orderDetail.setStatus("Chờ xác nhận");
             
             product.setQuantity(product.getQuantity()-cartItem.getQuantity());
             

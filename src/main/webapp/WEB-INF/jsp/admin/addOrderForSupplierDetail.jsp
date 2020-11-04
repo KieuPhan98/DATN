@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
+<%@ taglib prefix="select" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8"/>
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
@@ -10,7 +12,6 @@
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-
 
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
@@ -21,18 +22,17 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+    <script src=/resources/assets/js/jquery.validate.min.js"></script>
+
 </head>
 <body>
-
 <jsp:include page="header.jsp"></jsp:include>
 <div class="content">
     <div class="container-fluid">
@@ -40,21 +40,36 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">THÊM LOẠI SẢN PHẨM</h4>
+                        <h4 class="title">THÊM SẢN PHẨM CHO PHIẾU ĐẶT HÀNG</h4>
                     </div>
                     <div class="content">
-                        <form:form action="/admin/addcategory" method="post" modelAttribute="category">
+                        ${message}
+                        <form:form action="/admin/addOrderForSupplierDetail" method="post" modelAttribute="product"
+                                   enctype="multipart/form-data" id="productadmin">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label>Tên Danh Mục</label>
-                                        <form:input path="name" class="form-control" required ="true"></form:input>
-                                        <form:errors path="name"/>
+                                        <label>Tên Sản Phẩm</label>
+                                        <form:select items="${productList}" itemLabel="name"
+                                                     itemValue="id" path="products.id" class="form-control">
+                                        </form:select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Đơn Giá</label>
+                                        <form:input path="unitPrice" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Số lượng</label>
+                                        <form:input type="number" path="quantity" class="form-control" min="0" required="true"></form:input>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
 
+                            <button type="submit" class="btn btn-info btn-fill pull-right">THÊM</button>
                             <div class="clearfix"></div>
                         </form:form>
                     </div>
@@ -65,6 +80,11 @@
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
+
+</div>
+</div>
+</body>
+
 <!--   Core JS Files   -->
 <script src="/resources/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="/resources/assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -91,7 +111,7 @@
 
         $.notify({
             icon: 'pe-7s-gift',
-            message: "Chào Mừng Bạn   ${message}"
+            message: "Chào Mừng Bạn <b>Đến Với Trang Thống Kê</b> Chúc cửa hàng bạn luôn thành công."
 
         }, {
             type: 'info',
@@ -100,5 +120,5 @@
 
     });
 </script>
-</body>
+
 </html>

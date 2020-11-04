@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -53,13 +54,13 @@ public class Employee implements Serializable {
 	
 	@OneToMany(mappedBy="employee")
 	Collection<Cmt_Emp> cmt_emp;
-	
-	@OneToMany(mappedBy="employee")
+
+	@OneToMany(mappedBy = "employee")
 	Collection<DivisionDetail> divisionDetails;
-	
-	@OneToMany(mappedBy="employee")
+
+	@OneToMany(mappedBy = "employee1", fetch = FetchType.EAGER)
 	Collection<OrderForSupplier> orderForSupplier;
-	
+
 	public Collection<Receiption> getReceiptions() {
 		return receiptions;
 	}
@@ -164,12 +165,4 @@ public class Employee implements Serializable {
 		Birthday = birthday;
 	}
 
-	public Collection<OrderForSupplier> getOrderForSupplier() {
-		return orderForSupplier;
-	}
-
-	public void setOrderForSupplier(Collection<OrderForSupplier> orderForSupplier) {
-		this.orderForSupplier = orderForSupplier;
-	}
-	
 }

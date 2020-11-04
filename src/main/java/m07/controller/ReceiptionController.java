@@ -13,6 +13,5 @@ public class ReceiptionController {
     public String importOrder(Model model) {
     	return "/admin/importReceiption";
     }
-    
 
 }

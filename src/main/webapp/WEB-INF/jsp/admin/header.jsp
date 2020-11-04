@@ -89,6 +89,13 @@
                     </a>
                 </li>
                 
+                 <li>
+                    <a href="/admin/createOrderForSupplier">
+                        <i class="pe-7s-note"></i>
+                        <p>PHIẾU ĐẶT HÀNG</p>
+                    </a>
+                </li>
+                
                 <li>
                     <a href="/admin/importOrderFromSupplier">
                         <i class="pe-7s-note"></i>

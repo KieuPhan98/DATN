@@ -53,8 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <form:input path="receiver" placeholder="Tên Người nhận"  required="true" value="${fullName}"></form:input>
                 <form:input path="address" placeholder="Địa Chỉ..." required="true" value="${address}"></form:input>
                 
-                <form:select itemValue="district" path="district" class="form-control">	
-                	<%-- <form:option value="${district}">${district}</form:option> --%>											
+                <%-- <form:select itemValue="district" path="district" class="form-control">	
 					<form:option value="Quận 1">Quận 1</form:option>
 					<form:option value="Quận 2">Quận 2</form:option>
 					<form:option value="Quận 3">Quận 3</form:option>
@@ -74,13 +73,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<form:option value="Quận Bình Thạnh">Quận Bình Thạnh</form:option>
 					<form:option value="Quận Bình Tân">Quận Bình Tân</form:option>
 					<form:option value="Quận Phú Nhuận">Quận Phú Nhuận</form:option>
-				</form:select>
+				</form:select> --%>
+				
+				<form:select 
+					items="${districtList}" itemLabel="name" 
+					itemValue="name" path="district" class="form-control">
+                </form:select>
 				
                 <form:input path="phone" placeholder="Số diện thoại..." required="true" value="${phone}"></form:input>
-<%--                 <h6><spring:message code="INFORMATION" text="default text"/></h6>
-                <label>Ngày Giao Hàng</label>
-                <form:input type = "date" path="requireDate" required="true"></form:input>
-  --%>               <form:input path="description" placeholder="Mô Tả" ></form:input>
+               <form:input path="description" placeholder="Mô Tả" ></form:input>
                 <input type="submit" value = "Thanh toán">
             </form:form> 
                

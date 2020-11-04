@@ -54,14 +54,11 @@ public class AdminController {
         return "admin/listproduct";
     }
 
-
     @RequestMapping(value = "/admin/tablelist")
     public String tables(Model model) {
 
         return "admin/tablelist";
     }
-
-
 
     // show check out page
     @RequestMapping(value = "/admin/addcategory")
@@ -70,7 +67,6 @@ public class AdminController {
         model.addAttribute("category", category);
         return "admin/addcategory";
     }
-
 
     // thêm category
     @RequestMapping(value = "/admin/addcategory", method = RequestMethod.POST)
@@ -89,7 +85,6 @@ public class AdminController {
         }
         return "admin/addcategory";
     }
-
 
     /// list category ở table list
     @ModelAttribute("categoryList")

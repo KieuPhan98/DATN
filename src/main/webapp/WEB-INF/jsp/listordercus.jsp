@@ -56,20 +56,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <td class="invert">${listordercus.status}</td>
                         </tr>
                     </c:forEach>
-
-                    <!--quantity-->
-                    <script>
-                        $('.value-plus').on('click', function () {
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-                            divUpd.text(newVal);
-                        });
-
-                        $('.value-minus').on('click', function () {
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
-                            if (newVal >= 1) divUpd.text(newVal);
-                        });
-                    </script>
-                    <!--quantity-->
                 </table>
             </div>
 

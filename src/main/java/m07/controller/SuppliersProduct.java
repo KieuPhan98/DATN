@@ -24,10 +24,8 @@ import java.util.List;
 @RequestMapping(value = "/")
 public class SuppliersProduct {
 
-
     @Autowired
     SuppliersRepository suppliersRepository;
-
 
     @RequestMapping(value = "/admin/addsuppliers")
     public String addproduct(Model model) {
@@ -36,8 +34,7 @@ public class SuppliersProduct {
         return "admin/addsuppliers";
     }
 
-
-    // thêm category
+    // them category
     @RequestMapping(value = "/admin/addsuppliers", method = RequestMethod.POST)
     public String addCourse(@ModelAttribute("category") Supplier supplier, ModelMap model,
                             @RequestParam("file") MultipartFile file
@@ -65,7 +62,6 @@ public class SuppliersProduct {
         }
         return "/admin/tablelist";
     }
-
 
     // Edit category
     @RequestMapping(value = "/admin/editsuppliers", method = RequestMethod.GET)

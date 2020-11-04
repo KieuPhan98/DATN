@@ -73,7 +73,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>
-                                            Tên Tên Cung Cấp</label>
+                                            Tên Nhà Cung Cấp</label>
                                         <form:input path="name" class="form-control" required = "true"></form:input>
                                     </div>
                                 </div>

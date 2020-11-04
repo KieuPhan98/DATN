@@ -1,5 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,7 +11,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
 
-
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -21,10 +20,8 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -34,29 +31,55 @@
 <body>
 
 <jsp:include page="header.jsp"></jsp:include>
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">THÊM LOẠI SẢN PHẨM</h4>
+                        <h4 class="title">Chi Tiết Đơn Đặt Hàng</h4>
+                        <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+								<a href="/addOrderForSupplierDetail" style="color: white" >+ Thêm sản phẩm</a>
+						</button>
                     </div>
-                    <div class="content">
-                        <form:form action="/admin/addcategory" method="post" modelAttribute="category">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Tên Danh Mục</label>
-                                        <form:input path="name" class="form-control" required ="true"></form:input>
-                                        <form:errors path="name"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-
-                            <div class="clearfix"></div>
-                        </form:form>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+	                            <th>Hình ảnh</th>
+	                            <th>Tên Sản Phẩm</th>
+	                            <th>Số lượng</th>
+	                            <th>Đơn giá</th>
+	                            <th>Thành tiền</th>
+	                            <th></th>
+                            	<th></th>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${orderDetails}" var="orderDetails">
+                                <tr>
+                                    <%-- <td>${orderDetails.order.id}</td> --%>	
+                                    <td class="invert-image"><a href="single.html"><img
+                                		src="/resources/images/${orderDetails.products.image}" alt=" " class="img-responsive" style="width: 150px; height: 150px;"/></a>
+                            		</td> 
+                                    <td>${orderDetails.products.name}</td>
+                                    <td>${orderDetails.quantity}</td>
+                                    <td>${orderDetails.unitPrice}</td>
+                                    <td>${orderDetails.quantity * orderDetails.unitPrice}</td> 
+                                    <td>
+                                    	<a href="/admin/editProductOrderForSupply?id=${orderDetails.id}">
+                                    		<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    	</a>
+                                    </td>
+                                        
+                                    <td>
+	                                    <a href="/deleteProductOrderForSupply/${orderDetails.id}">
+	                                    	<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -91,7 +114,7 @@
 
         $.notify({
             icon: 'pe-7s-gift',
-            message: "Chào Mừng Bạn   ${message}"
+            message: "Chào Mừng Bạn đến với trang Admin"
 
         }, {
             type: 'info',
@@ -100,5 +123,6 @@
 
     });
 </script>
+
 </body>
 </html>

@@ -40,22 +40,18 @@ public class OrderForSupplier {
 	 
 	@OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.LAZY)
 	private Receiption receiption;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
-	Employee employee;
-	
+	Employee employee1;
+
 	@ManyToOne
 	@JoinColumn(name = "supplyId")
 	Supplier supplier;
-	
+
 	@OneToMany(mappedBy = "orderForSupplier")
 	Collection<OrderForSuplierDetail> orderForSuplierDetail; 
 	
-	/*
-	 * @OneToOne(mappedBy = "orderForSupplier") Receiption receiption;
-	 */
-
 	public int getId() {
 		return id;
 	}
@@ -66,6 +62,14 @@ public class OrderForSupplier {
 
 	public Date getCreateDate() {
 		return createDate;
+	}
+
+	public Employee getEmployee1() {
+		return employee1;
+	}
+
+	public void setEmployee1(Employee employee1) {
+		this.employee1 = employee1;
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -88,14 +92,6 @@ public class OrderForSupplier {
 		this.status = status;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	public Supplier getSupplier() {
 		return supplier;
 	}
@@ -110,6 +106,28 @@ public class OrderForSupplier {
 
 	public void setOrderForSuplierDetail(Collection<OrderForSuplierDetail> orderForSuplierDetail) {
 		this.orderForSuplierDetail = orderForSuplierDetail;
+	}
+
+	public String getReceiption_id() {
+		return receiption_id;
+	}
+
+	public void setReceiption_id(String receiption_id) {
+		this.receiption_id = receiption_id;
+	}
+
+	public Receiption getReceiption() {
+		return receiption;
+	}
+
+	public void setReceiption(Receiption receiption) {
+		this.receiption = receiption;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderForSupplier [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="
+				+ status + ", receiption_id=" + receiption_id + ", receiption=" + receiption + ", supplier=" + supplier + ", orderForSuplierDetail=" + orderForSuplierDetail + "]";
 	}
 		
 }

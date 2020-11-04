@@ -104,7 +104,7 @@ public class Order implements Serializable {
 		this.district = district;
 	}
 
-	@ManyToOne//thêm vô sửa cái gì lỗi customer?
+	@ManyToOne
 	@JoinColumn(name="customerId")
 	Customer customer;
 
