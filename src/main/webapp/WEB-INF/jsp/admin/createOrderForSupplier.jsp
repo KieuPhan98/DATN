@@ -71,12 +71,13 @@
 												<table class="table table-striped table-hover">
 													<thead>
 														<tr style="font-weight: bold;">
-															<th class="col-sm-1">Mã đơn</th>
+															<th class="col-sm-1">Mã phiếu đặt</th>
 															<th class="col-sm-2">Nhà cung cấp</th>
 															<th class="col-sm-2">Nhân viên lập</th>
 															<th class="col-sm-2">Ngày tạo</th>
 															<th class="col-sm-1"></th>
 															<th class="col-sm-1"></th>
+															<!-- <th class="col-sm-1"></th> -->
 														</tr>
 													</thead>
 													<tbody>
@@ -86,6 +87,9 @@
 																<th class="col-sm-2">${item.supplier.name }</th>
 																<th class="col-sm-2">${item.employee1.FirstName}</th>
 																<th class="col-sm-2">${item.createDate }</th>
+																<!-- <th class="col-sm-1">
+																	<a class="btn btn-primary" href="admin/addOrderForSupplierDetail">Thêm chi tiết</a>
+																</th> -->
 																<th class="col-sm-1">
 																	<a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
 																</th>
@@ -102,11 +106,11 @@
 										<table class="table table-striped table-hover">
 											<thead>
 												<tr style="font-weight: bold;">
-													<th class="col-sm-3">Mã đơn</th>
+													<th class="col-sm-1">Mã phiếu đặt</th>
 													<th class="col-sm-3">Nhà cung cấp</th>
-													<th class="col-sm-2">Nhân viên lập</th>
-													<th class="col-sm-2">Ngày tạo</th>
-													<th class="col-sm-2"></th>
+													<th class="col-sm-3">Nhân viên lập</th>
+													<th class="col-sm-3">Ngày tạo</th>
+													<th class="col-sm-3"></th>
 												</tr>
 											</thead>
 											<tbody>

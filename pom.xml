@@ -20,8 +20,6 @@
         <webjar.bootstrap.version>3.3.7</webjar.bootstrap.version>
     </properties>
 
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -104,8 +102,6 @@
             <version>1.7.21</version>
         </dependency>
 
-
-
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -113,13 +109,11 @@
             <version>1.6.1</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.2.Final</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
         <dependency>
@@ -127,7 +121,6 @@
             <artifactId>spring-security-web</artifactId>
             <version>4.2.3.RELEASE</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
         <dependency>
@@ -144,15 +137,12 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
         <dependency>
@@ -176,12 +166,12 @@
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>3.17</version>
 		</dependency>
-		    <dependency>
+		
+		<dependency>
             <groupId>com.paypal.sdk</groupId>
             <artifactId>rest-api-sdk</artifactId>
             <version>1.4.2</version>
         </dependency>
-          
 		
     </dependencies>
 
@@ -197,7 +187,5 @@
             </plugin>
         </plugins>
     </build>
-    
-
 
 </project>

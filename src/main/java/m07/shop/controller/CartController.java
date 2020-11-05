@@ -154,9 +154,7 @@ public class CartController extends BaseController   {
     
     // handle form submit 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    public String doCheckOut(Model model,
-                             Order order,
-                             HttpServletRequest request) {
+    public String doCheckOut(Model model, Order order, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object s = session.getAttribute("SPRING_SECURITY_CONTEXT");
         Customer customer = new Customer();
@@ -171,8 +169,7 @@ public class CartController extends BaseController   {
         orderRepository.save(order);
         //Customer id = (Customer) request.getAttribute("id"); 
 
-        List<CartItem> cartItems
-                = (List<CartItem>) session.getAttribute("carts");
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("carts");
         double totalPrice = 0;
 
         for(CartItem cartItem: cartItems) {
@@ -224,9 +221,7 @@ public class CartController extends BaseController   {
             log.error(e.getMessage());
         }
         return "redirect:/";
-        
     }
-    
     
     @GetMapping(URL_PAYPAL_SUCCESS)
     public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId , Model model,
@@ -245,7 +240,6 @@ public class CartController extends BaseController   {
         }
         return "redirect:/";
     }
-
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

@@ -40,7 +40,7 @@
                     <div class="header">
                         <h4 class="title">Chi Tiết Đơn Đặt Hàng</h4>
                         <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
-								<a href="/addOrderForSupplierDetail" style="color: white" >+ Thêm sản phẩm</a>
+								<a href="admin/addOrderForSupplierDetail" style="color: white" >+ Thêm sản phẩm</a>
 						</button>
                     </div>
                     <div class="content table-responsive table-full-width">

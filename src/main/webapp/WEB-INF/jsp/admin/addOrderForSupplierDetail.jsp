@@ -44,10 +44,9 @@
                     </div>
                     <div class="content">
                         ${message}
-                        <form:form action="/admin/addOrderForSupplierDetail" method="post" modelAttribute="product"
-                                   enctype="multipart/form-data" id="productadmin">
+                        <form:form action="/admin/addOrderForSupplierDetail" method="post" modelAttribute="product">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Tên Sản Phẩm</label>
                                         <form:select items="${productList}" itemLabel="name"
@@ -55,20 +54,35 @@
                                         </form:select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                
+                               <%--  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Số lượng tồn</label>
+                                        <form:input path="orderForSupplier.id" class="form-control" required="true" value = "1" readonly="true"></form:input>
+                                    </div>
+                                </div> --%>
+                            </div>
+							
+							<div class="row">
+								<div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mã Phiếu Đặt</label>
+                                        <form:input path="orderForSupplier.id" class="form-control" required="true" value="${product1 }" readonly="true"></form:input>
+                                    </div>
+                                </div>
+								<div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Số lượng đặt</label>
+                                        <form:input type="number" path="quantity" class="form-control" min="0" required="true"></form:input>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Đơn Giá</label>
                                         <form:input path="unitPrice" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Số lượng</label>
-                                        <form:input type="number" path="quantity" class="form-control" min="0" required="true"></form:input>
-                                    </div>
-                                </div>
-                            </div>
-
+							</div>
                             <button type="submit" class="btn btn-info btn-fill pull-right">THÊM</button>
                             <div class="clearfix"></div>
                         </form:form>

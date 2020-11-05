@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import m07.entity.Category;
+import m07.entity.Customer;
 import m07.entity.OrderForSuplierDetail;
 import m07.entity.OrderForSupplier;
 import m07.entity.Product;
@@ -29,6 +33,7 @@ import m07.repository.OrderForSupplyDetailRepository;
 public class OrderForSupplierController {
 
 	private int item;
+	
 	@Autowired
 	OrderForSupplierRepository orderForSupplierRepository;
 
@@ -43,6 +48,18 @@ public class OrderForSupplierController {
 	
 	@Autowired
 	SuppliersRepository suppliersRepository;
+	
+	@ModelAttribute("productList")
+    public List<Product> productList(Model model) {
+        List<Product> productList = (List<Product>) productRepository.findAll();
+        return productList;
+    }
+	
+	@ModelAttribute("supplierList")
+    public List<Supplier> supplierList(Model model) {
+        List<Supplier> supplierList = (List<Supplier>) suppliersRepository.findAll();
+        return supplierList;
+    }
 
 	@RequestMapping(value = "/admin/createOrderForSupplier")
 	public String exportOrder(Model model) {
@@ -75,26 +92,9 @@ public class OrderForSupplierController {
         return "/admin/orderForSupplyDetail";
     }
 	
-	@ModelAttribute("productList")
-    public List<Product> productList(Model model) {
-        List<Product> productList = (List<Product>) productRepository.findAll();
-        return productList;
-    }
-	
-	@ModelAttribute("supplierList")
-    public List<Supplier> supplierList(Model model) {
-        List<Supplier> supplierList = (List<Supplier>) suppliersRepository.findAll();
-        return supplierList;
-    }
 	@RequestMapping(value = "/admin/editProductOrderForSupply", method = RequestMethod.GET)
     public String editSupper(@RequestParam("id") int id, ModelMap model) {    
-		
-		/*
-		 * System.out.println("======================="); OrderForSuplierDetail x =
-		 * orderForSupplyDetailRepository.findOne(id);
-		 */
         model.addAttribute("product", orderForSupplyDetailRepository.findOne(id));
-        
 		/* System.out.println(orderForSupplyDetailRepository.findOne(id).toString()); */
         return "admin/editProductOrderForSupply";
     }
@@ -123,10 +123,37 @@ public class OrderForSupplierController {
 		return url; 
 	}
 	
-	@RequestMapping(value = "admin/addOrderForSupplierDetail")
+	@RequestMapping(value = "admin/admin/addOrderForSupplierDetail")
 	public String addProduct(Model model) {
+		
+		/*
+		 * OrderForSuplierDetail x = orderForSupplyDetailRepository.findOne(id);
+		 * 
+		 * model.addAttribute("product1", x.getOrderForSupplier().getId());
+		 */
+		model.addAttribute("product1", item);
+		
 		OrderForSuplierDetail orderDetail = new OrderForSuplierDetail();
 		model.addAttribute("product", orderDetail);
+		
 		return "admin/addOrderForSupplierDetail";
 	}
+	
+	@RequestMapping(value = "admin/addOrderForSupplierDetail", method = RequestMethod.POST)
+    public String addProduct(@Validated @ModelAttribute("product") OrderForSuplierDetail product, ModelMap model, BindingResult bindingResult) {
+        OrderForSuplierDetail c = orderForSupplyDetailRepository.save(product);
+        
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("message", "that bai");
+            return "/admin/addOrderForSupplierDetail";
+
+        } else {
+            model.addAttribute("message", "thanh cong");
+        }
+        //return "admin/addOrderForSupplierDetail";
+        //System.out.println(item);
+        String url = "redirect:/admin/detailOrderForSupplier?id=" + item;
+        
+		return url;
+    }
 }
