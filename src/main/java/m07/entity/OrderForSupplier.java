@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Proxy(lazy = false)
 @Table(name = "OrderForSupplier")
 public class OrderForSupplier {
 	@Id
@@ -36,14 +38,15 @@ public class OrderForSupplier {
 	String status;		
 	
 	@Column(unique=true) 
-	String receiption_id;	
-	 
-	@OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.LAZY)
-	private Receiption receiption;
+	String receiption_id;
+
+	@OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.EAGER)
+	Receiption receiption;
 
 	@ManyToOne
+
 	@JoinColumn(name = "employeeId")
-	Employee employee1;
+	Employee employeeCreateOrder;
 
 	@ManyToOne
 	@JoinColumn(name = "supplyId")
@@ -62,14 +65,6 @@ public class OrderForSupplier {
 
 	public Date getCreateDate() {
 		return createDate;
-	}
-
-	public Employee getEmployee1() {
-		return employee1;
-	}
-
-	public void setEmployee1(Employee employee1) {
-		this.employee1 = employee1;
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -124,10 +119,21 @@ public class OrderForSupplier {
 		this.receiption = receiption;
 	}
 
+	public Employee getEmployeeCreateOrder() {
+		return employeeCreateOrder;
+	}
+
+	public void setEmployeeCreateOrder(Employee employeeCreateOrder) {
+		this.employeeCreateOrder = employeeCreateOrder;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderForSupplier [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="
-				+ status + ", receiption_id=" + receiption_id + ", receiption=" + receiption + ", supplier=" + supplier + ", orderForSuplierDetail=" + orderForSuplierDetail + "]";
+				+ status + ", receiption_id=" + receiption_id + ", receiption=" + receiption + ", employeeCreateOrder="
+				+ employeeCreateOrder + ", supplier=" + supplier + ", orderForSuplierDetail=" + orderForSuplierDetail
+				+ "]";
 	}
-		
+	
+	
 }

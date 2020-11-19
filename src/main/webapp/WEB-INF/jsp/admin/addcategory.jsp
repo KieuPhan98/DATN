@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Thêm</button>
 
                             <div class="clearfix"></div>
                         </form:form>

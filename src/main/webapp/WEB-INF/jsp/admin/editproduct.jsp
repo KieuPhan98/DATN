@@ -12,7 +12,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
 
-
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -22,17 +21,14 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     <script src=/resources/assets/js/jquery.validate.min.js"></script>
-
 
 </head>
 <body>
@@ -44,34 +40,44 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Update Product</h4>
+                        <h4 class="title">Sửa Sản Phẩm</h4>
                     </div>
                     <div class="content">
                         ${message}
                             <form:form action="/admin/editproduct" method="post" modelAttribute="product1" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>
                                         <form:input path="id" class="form-control" name="id" readonly = "true"></form:input>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Tên hàng</label>
+                                        <label>Tên sản phẩm</label>
                                         <form:input path="name" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Đơn vị tính</label>
-                                        <form:input path="unitBrief" class="form-control" required="true"></form:input>
+                                        <label>Nhà Cung Cấp</label>
+                                        <form:select items="${supplierList}" itemLabel="name"
+                                                     itemValue="id" path="supplier.id" class="form-control">
+                                        </form:select>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                               
+                               <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Đơn vị tính</label>
+                                        <form:input path="unitBrief" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div>
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Số lượng</label>
@@ -81,37 +87,32 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                            	<div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
-                                            Ngày nhập </label>
+                                        <label>Giá</label>
+                                        <form:input path="unitPrice" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ngày nhập </label>
                                         <form:input type="date" path="productDate" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nhà Cung Cấp</label>
-                                        <form:select items="${supplierList}" itemLabel="name"
-                                                     itemValue="id" path="supplier.id" class="form-control">
-                                        </form:select>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Loại</label>
                                         <form:select items="${categoryList}" itemLabel="name"
                                                      itemValue="id" path="category.id" class="form-control">
-
                                         </form:select>
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Hình Ảnh</label>
                                         <input name="file" type="file" class="form-control" required="true">
@@ -119,41 +120,32 @@
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Mô Tả</label>
-                                        <form:input path="description" class="form-control"></form:input>
+                                        <form:input path="description" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>giá</label>
-                                        <form:input path="unitPrice" class="form-control" required="true"></form:input>
-                                    </div>
-                                </div>
+                            
                             </div>
 
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Cập nhật</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Sửa</button>
                             <div class="clearfix"></div>
                         </form:form>
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
 </div>
-
 
 <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
 </div>
-
 
 </body>
 

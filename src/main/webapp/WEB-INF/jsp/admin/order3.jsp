@@ -66,7 +66,7 @@
 											<td>${orders.orderDate}</td>
 											<td>${orders.receiver}</td>
 											<td>${orders.phone}</td>
-											<td>${orders.address}</td>
+											<td>${orders.address} - ${orders.district}</td>
 											<td>${orders.totalPrice}</td>
 											<td>
 												<button class="btn btn-info btn-fill pull-right">

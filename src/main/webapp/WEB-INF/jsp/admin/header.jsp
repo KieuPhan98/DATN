@@ -3,6 +3,13 @@
 <html>
 <head>
     <title>Title</title>
+    
+    <style type="text/css">
+    	.sidebar .sidebar-wrapper ul li ul .submenu{
+    		list-style: none; visibility: hidden; top: 5em; opacity: 0; position: absolute;
+    	}
+    </style>
+    
 </head>
 <body>
 <div class="wrapper">
@@ -10,12 +17,9 @@
 
         <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
-
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a  class="simple-text">
-                    Yumi Shop
-                </a>
+                <a  class="simple-text">Yumi Shop</a>
             </div>
 
             <ul class="nav">
@@ -26,42 +30,91 @@
                     </a>
                 </li>
                 
-                <li class="active">
-                    <a href="/admin/addcategory">
+                <li class = "menu1">
+                	<a href="#">
                         <i class="pe-7s-plus"></i>
-                        <p>Thêm Danh Mục</p>
+                        <p>QUẢN LÝ DANH MỤC</p>
+                    </a>
+                    
+                    <ul class = "submenu">
+                    	<!-- style="list-style: none; visibility: hidden; top: 5em; opacity: 0; position: absolute;" -->
+                    	<li>
+		                    <a href="/admin/listSupplier">
+		                        <p>NHÀ CUNG CẤP</p>
+		                    </a>
+                		</li>
+                
+		                <li>
+		                    <a href="/admin/listCategory">
+		                        <p>LOẠI SẢN PHẨM</p>
+		                    </a>
+		                </li>
+                
+		                <li>
+		                    <a href="/admin/listproduct">
+		                        <p>SẢN PHẨM</p>
+		                    </a>
+		                </li>
+		                
+                    </ul>
+                </li>
+                
+                <!-- <li>
+                    <a href="/admin/listSupplier">
+                        <i class="pe-7s-plus"></i>
+                        <p>NHÀ CUNG CẤP</p>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/addproduct">
-                        <i class="pe-7s-plus"></i>
-                        <p>THÊM SẢN PHẨM</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/addsuppliers">
-                        <i class="pe-7s-plus"></i>
-                        <p>THÊM THƯƠNG HIỆU</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/tablelist">
+                    <a href="/admin/listCategory">
                         <i class="pe-7s-news-paper"></i>
-                        <p>LOẠI SP & THƯƠNG HIỆU</p>
+                        <p>LOẠI SẢN PHẨM</p>
                     </a>
                 </li>
                 
                 <li>
                     <a href="/admin/listproduct">
                         <i class="pe-7s-news-paper"></i>
-                        <p>DANH SÁCH SẢN PHẨM</p>
+                        <p>SẢN PHẨM</p>
                     </a>
-                </li>
+                </li> -->
                 
                 <li>
+                    <a href="#">
+                        <i class="pe-7s-diskette"></i>
+                        <p>QUẢN LÝ ĐƠN HÀNG</p>
+                    </a>
+                    
+                    <ul>
+                    	<li>
+                    	<a href="/admin/orderNew">
+                        	<p>MỚI</p>
+                    	</a>
+                		</li>
+                
+		                <li>
+		                    <a href="/admin/orderShipping">
+		                        <p>ĐANG GIAO</p>
+		                    </a>
+		                </li>
+		                
+		                 <li>
+		                    <a href="/admin/orderFinish">
+		                        <p>HOÀN TẤT</p>
+		                    </a>
+		                </li>
+		                
+		                <li>
+		                    <a href="/admin/orderCancel">
+		                        <p>ĐÃ HỦY</p>
+		                    </a>
+		                </li>
+		                
+                    </ul>
+                </li>
+                
+                <!-- <li>
                     <a href="/admin/orderNew">
                         <i class="pe-7s-diskette"></i>
                         <p>ĐƠN HÀNG MỚI</p>
@@ -87,7 +140,7 @@
                         <i class="pe-7s-junk"></i>
                         <p>ĐƠN HÀNG ĐÃ HỦY</p>
                     </a>
-                </li>
+                </li> -->
                 
                  <li>
                     <a href="/admin/createOrderForSupplier">
@@ -104,11 +157,32 @@
                 </li>
                 
                 <li>
-                    <a href="/admin/reportmonth">
+                    <a href="#">
                         <i class="pe-7s-pin"></i>
-                        <p>THỐNG KÊ THEO THÁNG</p>
+                        <p>BÁO CÁO THỐNG KÊ</p>
                     </a>
+                    
+                    <ul>
+                    	<li>
+		                    <a href="/admin/reportmonth">
+		                        <p>DOANH THU</p>
+		                    </a>
+                		</li>
+                		
+                		<li>
+		                    <a href="#h">
+		                        <p>LỢI NHUẬN</p>
+		                    </a>
+                		</li>
+                		
+                		<li>
+		                    <a href="#">
+		                        <p>TỒN KHO</p>
+		                    </a>
+                		</li>
+                    </ul>
                 </li>
+                
             </ul>
         </div>
     </div>
@@ -143,6 +217,5 @@
                 </div>
             </div>
         </nav>
-
 </body>
 </html>

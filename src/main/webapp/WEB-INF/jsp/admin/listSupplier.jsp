@@ -34,59 +34,55 @@
 <body>
 
 <jsp:include page="header.jsp"></jsp:include>
-
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">ĐƠN HÀNG ĐÃ HỦY</h4>
-                        <%--<p class="category">Here is a subtitle for this table</p>--%>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Quản Lý Nhà Cung Cấp</h4>
+                                
+                                <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+									<a href="/admin/addsuppliers" style="color: white" >+ Thêm Nhà Cung Cấp</a>
+								</button>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Logo</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th></th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${supplierList}" var="supplierList">
+                                        <tr>
+                                            <td>${supplierList.id}</td>
+                                            <td>${supplierList.email}</td>
+                                            <td><img src="/resources/uploads/${supplierList.logo}" width="100" height="50"/></td>
+                                            <td>${supplierList.name}</td>
+                                            <td>${supplierList.phone}</td>
+                                            <td><a href="/admin/editsuppliers?id=${supplierList.id}"><img src="/resources/assets/img/icon/edit.svg " height="20" width="20"></a></td>
+                                            <td><a href="/deletesup/${supplierList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20" width="20"></a></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="content table-responsive table-full-width">
-							<table class="table table-hover table-striped">
-								<thead>
-
-									<th>Số đơn hàng</th>
-									<th>Khách hàng</th>
-									<th>Ngày đặt</th>
-									<th>Người nhận</th>
-									<th>Số điện thoại</th>
-									<th>Địa chỉ</th>
-									<th>Tổng tiền</th>
-									<th></th>
-								</thead>
-								<tbody>
-									<c:forEach items="${orders}" var="orders">
-										<tr>
-											<td>${orders.id}</td>
-											<td>${orders.customer.fullname}</td>
-											<td>${orders.orderDate}</td>
-											<td>${orders.receiver}</td>
-											<td>${orders.phone}</td>
-											<td>${orders.address} - ${orders.district}</td>
-											<td>${orders.totalPrice}</td>
-											<td>
-												<button class="btn btn-info btn-fill pull-right">
-													<a href="/admin/detailOrder?id=${orders.id}"
-														style="color: white">CTDH</a>
-												</button>
-											</td>
-										</tr>
-									</c:forEach>
-
-								</tbody>
-							</table>
-
-						</div>
                 </div>
             </div>
         </div>
+
+        <jsp:include page="footer.jsp"></jsp:include>
+
     </div>
 </div>
-
-<jsp:include page="footer.jsp"></jsp:include>
 <!--   Core JS Files   -->
 <script src="/resources/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="/resources/assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -113,7 +109,7 @@
 
         $.notify({
             icon: 'pe-7s-gift',
-            message: "Chào Mừng Bạn đến với trang Admin"
+            message: "Chào Mừng Bạn đến với trang Admin "
 
         }, {
             type: 'info',
@@ -122,6 +118,5 @@
 
     });
 </script>
-
 </body>
 </html>

@@ -74,7 +74,7 @@
 											<td>${orders.orderDate}</td>
 											<td>${orders.receiver}</td>
 											<td>${orders.phone}</td>
-											<td>${orders.address}</td>
+											<td>${orders.address} - ${orders.district}</td>
 											<td>${orders.totalPrice}</td>
 											<%-- <td>
 												<form:select itemValue="shipperId" path="shipperId" class="form-control">

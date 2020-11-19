@@ -60,7 +60,6 @@ public class SpringConfig {
         return jpaTransactionManager;
     }
 
-
     @Bean(name = "multipartResolver")
     public MultipartResolver multipartResolver(){
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
@@ -68,11 +67,9 @@ public class SpringConfig {
         return  commonsMultipartResolver;
     }
     
-    
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
-
 
 }

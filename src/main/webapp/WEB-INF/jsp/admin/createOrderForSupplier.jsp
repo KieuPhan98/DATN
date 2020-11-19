@@ -81,11 +81,11 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach var="item" items="${listOrder}">
+														<c:forEach var="item" items="${listOrder1}">
 															<tr>
 																<th class="col-sm-1">${item.id }</th>
 																<th class="col-sm-2">${item.supplier.name }</th>
-																<th class="col-sm-2">${item.employee1.FirstName}</th>
+																<th class="col-sm-2">${item.employeeCreateOrder.FirstName}</th>
 																<th class="col-sm-2">${item.createDate }</th>
 																<!-- <th class="col-sm-1">
 																	<a class="btn btn-primary" href="admin/addOrderForSupplierDetail">Thêm chi tiết</a>
@@ -94,7 +94,7 @@
 																	<a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
 																</th>
 																<th class="col-sm-1">
-																	<a class="btn btn-primary btn-export">Xuất file Excel</a>
+																	<a class="btn btn-primary btn-export" href ="/admin/exportExcel">Xuất file Excel</a>
 																</th>
 															</tr>
 														</c:forEach>
@@ -114,11 +114,11 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="item" items="${listOrder1}">
+												<c:forEach var="item" items="${listOrder}">
 													<tr>
 														<th class="col-sm-3">${item.id }</th>
 														<th class="col-sm-3">${item.supplier.name }</th>
-														<th class="col-sm-2">${item.employee1.FirstName }</th>
+														<th class="col-sm-2">${item.employeeCreateOrder.FirstName }</th>
 														<th class="col-sm-2">${item.createDate }</th>
 														<th class="col-sm-2"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>

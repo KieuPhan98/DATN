@@ -56,48 +56,28 @@
 						</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">							
+			<div class="panel panel-default">
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr style="font-weight: bold;">
-										<th class="col-sm-1">Mã</th>
+										<th class="col-sm-1">Mã phiếu nhập</th>
 										<th class="col-sm-2">Nhân viên nhập</th>
 										<th class="col-sm-2">Nhà cung cấp</th>
-										<th class="col-sm-2">Ngày tạo</th>
+										<th class="col-sm-2">Ngày lập phiếu</th>
 										<th class="col-sm-2">Tổng tiền</th>
 										<th class="col-sm-1">Xem chi tiết</th>
-										<th class="col-sm-1">Sửa</th>
-										<th class="col-sm-1">Xóa</th>
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="item" items="${listR}">
+								<c:forEach var="item" items="${listReceiption}">
 									<tr>
-										<th class="col-sm-1">${item.ID }</th>
-										<th class="col-sm-2">${item.employee.name }</th>
-										<th class="col-sm-2">${item.provider_r.name }</th>
-										<th class="col-sm-2">${item.created_date }</th>
-										<th class="col-sm-2" >$ <f:formatNumber value="${item.amount}" pattern="#,###.00" /></span></th>
+										<th class="col-sm-1">${item.id }</th>
+										<th class="col-sm-2">${item.employeeCreateReceip.FirstName }</th>
+										<th class="col-sm-2">${item.orderForSupplier.supplier.name }</th>
+										<th class="col-sm-2">${item.createDate }</th>
+										<th class="col-sm-2">${item.totalPrice}</th>
 										<th class="col-sm-1">
-										<a class="btn btn-primary" href="admin/receiption/${item.ID}.php">Xem chi tiết</a></th>
-										<%-- <th class="col-sm-1"><a type="submit"
-												class="btn btn-primary" href="admin/insertRD/${item.ID}.php">Insert Detail</a></th> --%>
-										<th class="col-sm-1" data-id="${item.ID }" data-employee="${item.employee.ID }" data-provider="${item.provider_r.ID }" 
-										data-date="${item.created_date }" data-amount="${item.amount }">
-											<button class="btn btn-primary btn-editR" style="float: right;" data-toggle="modal" data-target="#modalEditR">
-												Sửa</button>
-										</th>
-										<th class="col-sm-1">
-										<c:choose>
-										    <c:when test="${item.amount >0}">
-										       <div></div>
-										    </c:when>    
-										    <c:otherwise>
-										       <div class="pull-right action-buttons" data-id="${item.ID }">
-											<button class="trash btn btn-primary btn-deleteR" data-toggle="modal" data-target="#modalDeleteR"><em class="fa fa-trash"> Xóa</em></button></div>
-										    </c:otherwise>
-										</c:choose>
-										</th>
+										<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a></th>
 									</tr>
 								</c:forEach>
 								</tbody>

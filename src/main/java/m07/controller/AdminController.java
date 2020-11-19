@@ -39,28 +39,30 @@ public class AdminController {
     @Autowired
     OrderDetailRepository orderDetailRepository;
 
-
-
     @RequestMapping(value = "/admin/user")
     public String admin(Model model) {
 
         return "admin/user";
     }
 
-    // Hiển thị ListProduct ở trang admin
     @RequestMapping(value = "/admin/listproduct")
     public String listProduct(Model model) {
 
         return "admin/listproduct";
     }
 
-    @RequestMapping(value = "/admin/tablelist")
+    @RequestMapping(value = "/admin/listCategory")
     public String tables(Model model) {
 
-        return "admin/tablelist";
+        return "admin/listCategory"; 
     }
 
-    // show check out page
+    @RequestMapping(value = "/admin/listSupplier")
+    public String listSupplier(Model model) {
+
+        return "admin/listSupplier";
+    }
+    
     @RequestMapping(value = "/admin/addcategory")
     public String checkOut(Model model) {
         Category category = new Category();
@@ -68,43 +70,33 @@ public class AdminController {
         return "admin/addcategory";
     }
 
-    // thêm category
     @RequestMapping(value = "/admin/addcategory", method = RequestMethod.POST)
-    public String addCourse(@Validated @ModelAttribute("category") Category category,
-                            ModelMap model,
-                            BindingResult bindingResult) {
+    public String addCourse(@Validated @ModelAttribute("category") Category category, ModelMap model, BindingResult bindingResult) {
         Category c = categoryRepository.save(category);
         if (bindingResult.hasErrors()) {
-
-            model.addAttribute("message", "vui lòng");
-            return "/admin/addcategory";
-
+            model.addAttribute("message", "that bai");
+            return "/admin/listCategory";
         } else {
-
-            model.addAttribute("message", "Chúc mừng");
+            model.addAttribute("message", "thanh cong");
         }
-        return "admin/addcategory";
+        return "redirect:/admin/listCategory";
     }
 
-    /// list category ở table list
     @ModelAttribute("categoryList")
     public List<Category> showCategory(Model model) {
-        List<Category> categoryList =
-                (List<Category>) categoryRepository.findAll();
+        List<Category> categoryList = (List<Category>) categoryRepository.findAll();
         return categoryList;
     }
 
     @ModelAttribute("supplierList")
     public List<Supplier> supplierList(Model model) {
-        List<Supplier> supplierList =
-                (List<Supplier>) suppliersRepository.findAll();
+        List<Supplier> supplierList = (List<Supplier>) suppliersRepository.findAll();
         return supplierList;
     }
 
     @ModelAttribute("productList")
     public List<Product> showproduct(Model model) {
-        List<Product> productList =
-                (List<Product>) productRepository.listproductdesc();
+        List<Product> productList = (List<Product>) productRepository.listproductdesc();
         return productList;
     }
 
@@ -126,14 +118,14 @@ public class AdminController {
             model.addAttribute("message", "Update failure");
             model.addAttribute("category", category);
         }
-        return "admin/tablelist";
+        return "redirect:/admin/listCategory";
     }
 
     /// delete Category
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String addCourse(@PathVariable("id") int id, ModelMap model) {
         categoryRepository.delete(id);
-        return "redirect:/admin/tablelist";
+        return "redirect:/admin/listCategory";
     }
 
 }

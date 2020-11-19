@@ -12,7 +12,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
 
-
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -22,10 +21,8 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -42,23 +39,31 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Danh Sách Sản Phẩm Có Trong Cửa Hàng</h4>
-                        <%--<p class="category">Here is a subtitle for this table</p>--%>
+                        <h4 class="title">Quản Lý Sản Phẩm</h4>
+                        
+                        <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+								<a href="/admin/addproduct" style="color: white" >+ Thêm sản phẩm</a>
+						</button>
+                        
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">
                             <thead>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>UnitPrice</th>
-                            <th>Action</th>
-                            <th>Action</th>
+                            <th>Mã SP</th>
+                            <th>Hình Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Số Lượng Tồn</th>
+                            <th>Đơn Giá</th>
+                            <th></th>
+                            <th></th>
                             </thead>
                             <tbody>
                             <c:forEach items="${productList}" var="productList">
                                 <tr>
                                     <td>${productList.id}</td>
+                                    <td>
+                                    	<img src="/resources/images/${productList.image}" alt=" " class="img-responsive" style="width: 150px; height: 150px;"/>
+                                    </td>
                                     <td>${productList.name}</td>
                                     <td>${productList.quantity}</td>
                                     <td>${productList.unitPrice}</td>

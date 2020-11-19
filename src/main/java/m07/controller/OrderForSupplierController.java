@@ -1,6 +1,12 @@
 package m07.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import m07.entity.Category;
-import m07.entity.Customer;
 import m07.entity.OrderForSuplierDetail;
 import m07.entity.OrderForSupplier;
 import m07.entity.Product;
@@ -26,6 +29,7 @@ import m07.repository.OrderForSupplierRepository;
 import m07.repository.OrderRepository;
 import m07.repository.ProductRepository;
 import m07.repository.SuppliersRepository;
+import m07.service.OrderService;
 import m07.repository.OrderForSupplyDetailRepository;
 
 @Controller
@@ -48,6 +52,9 @@ public class OrderForSupplierController {
 	
 	@Autowired
 	SuppliersRepository suppliersRepository;
+	
+	@Autowired
+	OrderService service;
 	
 	@ModelAttribute("productList")
     public List<Product> productList(Model model) {
@@ -89,15 +96,22 @@ public class OrderForSupplierController {
 		// lay id de truyen cho url tra ve khi update thanh cong
 		item = id; 
         model.addAttribute("orderDetails", orderForSupplyDetailRepository.listOrderForSupplyDetail(id));
+        
         return "/admin/orderForSupplyDetail";
     }
 	
 	@RequestMapping(value = "/admin/editProductOrderForSupply", method = RequestMethod.GET)
-    public String editSupper(@RequestParam("id") int id, ModelMap model) {    
-        model.addAttribute("product", orderForSupplyDetailRepository.findOne(id));
+	public String editSupper(@RequestParam("id") int id, ModelMap model) {
+		model.addAttribute("product", orderForSupplyDetailRepository.findOne(id));
 		/* System.out.println(orderForSupplyDetailRepository.findOne(id).toString()); */
-        return "admin/editProductOrderForSupply";
-    }
+
+		// truyen list product thuoc 1 nha cung cap
+		OrderForSupplier order = orderForSupplierRepository.findOne(item);
+		List<Product> productList = (List<Product>) productRepository.listproductBysupper(order.getSupplier().getId());
+		model.addAttribute("productList1", productList);
+
+		return "admin/editProductOrderForSupply";
+	}
 	
 	@RequestMapping(value = "/admin/editProductOrderForSupply", method = RequestMethod.POST)
     public String editProduct(@ModelAttribute("orderForSupply") OrderForSuplierDetail orderForSupply, Model model, RedirectAttributes rs) {
@@ -135,7 +149,12 @@ public class OrderForSupplierController {
 		
 		OrderForSuplierDetail orderDetail = new OrderForSuplierDetail();
 		model.addAttribute("product", orderDetail);
-		
+
+		// truyen list product thuoc 1 nha cung cap
+		OrderForSupplier order = orderForSupplierRepository.findOne(item);
+		List<Product> productList = (List<Product>) productRepository.listproductBysupper(order.getSupplier().getId());
+		model.addAttribute("productList1", productList);
+
 		return "admin/addOrderForSupplierDetail";
 	}
 	
@@ -150,10 +169,30 @@ public class OrderForSupplierController {
         } else {
             model.addAttribute("message", "thanh cong");
         }
-        //return "admin/addOrderForSupplierDetail";
         //System.out.println(item);
         String url = "redirect:/admin/detailOrderForSupplier?id=" + item;
         
 		return url;
     }
+	
+	@RequestMapping(value = "admin/exportExcel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        
+		/*
+		 * DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		 * String currentDateTime = dateFormatter.format(new Date());
+		 */
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=PhieuDatHang_" + item + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+         
+        //List<OrderForSuplierDetail> listOrders = service.listAll();
+        List<OrderForSuplierDetail> listOrders = orderForSupplyDetailRepository.listOrderForSupplyDetail(item);
+        
+        OrderExcelExport excelExport = new OrderExcelExport(listOrders);
+         
+        excelExport.export(response);    
+    } 
 }

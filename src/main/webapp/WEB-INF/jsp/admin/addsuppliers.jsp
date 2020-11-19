@@ -37,29 +37,22 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">THÊM NHÀ CUNG CẤP</h4>
                     </div>
                     <div class="content">
-                        <form:form action="/admin/addsuppliers" method="post" modelAttribute="supplier"
-                                   enctype="multipart/form-data">
-
+                        <form:form action="/admin/addsuppliers" method="post" modelAttribute="supplier" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-5">
+                            
+                            	<div class="col-md-8">
                                     <div class="form-group">
-                                        <label>SĐT</label>
-                                        <form:input path="phone" class="form-control" required = "true"></form:input>
+                                        <label>Name</label>
+                                        <form:input path="name" class="form-control" required="true"></form:input>  
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        
-                                        <form:input type = "email" path="email" class="form-control" required = "true"></form:input>
-                                    </div>
-                                </div>
+                                
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Logo</label>
@@ -71,33 +64,34 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
-                                           Name</label>
-                                        <form:input path="name" class="form-control" required="true"></form:input>  
+                                        <label>SĐT</label>
+                                        <form:input path="phone" class="form-control" required = "true"></form:input>
                                     </div>
                                 </div>
-                               
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <form:input type = "email" path="email" class="form-control" required = "true"></form:input>
+                                    </div>
+                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Thêm</button>
                             <div class="clearfix"></div>
 
                         </form:form>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 
 <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
 </div>
-
 
 </body>
 

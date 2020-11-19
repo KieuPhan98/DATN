@@ -6,11 +6,11 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,17 +26,28 @@ public class Receiption {
 	@Id
 	@GeneratedValue
 	int id;
-	
+
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="MM/dd/yyyy")
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	Date createDate;
-	
+
 	@Column(name = "total_price")
 	private double totalPrice;
-	
-	@Nationalized 
+
+	@Nationalized
 	String status;
-		
+
+	@ManyToOne
+	@JoinColumn(name = "employeeId")
+	private Employee employeeCreateReceip;
+
+	@OneToMany(mappedBy = "receiption")
+	private Collection<ReceipDetail> receipDetails;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "order_for_supplier_id", unique = true)
+	private OrderForSupplier orderForSupplier;
+
 	public double getTotalPrice() {
 		return totalPrice;
 	}
@@ -68,17 +79,7 @@ public class Receiption {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
-	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	Employee employee;
-	
-	@OneToMany(mappedBy = "receiption")
-	Collection<ReceipDetail> receipDetails;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_for_supplier_id", unique = true)
-	private OrderForSupplier orderForSupplier;
+
 	/*
 	 * @OneToOne
 	 * 
@@ -95,14 +96,6 @@ public class Receiption {
 		this.orderForSupplier = orderForSupplier;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	public Collection<ReceipDetail> getReceipDetails() {
 		return receipDetails;
 	}
@@ -110,5 +103,21 @@ public class Receiption {
 	public void setReceipDetails(Collection<ReceipDetail> receipDetails) {
 		this.receipDetails = receipDetails;
 	}
+
+	public Employee getEmployeeCreateReceip() {
+		return employeeCreateReceip;
+	}
+
+	public void setEmployeeCreateReceip(Employee employeeCreateReceip) {
+		this.employeeCreateReceip = employeeCreateReceip;
+	}
+
+	@Override
+	public String toString() {
+		return "Receiption [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="
+				+ status + ", employeeCreateReceip=" + employeeCreateReceip + ", receipDetails=" + receipDetails
+				+ ", orderForSupplier=" + orderForSupplier + "]";
+	}
+
 	
 }

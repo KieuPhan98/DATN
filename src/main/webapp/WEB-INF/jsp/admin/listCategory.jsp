@@ -34,8 +34,6 @@
 <body>
 
 <jsp:include page="header.jsp"></jsp:include>
-
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -43,91 +41,39 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Quản Lý Danh Mục Sản Phẩm</h4>
-                                <p class="category">Danh mục sản phẩm của cửa hàng</p>
+                                
+                                <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+									<a href="/admin/addcategory" style="color: white" >+ Thêm Danh Mục</a>
+								</button>
+                                
                             </div>
                             <div class="content table-responsive table-full-width">
-
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <!-- <th>Salary</th> -->
-                                    <th>Action</th>
-                                    <th>Action</th>
+                                    <th></th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${categoryList}" var="categoryList">
                                         <tr>
                                             <td>${categoryList.id}</td>
                                             <td>${categoryList.name}</td>
-                                            <%-- <td>${categoryList.nameVN}</td> --%>
-                                            <td>
-                                                <a href="/admin/editCategory?id=${categoryList.id}"><img src="/resources/assets/img/icon/edit.svg " height="20" width="20"></a></td>
-                                            <td><a href="/delete/${categoryList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20"
-                                                                                          width="20"></a></td>
+                                            <td><a href="/admin/editCategory?id=${categoryList.id}"><img src="/resources/assets/img/icon/edit.svg " height="20" width="20"></a></td>
+                                            <td><a href="/delete/${categoryList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20" width="20"></a></td>
                                         </tr>
                                     </c:forEach>
-
                                     </tbody>
                                 </table>
-
-
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="header">
-                                <h4 class="title">Quản Lý Nhà Cung Cấp</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <th>ID</th>
-                                    <th>Email</th>
-                                    <th>Logo</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${supplierList}" var="supplierList">
-                                        <tr>
-                                            <td>${supplierList.id}</td>
-                                            <td>${supplierList.email}</td>
-                                            <td><img src="/resources/uploads/${supplierList.logo}" width="100"
-                                                     height="50"/></td>
-                                            <td>${supplierList.name}</td>
-                                            <td>${supplierList.phone}</td>
-
-
-                                            <td>
-                                                <a href="/admin/editsuppliers?id=${supplierList.id}"><img src="/resources/assets/img/icon/edit.svg " height="20" width="20"></a></td>
-                                            <td><a href="/deletesup/${supplierList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20"
-                                                                                             width="20"></a></td>
-
-
-                                        </tr>
-                                    </c:forEach>
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
 
         <jsp:include page="footer.jsp"></jsp:include>
-
 
     </div>
 </div>

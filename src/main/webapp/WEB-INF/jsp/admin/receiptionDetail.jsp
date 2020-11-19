@@ -11,7 +11,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
 
-
     <!-- Bootstrap core CSS     -->
     <link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -21,10 +20,8 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/resources/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/resources/assets/css/demo.css" rel="stylesheet"/>
-
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -41,45 +38,48 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">ĐƠN HÀNG ĐÃ HỦY</h4>
-                        <%--<p class="category">Here is a subtitle for this table</p>--%>
+                        <h4 class="title">Chi Tiết Phiếu Nhập</h4>
+                        <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+								<a href="admin/addReceiptionDetail" style="color: white" >+ Thêm sản phẩm</a>
+						</button>
                     </div>
                     <div class="content table-responsive table-full-width">
-							<table class="table table-hover table-striped">
-								<thead>
-
-									<th>Số đơn hàng</th>
-									<th>Khách hàng</th>
-									<th>Ngày đặt</th>
-									<th>Người nhận</th>
-									<th>Số điện thoại</th>
-									<th>Địa chỉ</th>
-									<th>Tổng tiền</th>
-									<th></th>
-								</thead>
-								<tbody>
-									<c:forEach items="${orders}" var="orders">
-										<tr>
-											<td>${orders.id}</td>
-											<td>${orders.customer.fullname}</td>
-											<td>${orders.orderDate}</td>
-											<td>${orders.receiver}</td>
-											<td>${orders.phone}</td>
-											<td>${orders.address} - ${orders.district}</td>
-											<td>${orders.totalPrice}</td>
-											<td>
-												<button class="btn btn-info btn-fill pull-right">
-													<a href="/admin/detailOrder?id=${orders.id}"
-														style="color: white">CTDH</a>
-												</button>
-											</td>
-										</tr>
-									</c:forEach>
-
-								</tbody>
-							</table>
-
-						</div>
+                        <table class="table table-hover table-striped">
+                            <thead>
+	                            <th>Hình ảnh</th>
+	                            <th>Tên Sản Phẩm</th>
+	                            <th>Số lượng</th>
+	                            <th>Đơn giá</th>
+	                            <th>Thành tiền</th>
+	                            <th></th>
+                            	<th></th>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${detail}" var="detail">
+                                <tr>
+                                    <td class="invert-image"><a href="single.html"><img
+                                		src="/resources/images/${detail.products.image}" alt=" " class="img-responsive" style="width: 150px; height: 150px;"/></a>
+                            		</td> 
+                                    <td>${detail.products.name}</td>
+                                    <td>${detail.quantity}</td>
+                                    <td>${detail.unitPrice}</td>
+                                    <td>${detail.quantity * detail.unitPrice}</td> 
+                                    <td>
+                                    	<a href="/admin/editProductReceiption?id=${detail.id}">
+                                    		<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    	</a>
+                                    </td>
+                                        
+                                    <td>
+	                                    <a href="/deleteProductReceiption/${detail.id}">
+	                                    	<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

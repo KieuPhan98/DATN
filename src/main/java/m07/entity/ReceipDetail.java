@@ -65,4 +65,10 @@ public class ReceipDetail {
 	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	
+	@Override
+	public String toString() {
+		return "ReceipDetail [id=" + id + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", products="
+				+ products + ", receiption=" + receiption + "]";
+	}
 }

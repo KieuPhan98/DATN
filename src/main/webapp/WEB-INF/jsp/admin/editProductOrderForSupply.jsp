@@ -43,12 +43,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Update Product</h4>
+                        <h4 class="title">SỬA CHI TIẾT ĐƠN ĐẶT HÀNG</h4>
                     </div>
                     <div class="content">
                         ${message}
                             <form:form action="/admin/editProductOrderForSupply" method="post" modelAttribute="product">
-                            <div class="row">
+                            <div class="row" style="display: none;">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Mã chi tiết phiếu đặt</label>
@@ -63,7 +63,14 @@
                                     </div>
                                 </div>                                                        
                             </div>
-
+							<div class="row">                               
+                                <div class="col-md-10">
+                                        <label>Sản Phẩm</label>
+                                        <form:select items="${productList1}" itemLabel="name"
+                                                     itemValue="id" path="products.id" class="form-control">
+                                        </form:select>
+                                </div>                               
+                            </div> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -80,14 +87,6 @@
                                 </div>                                                             
                             </div>
                             
-                            <div class="row">                               
-                                <div class="col-md-12">
-                                        <label>Sản Phẩm</label>
-                                        <form:select items="${productList}" itemLabel="name"
-                                                     itemValue="id" path="products.id" class="form-control">
-                                        </form:select>
-                                </div>                               
-                            </div>                      
                             <button type="submit" class="btn btn-info btn-fill pull-right">Cập nhật</button>
                             <div class="clearfix"></div>
                         </form:form>

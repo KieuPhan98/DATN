@@ -137,7 +137,7 @@ public class CartController extends BaseController   {
             model.addAttribute("fullName",customers.getFullname());
             model.addAttribute("phone",customers.getPhone());
             model.addAttribute("address", customers.getAddress());
-            
+            model.addAttribute("districts", customers.getDistrict());
         }
         Order order = new Order();
         model.addAttribute("orderModel", order);

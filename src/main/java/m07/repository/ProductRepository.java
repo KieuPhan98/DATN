@@ -54,4 +54,5 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     /*@Query(value = "SELECT * FROM  products where discount = ?" , nativeQuery = true)
     public  List<Product> sale(Double discount);*/
 
+    
 }
