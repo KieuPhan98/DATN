@@ -3,6 +3,7 @@ package m07.entity;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Proxy(lazy = false)
+@Proxy(lazy = true)
 @Table(name = "OrderForSupplier")
 public class OrderForSupplier {
 	@Id
@@ -37,16 +38,19 @@ public class OrderForSupplier {
 	@Nationalized 
 	String status;		
 	
+	
 	@Column(unique=true) 
-	String receiption_id;
+	String receiptionId;
+	 
 
-	@OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.EAGER)
-	Receiption receiption;
-
+	/*
+	 * @OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.EAGER)
+	 * //@JoinColumn(name = "receiptionId") Receiption receiption;
+	 */
+	
 	@ManyToOne
-
-	@JoinColumn(name = "employeeId")
-	Employee employeeCreateOrder;
+	@JoinColumn(name ="employeeId")
+	Customer customer;
 
 	@ManyToOne
 	@JoinColumn(name = "supplyId")
@@ -103,37 +107,28 @@ public class OrderForSupplier {
 		this.orderForSuplierDetail = orderForSuplierDetail;
 	}
 
-	public String getReceiption_id() {
-		return receiption_id;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setReceiption_id(String receiption_id) {
-		this.receiption_id = receiption_id;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public Receiption getReceiption() {
-		return receiption;
+	public String getReceiptionId() {
+		return receiptionId;
 	}
 
-	public void setReceiption(Receiption receiption) {
-		this.receiption = receiption;
+	public void setReceiptionId(String receiptionId) {
+		this.receiptionId = receiptionId;
 	}
 
-	public Employee getEmployeeCreateOrder() {
-		return employeeCreateOrder;
-	}
-
-	public void setEmployeeCreateOrder(Employee employeeCreateOrder) {
-		this.employeeCreateOrder = employeeCreateOrder;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "OrderForSupplier [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="
-				+ status + ", receiption_id=" + receiption_id + ", receiption=" + receiption + ", employeeCreateOrder="
-				+ employeeCreateOrder + ", supplier=" + supplier + ", orderForSuplierDetail=" + orderForSuplierDetail
+				+ status + ", supplier=" + supplier + ", orderForSuplierDetail=" + orderForSuplierDetail
 				+ "]";
 	}
-	
 	
 }

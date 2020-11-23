@@ -39,45 +39,65 @@
                     <div class="header">
                         <h4 class="title">THÊM PHIẾU ĐẶT</h4>
                     </div>
-                    <%-- <div class="content">
-                        <form:form action="/admin/addsuppliers" method="post" modelAttribute="supplier"
-                                   enctype="multipart/form-data">
-
+                   <div class="content">
+                   ${message}
+                        <form:form action="/admin/addOrderForSupplier" method="post" modelAttribute="order">
                             <div class="row">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Mã phiếu đặt</label>
-                                        <form:input path="id" class="form-control" required = "true"></form:input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nhà cung cấp</label>                            
-                                        <form:input type = "text" path="supplyId" class="form-control" required = "true"></form:input>
+                                        <form:select items="${supplierList}" itemLabel="name"
+                                                     itemValue="id" path="supplier.id" class="form-control">
+                                        </form:select>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Người tạo</label>
-                                        <form:input type = "text" path="employeeId" class="form-control" required = "true"></form:input>
+                                        <form:input type = "text" path="customer.id" class="form-control" required = "true" value = "${FullName}" readonly="true"></form:input>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Ngày đặt</label>                                           
+                                        <form:input type = "text" path="createDate" class="form-control" required="true" value = "${dateNow }" readonly="true"></form:input>  
+                                    </div>
+                                </div> 
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                  
+                                <%-- <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Ngày đặt</label>                                           
-                                        <form:input path="createDate" class="form-control" required="true"></form:input>  
+                                        <label>Trạng thái</label>
+                                        <form:input type = "text" path="status" class="form-control" required = "true"></form:input>
                                     </div>
-                                </div>                             
+                                </div> --%>
+                                
+                                <%-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>tổng giá</label>
+                                        <form:input type = "text" path="totalPrice" class="form-control" required = "true"></form:input>
+                                    </div>
+                                </div>   --%>                        
                             </div>
 
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+							<div class="row">
+								<%-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>receip id</label>
+                                        <form:input type = "text" path="receiptionId" class="form-control" ></form:input>
+                                    </div>
+                                </div>  --%>
+							</div>
+							
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Thêm</button>
                             <div class="clearfix"></div>
 
                         </form:form>
-                    </div> --%>
+                    </div> 
                 </div>
             </div>
         </div>

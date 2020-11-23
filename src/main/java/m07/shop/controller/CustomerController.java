@@ -27,7 +27,6 @@ public class CustomerController {
     @Autowired
     OrderDetailRepository orderDetailRepository;
 
-    // show trang đăng ký
     @RequestMapping(value = "/registered")
     public String showRegistered(Model model){
         Customer customer = new Customer();
@@ -40,7 +39,6 @@ public class CustomerController {
         return "/login";
     }
 
-    // thêm category
     @RequestMapping(value = "/registered", method = RequestMethod.POST)
     public String addCourse(@ModelAttribute("customer") Customer customer, ModelMap model) {
 
@@ -60,9 +58,4 @@ public class CustomerController {
         }
         return "redirect:/login";
     }
-
-
-
-
-
 }

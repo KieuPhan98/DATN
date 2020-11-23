@@ -1,6 +1,8 @@
 package m07.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,7 +23,7 @@ public class OrderForSuplierDetail {
 	@JoinColumn(name = "productId")
 	Product products;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "orderId")
 	OrderForSupplier orderForSupplier;
 
@@ -64,5 +66,18 @@ public class OrderForSuplierDetail {
 	public void setOrderForSupplier(OrderForSupplier orderForSupplier) {
 		this.orderForSupplier = orderForSupplier;
 	}
+
+	public OrderForSuplierDetail(Integer id, int quantity, Double unitPrice, Product products,
+			OrderForSupplier orderForSupplier) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.unitPrice = unitPrice;
+		this.products = products;
+		this.orderForSupplier = orderForSupplier;
+	}
+	
+	public OrderForSuplierDetail() {
 		
+	}
 }

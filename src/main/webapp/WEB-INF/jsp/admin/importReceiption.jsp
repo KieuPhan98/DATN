@@ -50,7 +50,9 @@
 					<div class="card">
 						<div class="header">
 							<h4 class="title">PHIẾU NHẬP HÀNG</h4>			
-							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">Tạo mới</button>	
+							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
+								<a href="/admin/addReceiption" style="color: white" >+ Tạo Phiếu Nhập</a>
+							</button>	
 							<label style = "margin:20px">Import file Excel <input id="test" type="file"></label>		
 							<a class="btn btn-info btn-fill pull-right" style = "margin:20px" href="/admin/createOrderForSupplier">Đơn đặt hàng đến nhà cung cấp</a>			
 						</div>
@@ -61,23 +63,38 @@
 								<thead>
 									<tr style="font-weight: bold;">
 										<th class="col-sm-1">Mã phiếu nhập</th>
-										<th class="col-sm-2">Nhân viên nhập</th>
-										<th class="col-sm-2">Nhà cung cấp</th>
+										<th class="col-sm-1">Mã phiếu đặt</th>
+										<th class="col-sm-3">Nhân viên nhập</th>
+										<!-- <th class="col-sm-2">Nhà cung cấp</th> -->
 										<th class="col-sm-2">Ngày lập phiếu</th>
 										<th class="col-sm-2">Tổng tiền</th>
-										<th class="col-sm-1">Xem chi tiết</th>
+										<th class="col-sm-1"></th>
+										<th class="col-sm-1"></th>
+										<th class="col-sm-1"></th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach var="item" items="${listReceiption}">
 									<tr>
 										<th class="col-sm-1">${item.id }</th>
-										<th class="col-sm-2">${item.employeeCreateReceip.FirstName }</th>
-										<th class="col-sm-2">${item.orderForSupplier.supplier.name }</th>
+										<th class="col-sm-1">${item.orderForSupplierId }</th>
+										<th class="col-sm-3">${item.customer.fullname }</th>
+										<%-- <th class="col-sm-2">${item.orderForSupplier.supplier.name }</th> --%>
 										<th class="col-sm-2">${item.createDate }</th>
 										<th class="col-sm-2">${item.totalPrice}</th>
 										<th class="col-sm-1">
-										<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a></th>
+											<a href="/admin/editOrderForSupply?id=${item.id }">
+                                    			<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    		</a>
+										</th>
+										<th class="col-sm-1">
+											<a href="/deleteOrderForSupply/${item.id}">
+	                                    		<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    	</a>
+										</th>							
+										<th class="col-sm-1">
+											<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a>
+										</th>
 									</tr>
 								</c:forEach>
 								</tbody>

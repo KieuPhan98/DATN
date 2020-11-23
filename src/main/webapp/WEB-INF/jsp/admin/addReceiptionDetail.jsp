@@ -46,31 +46,31 @@
                         ${message}
                         <form:form action="/admin/addReceiptionDetail" method="post" modelAttribute="product">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                     <div class="form-group">
                                         <label>Tên Sản Phẩm</label>
-                                        <form:select items="${productList}" itemLabel="name"
+                                        <form:select items="${productList1}" itemLabel="name"
                                                      itemValue="id" path="products.id" class="form-control">
                                         </form:select>
                                     </div>
                                 </div>
                                 
-                            </div>
-							
-							<div class="row">
-								<div class="col-md-3">
+                                <div class="col-md-2" style = "display: none">
                                     <div class="form-group">
-                                        <label>Mã Phiếu Đặt</label>
+                                        <label>Mã Phiếu Nhập</label>
                                         <form:input path="receiption.id" class="form-control" required="true" value="${product1 }" readonly="true"></form:input>
                                     </div>
                                 </div>
-								<div class="col-md-4">
+                            </div>
+							
+							<div class="row">
+								<div class="col-md-6">
                                     <div class="form-group">
                                         <label>Số lượng đặt</label>
-                                        <form:input type="number" path="quantity" class="form-control" min="0" required="true"></form:input>
+                                        <form:input type="number" path="quantity" class="form-control" min="1" required="true"></form:input>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Đơn Giá</label>
                                         <form:input path="unitPrice" class="form-control" required="true"></form:input>

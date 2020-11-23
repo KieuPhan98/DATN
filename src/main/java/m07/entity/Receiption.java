@@ -33,35 +33,48 @@ public class Receiption {
 
 	@Column(name = "total_price")
 	private double totalPrice;
+	
+	@Column(unique=true) 
+	String orderForSupplierId;
 
-	@Nationalized
-	String status;
+	/*
+	 * @Nationalized String status;
+	 */
 
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "employeeId") private Employee employeeCreateReceip;
+	 */
+	
 	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	private Employee employeeCreateReceip;
-
+	@JoinColumn(name ="employeeId")
+	Customer customer;
+	
 	@OneToMany(mappedBy = "receiption")
 	private Collection<ReceipDetail> receipDetails;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_for_supplier_id", unique = true)
-	private OrderForSupplier orderForSupplier;
+	/*
+	 * @OneToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "orderForSupplier_id", unique = true) private
+	 * OrderForSupplier orderForSupplier;
+	 */
 
+	public String getOrderForSupplierId() {
+		return orderForSupplierId;
+	}
+
+	public void setOrderForSupplierId(String orderForSupplierId) {
+		this.orderForSupplierId = orderForSupplierId;
+	}
+	
 	public double getTotalPrice() {
 		return totalPrice;
 	}
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public int getId() {
@@ -80,22 +93,6 @@ public class Receiption {
 		this.createDate = createDate;
 	}
 
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name = "id")
-	 * 
-	 * @MapsId OrderForSupplier orderForSupplier;
-	 */
-
-	public OrderForSupplier getOrderForSupplier() {
-		return orderForSupplier;
-	}
-
-	public void setOrderForSupplier(OrderForSupplier orderForSupplier) {
-		this.orderForSupplier = orderForSupplier;
-	}
-
 	public Collection<ReceipDetail> getReceipDetails() {
 		return receipDetails;
 	}
@@ -104,20 +101,18 @@ public class Receiption {
 		this.receipDetails = receipDetails;
 	}
 
-	public Employee getEmployeeCreateReceip() {
-		return employeeCreateReceip;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setEmployeeCreateReceip(Employee employeeCreateReceip) {
-		this.employeeCreateReceip = employeeCreateReceip;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public String toString() {
-		return "Receiption [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="
-				+ status + ", employeeCreateReceip=" + employeeCreateReceip + ", receipDetails=" + receipDetails
-				+ ", orderForSupplier=" + orderForSupplier + "]";
+		return "Receiption [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", receipDetails=" + receipDetails
+				+ "]";
 	}
 
-	
 }

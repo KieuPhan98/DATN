@@ -63,16 +63,15 @@ public class CartController extends BaseController   {
     @Autowired
     DistrictRepository districtRepository;
 
-    @RequestMapping(value = "addToCart",
-            method = RequestMethod.GET)
-    public String addToCart(@RequestParam(value = "id") String id,
-                            HttpServletRequest request){
+    @RequestMapping(value = "addToCart", method = RequestMethod.GET)
+    public String addToCart(@RequestParam(value = "id") String id, HttpServletRequest request){
+                            
         int productId = Integer.valueOf(id);
-        Product product =
-                productRepository.findOne(productId);
+        
+        Product product = productRepository.findOne(productId);
         HttpSession session = request.getSession();
-        List<CartItem> carts =
-                (List<CartItem>) session.getAttribute("carts");
+        List<CartItem> carts = (List<CartItem>) session.getAttribute("carts");
+        
         if (carts != null) {
             boolean isExistingId = false;
             for(CartItem item: carts) {
@@ -129,6 +128,7 @@ public class CartController extends BaseController   {
         HttpSession httpSession = request.getSession();
         Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
         Customer customer = new Customer();
+        
         if (s != null) {
             SecurityContextImpl context = (SecurityContextImpl) s;
             String loggedInUser = context.getAuthentication().getName();
@@ -147,8 +147,8 @@ public class CartController extends BaseController   {
 
     @ModelAttribute("districtList")
     public List<District> districtList(Model model) {
-        List<District> districtList =
-                (List<District>) districtRepository.findAll();
+    	
+        List<District> districtList = (List<District>) districtRepository.findAll();
         return districtList;
     }
     
@@ -162,7 +162,7 @@ public class CartController extends BaseController   {
             SecurityContextImpl context = (SecurityContextImpl) s;
             String loggedInUser = context.getAuthentication().getName();
             customer = customerRepository.getCustomer(loggedInUser);
-            //customer.setId(loggedInUser);//customer null nÃ¨, cháº¯c v
+            //customer.setId(loggedInUser);
             order.setCustomer(customer);
         }
         

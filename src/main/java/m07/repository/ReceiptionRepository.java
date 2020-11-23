@@ -9,6 +9,6 @@ import m07.entity.Receiption;
 
 public interface ReceiptionRepository extends JpaRepository<Receiption, Integer>{
 
-	@Query(value = "SELECT * FROM receiption",nativeQuery = true )
+	@Query(value = "SELECT * FROM receiption ORDER BY id desc",nativeQuery = true )
     public List<Receiption> listReceiption();
 }

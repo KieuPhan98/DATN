@@ -42,6 +42,10 @@
                         <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
 								<a href="admin/addOrderForSupplierDetail" style="color: white" >+ Thêm sản phẩm</a>
 						</button>
+						
+						<button class="btn btn-info btn-fill pull-right" style="margin-top: 10px; margin-bottom: 10px">
+								<a href="/admin/exportExcel" style="color: white" >Export File Excel</a>
+						</button>
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">

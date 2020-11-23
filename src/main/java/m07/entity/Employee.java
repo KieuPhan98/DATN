@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="Employee")
 public class Employee implements Serializable {
@@ -48,11 +49,15 @@ public class Employee implements Serializable {
 	 * @OneToMany(mappedBy = "employeeId") Collection<Returns> returns;
 	 */
 
-	@OneToMany(mappedBy = "employeeCreateReceip")
-	Collection<Receiption> receiptions;
+	/*
+	 * @OneToMany(mappedBy = "employeeCreateReceip") Collection<Receiption>
+	 * receiptions;
+	 */
 
-	@OneToMany(mappedBy = "employeeCreateOrder", fetch = FetchType.EAGER)
-	Collection<OrderForSupplier> orderForSupplier;
+	/*
+	 * @OneToMany(mappedBy = "employeeCreateOrder", fetch = FetchType.EAGER)
+	 * Collection<OrderForSupplier> orderForSupplier;
+	 */
 
 	@OneToMany(mappedBy = "employee")
 	Collection<Order> order;
@@ -60,22 +65,20 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy="employee")
 	Collection<Cmt_Emp> cmt_emp;
 
-	public Collection<Receiption> getReceiptions() {
-		return receiptions;
-	}
+	/*
+	 * public Collection<Receiption> getReceiptions() { return receiptions; }
+	 * 
+	 * public void setReceiptions(Collection<Receiption> receiptions) {
+	 * this.receiptions = receiptions; }
+	 */
 
-	public void setReceiptions(Collection<Receiption> receiptions) {
-		this.receiptions = receiptions;
-	}
-
-	public Collection<OrderForSupplier> getOrderForSupplier() {
-		return orderForSupplier;
-	}
-
-	public void setOrderForSupplier(Collection<OrderForSupplier> orderForSupplier) {
-		this.orderForSupplier = orderForSupplier;
-	}
-
+	/*
+	 * public Collection<OrderForSupplier> getOrderForSupplier() { return
+	 * orderForSupplier; }
+	 * 
+	 * public void setOrderForSupplier(Collection<OrderForSupplier>
+	 * orderForSupplier) { this.orderForSupplier = orderForSupplier; }
+	 */
 	@OneToMany(mappedBy = "employee")
 	Collection<DivisionDetail> divisionDetails;
 

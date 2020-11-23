@@ -37,12 +37,10 @@ public class OrderController extends  BaseController {
             model.addAttribute("id", loggedInUser);
         }
 
-        List<Order> orderList =
-                (List<Order>) orderRepository.listoderbycus(customerId);
+        List<Order> orderList = (List<Order>) orderRepository.listoderbycus(customerId);
         model.addAttribute("listordercus", orderList);
         return "listordercus";
     }
-
 
    /* @RequestMapping(value = "/productbycustome")
     public String productbycustomer12(Model model, @RequestParam("customerId") String customerId , HttpServletRequest request) throws SQLException {

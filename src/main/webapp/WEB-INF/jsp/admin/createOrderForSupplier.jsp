@@ -64,6 +64,9 @@
 									<li>
 										<a id="orderForPrvider" href="#taborder2" data-toggle="tab">Đơn đã nhập hàng</a>
 									</li>
+									<li>
+										<a id="orderForPrvider" href="#taborder3" data-toggle="tab">Đơn đã hủy</a>
+									</li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="taborder1">
@@ -75,9 +78,11 @@
 															<th class="col-sm-2">Nhà cung cấp</th>
 															<th class="col-sm-2">Nhân viên lập</th>
 															<th class="col-sm-2">Ngày tạo</th>
+															<th class="col-sm-2">Tổng giá</th>
+															<th class="col-sm-1">Hủy Phiếu</th>
 															<th class="col-sm-1"></th>
 															<th class="col-sm-1"></th>
-															<!-- <th class="col-sm-1"></th> -->
+															<th class="col-sm-1"></th>
 														</tr>
 													</thead>
 													<tbody>
@@ -85,11 +90,24 @@
 															<tr>
 																<th class="col-sm-1">${item.id }</th>
 																<th class="col-sm-2">${item.supplier.name }</th>
-																<th class="col-sm-2">${item.employeeCreateOrder.FirstName}</th>
+																<th class="col-sm-2">${item.customer.fullname}</th>
 																<th class="col-sm-2">${item.createDate }</th>
-																<!-- <th class="col-sm-1">
-																	<a class="btn btn-primary" href="admin/addOrderForSupplierDetail">Thêm chi tiết</a>
-																</th> -->
+																<th class="col-sm-2">${item.totalPrice }</th>
+																<%-- <th class="col-sm-1">
+																	<a href="/admin/editOrderForSupply?id=${item.id }">
+                                    									<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    								</a>
+																</th>
+																<th class="col-sm-1">
+																	<a href="/deleteOrderForSupply/${item.id}">
+	                                    								<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    							</a>
+																</th> --%>
+																<th class="col-sm-1">
+																	<a href="/editStatusToCancel/${item.id}">
+	                                    								<img src="/resources/assets/img/icon/cancel.png " height="20" width="20">
+	                                    							</a>
+																</th>
 																<th class="col-sm-1">
 																	<a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
 																</th>
@@ -107,25 +125,80 @@
 											<thead>
 												<tr style="font-weight: bold;">
 													<th class="col-sm-1">Mã phiếu đặt</th>
-													<th class="col-sm-3">Nhà cung cấp</th>
-													<th class="col-sm-3">Nhân viên lập</th>
-													<th class="col-sm-3">Ngày tạo</th>
-													<th class="col-sm-3"></th>
+													<th class="col-sm-2">Nhà cung cấp</th>
+													<th class="col-sm-2">Nhân viên lập</th>
+													<th class="col-sm-2">Ngày tạo</th>
+													<th class="col-sm-2">Tổng giá</th>
+													<th class="col-sm-1"></th>
+													<th class="col-sm-1"></th>
+													<th class="col-sm-1"></th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="item" items="${listOrder}">
 													<tr>
-														<th class="col-sm-3">${item.id }</th>
-														<th class="col-sm-3">${item.supplier.name }</th>
-														<th class="col-sm-2">${item.employeeCreateOrder.FirstName }</th>
+														<th class="col-sm-1">${item.id }</th>
+														<th class="col-sm-2">${item.supplier.name }</th>
+														<th class="col-sm-2">${item.customer.fullname }</th>
 														<th class="col-sm-2">${item.createDate }</th>
-														<th class="col-sm-2"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
+														<th class="col-sm-2">${item.totalPrice }</th>
+														<!-- <th class="col-sm-1">
+															<a href="#}">
+                                    							<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    						</a>
+														</th>		
+														<th class="col-sm-1">
+															<a href="#">
+	                                    						<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    					</a>
+														</th> -->		
+														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 									</div>
+									
+									<div class="tab-pane fade" id="taborder3">
+										<h4>Đơn đã hủy</h4>
+										<table class="table table-striped table-hover">
+											<thead>
+												<tr style="font-weight: bold;">
+													<th class="col-sm-1">Mã phiếu đặt</th>
+													<th class="col-sm-2">Nhà cung cấp</th>
+													<th class="col-sm-2">Nhân viên lập</th>
+													<th class="col-sm-2">Ngày tạo</th>
+													<th class="col-sm-2">Tổng giá</th>
+													<th class="col-sm-1"></th>
+													<th class="col-sm-1"></th>
+													<th class="col-sm-1"></th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="item" items="${listOrder2}">
+													<tr>
+														<th class="col-sm-1">${item.id }</th>
+														<th class="col-sm-2">${item.supplier.name }</th>
+														<th class="col-sm-2">${item.customer.fullname }</th>
+														<th class="col-sm-2">${item.createDate }</th>
+														<th class="col-sm-2">${item.totalPrice }</th>
+														<!-- <th class="col-sm-1">
+															<a href="#}">
+                                    							<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
+                                    						</a>
+														</th>		
+														<th class="col-sm-1">
+															<a href="#">
+	                                    						<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
+	                                    					</a>
+														</th> -->		
+														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+									
 								</div>
 							</div>
 						</div>

@@ -9,4 +9,7 @@ public interface CustomersRepository extends CrudRepository<Customer, Integer> {
    
     @Query(value = "select * from customers where id = ?", nativeQuery = true)
     public Customer getCustomer(String id);
+    
+    @Query(value = "select fullname from customers where id = ?", nativeQuery = true)
+    public String getFullName(String id);
 }

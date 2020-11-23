@@ -3,7 +3,10 @@ package m07.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -14,6 +17,7 @@ import org.hibernate.annotations.Nationalized;
 @Table(name="Customers")
 public class Customer implements Serializable {
 	@Id
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	String id;
 	String password;
 	
@@ -54,7 +58,20 @@ public class Customer implements Serializable {
 	
 	@OneToMany(mappedBy = "customer")
 	Collection<Cmt_Cus> cmt_cus;
+
+	@OneToMany(mappedBy = "customer")
+	Collection<OrderForSupplier> orderForSupplier;
 	
+	@OneToMany(mappedBy = "customer")
+	Collection<Receiption> receiption;
+	
+	public Collection<OrderForSupplier> getOrderForSupplier() {
+		return orderForSupplier;
+	}
+
+	public void setOrderForSupplier(Collection<OrderForSupplier> orderForSupplier) {
+		this.orderForSupplier = orderForSupplier;
+	}
 	public Collection<Role> getRoles() {
 		return roles;
 	}
