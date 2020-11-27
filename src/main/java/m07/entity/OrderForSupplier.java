@@ -39,8 +39,9 @@ public class OrderForSupplier {
 	String status;		
 	
 	
-	@Column(unique=true) 
-	String receiptionId;
+	/*
+	 * @Column(unique=true) String receiptionId;
+	 */
 	 
 
 	/*
@@ -115,14 +116,7 @@ public class OrderForSupplier {
 		this.customer = customer;
 	}
 
-	public String getReceiptionId() {
-		return receiptionId;
-	}
-
-	public void setReceiptionId(String receiptionId) {
-		this.receiptionId = receiptionId;
-	}
-
+	
 	
 	@Override
 	public String toString() {

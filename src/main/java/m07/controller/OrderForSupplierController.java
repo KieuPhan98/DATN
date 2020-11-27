@@ -134,6 +134,8 @@ public class OrderForSupplierController {
 		Date date = new Date();
 		order.setCreateDate(date);
 
+		System.out.println(order.getCreateDate());
+		
 		order.getCustomer().setId(loginID);
 		// System.out.println(loginID);
 
@@ -329,6 +331,7 @@ public class OrderForSupplierController {
 
 	@RequestMapping(value = "deleteProductOrderForSupply/{id}", method = RequestMethod.GET)
 	public String deleteProductOrder(@PathVariable("id") int id, ModelMap model) {
+		
 		orderForSupplyDetailRepository.delete(id);
 		
 		// tinh sum don dat hang

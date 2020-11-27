@@ -3,8 +3,11 @@ package m07.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +34,7 @@ import m07.entity.ReceipDetail;
 import m07.entity.Receiption;
 import m07.repository.CustomersRepository;
 import m07.repository.OrderForSupplierRepository;
+import m07.repository.OrderForSupplyDetailRepository;
 import m07.repository.ProductRepository;
 import m07.repository.ReceiptionDetailRepository;
 import m07.repository.ReceiptionRepository;
@@ -38,58 +42,61 @@ import m07.repository.ReceiptionRepository;
 @Controller
 @RequestMapping(value = "/")
 public class ReceiptionController {
-	
+
 	private int item;
 	private String loginID;
-	
+
 	@Autowired
 	ReceiptionRepository receiptionRepository;
-	
+
 	@Autowired
 	ReceiptionDetailRepository receiptionDetailRepository;
-	
+
 	@Autowired
 	ProductRepository productRepository;
-	
+
 	@Autowired
 	OrderForSupplierRepository orderForSupplierRepository;
-	
+
 	@Autowired
 	CustomersRepository customersRepository;
-	
+
+	@Autowired
+	OrderForSupplyDetailRepository orderForSupplyDetailRepository;
+
 	@ModelAttribute("productList")
-    public List<Product> productList(Model model) {
-        List<Product> productList = (List<Product>) productRepository.findAll();
-        return productList;
-    }
-	
+	public List<Product> productList(Model model) {
+		List<Product> productList = (List<Product>) productRepository.findAll();
+		return productList;
+	}
+
 	@ModelAttribute("idOrderList")
-	public List<Integer> idOrderList(Model model){
+	public List<Integer> idOrderList(Model model) {
 		List<Integer> idOrderList = (List<Integer>) orderForSupplierRepository.idOrderList();
-		
+
 		return idOrderList;
 	}
-	
+
 	@RequestMapping(value = "/admin/importOrderFromSupplier", method = RequestMethod.GET)
-    public String importOrder(Model model) {
-		
+	public String importOrder(Model model) {
+
 		List<Receiption> listReceiption = (List<Receiption>) receiptionRepository.listReceiption();
 		model.addAttribute("listReceiption", listReceiption);
-		
-    	return "/admin/importReceiption";
-    }
-	
+
+		return "/admin/importReceiption";
+	}
+
 	@RequestMapping(value = "/admin/addReceiption")
 	public String addReceiption(Model model, HttpServletRequest request) {
-		
+
 		Receiption receip = new Receiption();
 		model.addAttribute("importReceiption", receip);
-		
+
 		HttpSession httpSession = request.getSession();
 		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl context = (SecurityContextImpl) s;
 		String loggedInUser = context.getAuthentication().getName();
-		
+
 		String name = customersRepository.getFullName(loggedInUser);
 
 		loginID = loggedInUser;
@@ -100,58 +107,85 @@ public class ReceiptionController {
 		String currentDateTime = dateFormatter.format(new Date());
 
 		model.addAttribute("dateNow", currentDateTime);
-		
-		//=============
-		/*
-		 * List<Integer> idOrderList1 = (List<Integer>)
-		 * orderForSupplierRepository.idOrderList(); List<String> intList = new
-		 * ArrayList<String>(); for(int item : idOrderList1) {
-		 * 
-		 * intList.add(String.valueOf(item)); //
-		 * System.out.println(Integer.valueOf(item)); }
-		 * 
-		 * for(String item : intList) {
-		 * 
-		 * System.out.println(item); } model.addAttribute("intList", intList);
-		 */
-		//===========
 
 		return "admin/addReceiption";
 	}
-	
+
 	@RequestMapping(value = "/admin/addReceiption", method = RequestMethod.POST)
-	public String addReceiption(Model model, @ModelAttribute("receip") Receiption receip, BindingResult bindingResult) {
+	public String addReceiption(Model model, @ModelAttribute("receip") Receiption receip, BindingResult bindingResult,
+			HttpServletRequest request) {
 		Date date = new Date();
 		receip.setCreateDate(date);
-		
+
 		receip.getCustomer().setId(loginID);
-		
+
 		System.out.println(receip.getOrderForSupplierId());
+		
+		Receiption receiption = receiptionRepository.save(receip);
 		
 		int id = Integer.valueOf(receip.getOrderForSupplierId());
 		OrderForSupplier order = orderForSupplierRepository.findOne(id);
 		order.setStatus("da nhap hang");
 		
+		/*
+		 * String receipID = String.valueOf(receip.getId());
+		 * order.setReceiptionId(receipID);
+		 */
+
 		OrderForSupplier order1 = orderForSupplierRepository.save(order);
-		Receiption receiption = receiptionRepository.save(receip);
 		
+		List<OrderForSuplierDetail> listDetail = (List<OrderForSuplierDetail>) orderForSupplyDetailRepository
+				.listOrderForSupplyDetail(id);
+
+		System.out.println("receipID: " + receip.getId());
+		for (OrderForSuplierDetail i : listDetail) {
+
+			System.out.println("id orderdetail: " + i.getId());
+			System.out.println("id product: " + i.getProducts().getId());
+			System.out.println("quantity: " + i.getQuantity());
+			System.out.println("unitPrice: " + i.getUnitPrice());
+			System.out.println("===========");
+		}
+
 		return "redirect:/admin/importOrderFromSupplier";
 	}
-	
-	
-	//============================ RECEIPTION DETAIL ===================================
+
+	@RequestMapping(value = "/admin/addReceiptionFromFile")
+	public String addReceiptionFromFile(Model model, HttpServletRequest request) {
+		Receiption receip = new Receiption();
+		model.addAttribute("importReceiption", receip);
+
+		HttpSession httpSession = request.getSession();
+		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
+		SecurityContextImpl context = (SecurityContextImpl) s;
+		String loggedInUser = context.getAuthentication().getName();
+
+		String name = customersRepository.getFullName(loggedInUser);
+
+		loginID = loggedInUser;
+		System.out.println(name);
+		model.addAttribute("FullName", name);
+
+		DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		model.addAttribute("dateNow", currentDateTime);
+
+		return "admin/addReceiptionFromFile";
+	}
+
+	// ============================ RECEIPTION DETAIL // ===================================
 	
 	@RequestMapping(value = "/admin/receiptionDetail", method = RequestMethod.GET)
-    public String detailReceiption(@RequestParam("id") Integer id,ModelMap model)
-    {
+	public String detailReceiption(@RequestParam("id") Integer id, ModelMap model) {
 		item = id;
 		List<ReceipDetail> listDetail = (List<ReceipDetail>) receiptionDetailRepository.listReceipDetail(id);
-        model.addAttribute("detail", listDetail);
-        
-        //System.out.println("chi tiet phieu nhap: " + listDetail.toString());
-        return "/admin/receiptionDetail";
-    }
-	
+		model.addAttribute("detail", listDetail);
+
+		// System.out.println("chi tiet phieu nhap: " + listDetail.toString());
+		return "/admin/receiptionDetail";
+	}
+
 	@RequestMapping(value = "admin/admin/addReceiptionDetail")
 	public String addProduct(Model model) {
 		
@@ -161,24 +195,40 @@ public class ReceiptionController {
 		model.addAttribute("product", orderDetail);
 
 		System.out.println(item);
-		// truyen list product thuoc 1 nha cung cap
+		// truyen list product thuoc 1 phieu dat
 		Receiption receip = receiptionRepository.findOne(item);
 		
 		int id = Integer.valueOf(receip.getOrderForSupplierId());
 		OrderForSupplier order = orderForSupplierRepository.findOne(id);
-		List<Product> productList = (List<Product>) productRepository.listproductBysupper(order.getSupplier().getId());
-		model.addAttribute("productList1", productList);
+
+		List<OrderForSuplierDetail> listOrderDetail = orderForSupplyDetailRepository
+				.listOrderForSupplyDetail(order.getId());
+		List<Product> list = new ArrayList<>();
+
+		for (OrderForSuplierDetail i : listOrderDetail) {
+			System.out.println("them sp vao list");
+			Product prod = productRepository.findOne(i.getProducts().getId());
+			list.add(prod);
+		}
+
+		for (Product p : list) {
+			System.out.println("ma sp trong list");
+			System.out.println(p.getName());
+		}
+		model.addAttribute("list", list);
 
 		return "admin/addReceiptionDetail";
 	}
 	
 	  @RequestMapping(value = "admin/addReceiptionDetail", method = RequestMethod.POST)
-		public String addProduct(@Validated @ModelAttribute("product") ReceipDetail product, ModelMap model,
+		public String addProduct(@Validated @ModelAttribute("product") ReceipDetail detial, ModelMap model,
 				BindingResult bindingResult) {
 
-			int receipID = product.getReceiption().getId();
-			int productID = product.getProducts().getId();
-			int quantity = product.getQuantity();
+			int receipID = detial.getReceiption().getId();
+			int productID = detial.getProducts().getId();
+			int quantity = detial.getQuantity();
+			double price = detial.getUnitPrice();
+			double sellPrice = detial.getSellPrice();
 
 			System.out.println(receipID + " ID RECEIP");
 			System.out.println(productID + " ID PRODUCT");
@@ -192,13 +242,35 @@ public class ReceiptionController {
 
 				ReceipDetail receipDetail = receiptionDetailRepository.findOne(id);
 
-				product.setQuantity(quantity + receipDetail.getQuantity());
-				product.setId(id);
+				detial.setQuantity(quantity + receipDetail.getQuantity());
+				detial.setId(id);
 			}
-
 			
-			ReceipDetail c = receiptionDetailRepository.save(product);
+			ReceipDetail c = receiptionDetailRepository.save(detial);
+			
+			Product product = productRepository.findOne(productID);
+			
+			int old_quantity = product.getQuantity();
+			product.setQuantity(quantity + old_quantity);
+			product.setUnitPrice(sellPrice);
+			
+			System.out.println("old quantity: " + old_quantity);
+			
+			productRepository.save(product);
+			System.out.println("sum quantity: " + product.getQuantity());
 
+			//tinh sum don nhap hang
+			List<ReceipDetail> lisReceip = receiptionDetailRepository.listReceipDetail(receipID);
+			double sum = 0;
+			for(ReceipDetail detail : lisReceip) {
+				sum += detail.getQuantity() * detail.getUnitPrice();
+			}
+			System.out.println("sum: " + sum);
+			Receiption receip = receiptionRepository.findOne(receipID);
+			receip.setTotalPrice(sum);
+			receiptionRepository.save(receip);
+			//===============
+			
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("message", "that bai");
 				return "/admin/addReceiptionDetail";
@@ -213,30 +285,83 @@ public class ReceiptionController {
 	
 	@RequestMapping(value = "/admin/editProductReceiption", method = RequestMethod.GET)
 	public String editProduct(@RequestParam("id") int id, ModelMap model) {
-		model.addAttribute("product", receiptionDetailRepository.findOne(id));
+		
+		ReceipDetail receipDetail = receiptionDetailRepository.findOne(id);
+		model.addAttribute("product", receipDetail);
+		
+		Product prod = productRepository.findOne(receipDetail.getProducts().getId());
+		prod.setQuantity(prod.getQuantity() - receipDetail.getQuantity());
+		
+		productRepository.save(prod);
 		return "admin/editProductReceiption";
 	}
-	
+
 	@RequestMapping(value = "/admin/editProductReceiption", method = RequestMethod.POST)
-    public String editProduct(@ModelAttribute("editDetail") ReceipDetail detail, Model model, RedirectAttributes rs) {
+	public String editProduct(@ModelAttribute("editDetail") ReceipDetail detail, Model model, RedirectAttributes rs) {
+		
 		ReceipDetail cs = receiptionDetailRepository.save(detail);
-        if (null != cs) {
-            model.addAttribute("message", "Update success");
-            model.addAttribute("editDetail", receiptionDetailRepository.findOne(cs.getId()));
-        } else {
-            model.addAttribute("message", "Update failure");
-            model.addAttribute("editDetail", detail);
-        }
-        String url = "redirect:/admin/receiptionDetail?id=" + item;
-        
-		return url; 
-    }
-	
+		
+		System.out.println(detail.getId());
+		System.out.println(detail.getProducts().getId());
+		System.out.println(detail.getQuantity());
+		System.out.println(detail.getUnitPrice());
+		
+		Product prod = productRepository.findOne(detail.getProducts().getId());
+		prod.setQuantity(prod.getQuantity() + detail.getQuantity());
+		prod.setUnitPrice(detail.getSellPrice());
+		
+		productRepository.save(prod);
+		
+		//tinh sum don nhap hang
+		List<ReceipDetail> lisReceip = receiptionDetailRepository.listReceipDetail(detail.getReceiption().getId());
+		double sum = 0;
+		for(ReceipDetail details : lisReceip) {
+			sum += details.getQuantity() * details.getUnitPrice();
+		}
+		System.out.println("sum: " + sum);
+		Receiption receip = receiptionRepository.findOne(detail.getReceiption().getId());
+		receip.setTotalPrice(sum);
+		receiptionRepository.save(receip);
+		//===============
+		
+		if (null != cs) {
+			model.addAttribute("message", "Update success");
+			model.addAttribute("editDetail", receiptionDetailRepository.findOne(cs.getId()));
+		} else {
+			model.addAttribute("message", "Update failure");
+			model.addAttribute("editDetail", detail);
+		}
+		String url = "redirect:/admin/receiptionDetail?id=" + item;
+
+		return url;
+	}
+
 	@RequestMapping(value = "deleteProductReceiption/{id}", method = RequestMethod.GET)
 	public String deleteProduct(@PathVariable("id") int id, ModelMap model) {
+		
+		ReceipDetail detail = receiptionDetailRepository.findOne(id);
+		
+		Product prod = productRepository.findOne(detail.getProducts().getId());
+		prod.setQuantity(prod.getQuantity() - detail.getQuantity());
+		
+		productRepository.save(prod);
+		
 		receiptionDetailRepository.delete(id);
+		
+		// tinh sum don nhap hang
+		List<ReceipDetail> lisReceip = receiptionDetailRepository.listReceipDetail(detail.getReceiption().getId());
+		double sum = 0;
+		for (ReceipDetail details : lisReceip) {
+			sum += details.getQuantity() * details.getUnitPrice();
+		}
+		System.out.println("sum: " + sum);
+		Receiption receip = receiptionRepository.findOne(detail.getReceiption().getId());
+		receip.setTotalPrice(sum);
+		receiptionRepository.save(receip);
+		// ===============
+
 		String url = "redirect:/admin/receiptionDetail?id=" + item;
-        
-		return url; 
+
+		return url;
 	}
 }

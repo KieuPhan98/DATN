@@ -48,7 +48,7 @@
                     <div class="content">
                         ${message}
                             <form:form action="/admin/editProductReceiption" method="post" modelAttribute="product">
-                            <div class="row">
+                            <div class="row" style="display: none;">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Mã chi tiết phiếu nhập</label>
@@ -64,6 +64,15 @@
                                 </div>                                                        
                             </div>
 
+							<div class="row">                               
+                                <div class="col-md-12">
+                                        <label>Sản Phẩm</label>
+                                        <form:select items="${productList}" itemLabel="name"
+                                                     itemValue="id" path="products.id" class="form-control" readOnly="true">
+                                        </form:select>
+                                </div>                               
+                            </div> 
+                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -80,14 +89,6 @@
                                 </div>                                                             
                             </div>
                             
-                            <div class="row">                               
-                                <div class="col-md-12">
-                                        <label>Sản Phẩm</label>
-                                        <form:select items="${productList}" itemLabel="name"
-                                                     itemValue="id" path="products.id" class="form-control">
-                                        </form:select>
-                                </div>                               
-                            </div>                      
                             <button type="submit" class="btn btn-info btn-fill pull-right">Cập nhật</button>
                             <div class="clearfix"></div>
                         </form:form>

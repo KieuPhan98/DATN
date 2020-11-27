@@ -53,8 +53,10 @@
 							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
 								<a href="/admin/addReceiption" style="color: white" >+ Tạo Phiếu Nhập</a>
 							</button>	
-							<label style = "margin:20px">Import file Excel <input id="test" type="file"></label>		
-							<a class="btn btn-info btn-fill pull-right" style = "margin:20px" href="/admin/createOrderForSupplier">Đơn đặt hàng đến nhà cung cấp</a>			
+							
+							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
+								<a href="/admin/addReceiptionFromFile" style="color: white" >Import File Excel</a>
+							</button>
 						</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -69,8 +71,7 @@
 										<th class="col-sm-2">Ngày lập phiếu</th>
 										<th class="col-sm-2">Tổng tiền</th>
 										<th class="col-sm-1"></th>
-										<th class="col-sm-1"></th>
-										<th class="col-sm-1"></th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -82,16 +83,6 @@
 										<%-- <th class="col-sm-2">${item.orderForSupplier.supplier.name }</th> --%>
 										<th class="col-sm-2">${item.createDate }</th>
 										<th class="col-sm-2">${item.totalPrice}</th>
-										<th class="col-sm-1">
-											<a href="/admin/editOrderForSupply?id=${item.id }">
-                                    			<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
-                                    		</a>
-										</th>
-										<th class="col-sm-1">
-											<a href="/deleteOrderForSupply/${item.id}">
-	                                    		<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
-	                                    	</a>
-										</th>							
 										<th class="col-sm-1">
 											<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a>
 										</th>

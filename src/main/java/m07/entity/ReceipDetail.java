@@ -17,6 +17,8 @@ public class ReceipDetail {
 	int quantity;
 	Double unitPrice;
 	
+	Double sellPrice;
+	
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	Product products;
@@ -66,6 +68,14 @@ public class ReceipDetail {
 		this.unitPrice = unitPrice;
 	}
 	
+	public Double getSellPrice() {
+		return sellPrice;
+	}
+
+	public void setSellPrice(Double sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "ReceipDetail [id=" + id + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", products="

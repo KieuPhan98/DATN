@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -45,10 +46,10 @@ public class Product implements Serializable {
 	@JoinColumn(name="supplierId")
 	Supplier supplier;
 	
-	@OneToMany(mappedBy="product")
+	@OneToMany(mappedBy="product", fetch = FetchType.EAGER)
 	Collection<OrderDetail> orderDetails;
 	
-	@OneToMany(mappedBy = "products")
+	@OneToMany(mappedBy = "products" )
 	Collection<ReceipDetail> receipDetail;
 	
 	@OneToMany(mappedBy = "products")

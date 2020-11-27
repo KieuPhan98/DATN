@@ -1,6 +1,7 @@
 package m07.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,16 +17,14 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import m07.entity.OrderForSuplierDetail;
-
-public class OrderExcelExport {
+public class ExportExcelTonKho {
 
 	private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<OrderForSuplierDetail> listOrders;
+    private List<Object[]> listTK;
     
-    public OrderExcelExport(List<OrderForSuplierDetail> listOrders) {
-        this.listOrders = listOrders;
+    public ExportExcelTonKho(List<Object[]> listTK) {
+        this.listTK = listTK;
         workbook = new XSSFWorkbook();
     }
     
@@ -41,16 +40,19 @@ public class OrderExcelExport {
         else if (value instanceof Double) {
             cell.setCellValue((Double) value);
         }
+        else if (value instanceof BigDecimal) {
+            cell.setCellValue(value.toString());
+        }
         else {
             cell.setCellValue((String) value);
         }
         cell.setCellStyle(style);
     }
     
-    private void writeHeaderLine(){
-        sheet = workbook.createSheet("OrderForSupplier");
+    private void writeHeaderLine(String name){
+        sheet = workbook.createSheet("Thống Kê Tồn Kho");
          
-        Row row = sheet.createRow(10);
+        Row row = sheet.createRow(7);
          
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -61,72 +63,51 @@ public class OrderExcelExport {
         createCell(row, 0, "STT", style);      
         createCell(row, 1, "Mã Sản Phẩm", style);       
         createCell(row, 2, "Tên Sản Phẩm", style);    
-        createCell(row, 3, "Đơn Vị Tính", style);
-        createCell(row, 4, "Số Lượng", style);
-        createCell(row, 5, "Đơn Giá", style);
-        createCell(row, 6, "Thành Tiền", style);
+        createCell(row, 3, "Tổng Số Lượng Nhập", style);
+        createCell(row, 4, "Tổng Số Lượng Xuất", style);
+        createCell(row, 5, "Số Lượng Tồn", style);
         
         Row row0 = sheet.createRow(0);
         createCell(row0, 0, "SHOP MỸ PHẨM YUMI", style);
         
-        Row row1 = sheet.createRow(1);
-        createCell(row1, 0, "Địa chỉ: 97, Man Thiện, P.Hiệp Phú, Quận 9, TP.HCM", style);
-        
         Row row2 = sheet.createRow(2);
-        createCell(row2, 0, "SĐT: 0335998119", style);
-        
-        Row row4 = sheet.createRow(4);
-        createCell(row4, 2, "PHIẾU ĐẶT HÀNG", style);
+        createCell(row2, 2, "THỐNG KÊ TỒN KHO", style);
         
         DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDateTime = dateFormatter.format(new Date());
-        Row row6 = sheet.createRow(6);
-        createCell(row6, 0, "Ngày Lập Phiếu: ", style);
-        createCell(row6, 1, currentDateTime, style);
         
-		/*
-		 * Row row7 = sheet.createRow(7); createCell(row7, 0, "Nha Cung Cap: ", style);
-		 */
+        Row row4 = sheet.createRow(4);
+        createCell(row4, 0, "Ngày Tạo: ", style);
+        createCell(row4, 1, currentDateTime, style);
+        
+        Row row5 = sheet.createRow(5);
+        createCell(row5, 0, "Người Tạo: ", style);
+        createCell(row5, 1, name, style);
     }
     
     private void writeDataLines() {
-        int rowCount = 11;
+        int rowCount = 8;
         int stt;
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
         style.setFont(font);
         
-        Row row7 = sheet.createRow(7);
-        createCell(row7, 0, "Nhà Cung Cấp: ", style);
-        //createCell(row7, 1, listOrders[0].getOrderForSupplier().getSupplier().getName(), style);
-        
-        int sum = 0;
-        int dem = 0;
-        for (OrderForSuplierDetail order : listOrders) {
+        for (Object[] item : listTK) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            stt = rowCount - 11;
+            stt = rowCount - 8;
             createCell(row, columnCount++, stt, style);
-            createCell(row, columnCount++, order.getProducts().getId(), style);
-            createCell(row, columnCount++, order.getProducts().getName(), style);
-            createCell(row, columnCount++, order.getProducts().getUnitBrief(), style);
-            createCell(row, columnCount++, order.getQuantity(), style);
-            createCell(row, columnCount++, order.getUnitPrice(), style);
-            createCell(row, columnCount++, order.getQuantity() * order.getUnitPrice(), style);
-            
-            sum += order.getQuantity() * order.getUnitPrice();
-            dem = rowCount;
-            
-            createCell(row7, 1, order.getOrderForSupplier().getSupplier().getName(), style);
+            createCell(row, columnCount++, item[1], style);
+            createCell(row, columnCount++, item[2], style);
+            createCell(row, columnCount++, item[3], style);
+            createCell(row, columnCount++, item[4], style);
+            createCell(row, columnCount++, item[5], style);
         }
-        Row row = sheet.createRow(dem);
-        createCell(row, 5, "Tổng Tiền: ", style);
-        createCell(row, 6, sum, style);
     }
      
-    public void export(HttpServletResponse response) throws IOException {
-        writeHeaderLine();
+    public void export(HttpServletResponse response, String name) throws IOException {
+        writeHeaderLine(name);
         writeDataLines();
          
         ServletOutputStream outputStream = response.getOutputStream();

@@ -131,12 +131,12 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group" style="display:none">
+                                <%-- <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>shipperId</label>                                         
-                                        <form:input type="text" path="shipperId" class="form-control" required="true"></form:input>
+                                        <form:select items="${listShipper}" path="shipperId" class="form-control"></form:select>
                                     </div>
-                                </div>
+                                </div> --%>
                                 
                                 <%-- <div class="col-md-6">
                                     <div class="form-group" style="display:none">

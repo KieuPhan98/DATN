@@ -24,10 +24,13 @@ public class OrderDetail implements Serializable {
 	@GeneratedValue
 	Integer id;
 	Integer quantity;
-	@Column(name = "status", nullable = false)
-	@Nationalized 
-	private String status;
+	/*
+	 * @Column(name = "status", nullable = false)
+	 * 
+	 * @Nationalized private String status;
+	 */
 	Integer re_quantity;
+	Double unitPrice;
 	
 	int returns_id;
 	public Integer getRe_quantity() {
@@ -38,13 +41,7 @@ public class OrderDetail implements Serializable {
 		this.re_quantity = re_quantity;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	@ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.DETACH)
 //	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="orderId")
@@ -86,5 +83,22 @@ public class OrderDetail implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	public Double getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Double unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public int getReturns_id() {
+		return returns_id;
+	}
+
+	public void setReturns_id(int returns_id) {
+		this.returns_id = returns_id;
+	}
+	
 	
 }

@@ -59,27 +59,6 @@
                     </ul>
                 </li>
                 
-                <!-- <li>
-                    <a href="/admin/listSupplier">
-                        <i class="pe-7s-plus"></i>
-                        <p>NHÀ CUNG CẤP</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/listCategory">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>LOẠI SẢN PHẨM</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/listproduct">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>SẢN PHẨM</p>
-                    </a>
-                </li> -->
-                
                 <li>
                     <a href="#">
                         <i class="pe-7s-diskette"></i>
@@ -114,33 +93,6 @@
                     </ul>
                 </li>
                 
-                <!-- <li>
-                    <a href="/admin/orderNew">
-                        <i class="pe-7s-diskette"></i>
-                        <p>ĐƠN HÀNG MỚI</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/orderShipping">
-                        <i class="pe-7s-paper-plane"></i>
-                        <p>ĐƠN HÀNG ĐANG GIAO</p>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/admin/orderFinish">
-                        <i class="pe-7s-check"></i>
-                        <p>ĐƠN HÀNG HOÀN TẤT</p>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/admin/orderCancel">
-                        <i class="pe-7s-junk"></i>
-                        <p>ĐƠN HÀNG ĐÃ HỦY</p>
-                    </a>
-                </li> -->
                 
                  <li>
                     <a href="/admin/createOrderForSupplier">
@@ -164,19 +116,19 @@
                     
                     <ul>
                     	<li>
-		                    <a href="/admin/reportmonth">
+		                    <a href="/admin/reportDoanhThu">
 		                        <p>DOANH THU</p>
 		                    </a>
                 		</li>
                 		
                 		<li>
-		                    <a href="#h">
+		                    <a href="/admin/reportLoiNhuan">
 		                        <p>LỢI NHUẬN</p>
 		                    </a>
                 		</li>
                 		
                 		<li>
-		                    <a href="#">
+		                    <a href="/admin/reportTonKho">
 		                        <p>TỒN KHO</p>
 		                    </a>
                 		</li>

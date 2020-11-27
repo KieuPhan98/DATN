@@ -49,7 +49,7 @@
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <label>Tên Sản Phẩm</label>
-                                        <form:select items="${productList1}" itemLabel="name"
+                                        <form:select items="${list}" itemLabel="name"
                                                      itemValue="id" path="products.id" class="form-control">
                                         </form:select>
                                     </div>
@@ -64,16 +64,22 @@
                             </div>
 							
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-4">
                                     <div class="form-group">
                                         <label>Số lượng đặt</label>
                                         <form:input type="number" path="quantity" class="form-control" min="1" required="true"></form:input>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Đơn Giá</label>
+                                        <label>Đơn Giá Nhập</label>
                                         <form:input path="unitPrice" class="form-control" required="true"></form:input>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Đơn Giá Bán</label>
+                                        <form:input path="sellPrice" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
 							</div>

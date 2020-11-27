@@ -179,12 +179,13 @@ public class CartController extends BaseController   {
                     productRepository.findOne(cartItem.getProduct().getId());
             System.out.println("quantity "+product.getQuantity() );
             orderDetail.setQuantity(cartItem.getQuantity());
+            orderDetail.setUnitPrice(cartItem.getProduct().getUnitPrice());
             orderDetail.setProduct(cartItem.getProduct());
             orderDetail.setOrder(order);
             double price = cartItem.getQuantity() * cartItem.getProduct().getUnitPrice();
             totalPrice += price;
            /* orderDetail.setTotalPrice(price);*/
-            orderDetail.setStatus("Chờ xác nhận");
+            //orderDetail.setStatus("Chờ xác nhận");
             
             product.setQuantity(product.getQuantity()-cartItem.getQuantity());
             

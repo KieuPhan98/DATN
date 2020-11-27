@@ -93,16 +93,6 @@
 																<th class="col-sm-2">${item.customer.fullname}</th>
 																<th class="col-sm-2">${item.createDate }</th>
 																<th class="col-sm-2">${item.totalPrice }</th>
-																<%-- <th class="col-sm-1">
-																	<a href="/admin/editOrderForSupply?id=${item.id }">
-                                    									<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
-                                    								</a>
-																</th>
-																<th class="col-sm-1">
-																	<a href="/deleteOrderForSupply/${item.id}">
-	                                    								<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
-	                                    							</a>
-																</th> --%>
 																<th class="col-sm-1">
 																	<a href="/editStatusToCancel/${item.id}">
 	                                    								<img src="/resources/assets/img/icon/cancel.png " height="20" width="20">

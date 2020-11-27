@@ -34,7 +34,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">THÊM PHIẾU NHẬP</h4>
@@ -52,14 +52,14 @@
                                 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Người tạo</label>
+                                        <label>Người tạo phiếu nhập</label>
                                         <form:input type = "text" path="customer.id" class="form-control" required = "true" value = "${FullName}" readonly="true"></form:input>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Ngày đặt</label>                                           
+                                        <label>Ngày lập phiếu nhập</label>                                           
                                         <form:input type = "text" path="createDate" class="form-control" required="true" value = "${dateNow }" readonly="true"></form:input>  
                                     </div>
                                 </div> 
@@ -72,6 +72,11 @@
                     </div> 
                 </div>
             </div>
+            
+            <div class="col-md-12">
+            </div>
+            
+            
         </div>
     </div>
 </div>

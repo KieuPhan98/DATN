@@ -62,9 +62,6 @@
 									<th>Số điện thoại</th>
 									<th>Địa chỉ</th>
 									<th>Tổng tiền</th>
-									<!-- <th>Nhân viên giao</th>  -->
-									<th></th>
-									<!-- <th></th> -->
 								</thead>
 								<tbody>
 									<c:forEach items="${orders}" var="orders">
@@ -76,23 +73,6 @@
 											<td>${orders.phone}</td>
 											<td>${orders.address} - ${orders.district}</td>
 											<td>${orders.totalPrice}</td>
-											<%-- <td>
-												<form:select itemValue="shipperId" path="shipperId" class="form-control">
-													<c:forEach items = "${orders}" var = "employ">
-														<form:option value=${employ.shipperId}>${employ.receiver}</form:option>
-													</c:forEach>					
-													<form:option value="${employ.shipperId}">${employ.id}</form:option>
-													<form:option value="${employ.shipperId}">${employ.id}</form:option>																				
-												</form:select>											
-											</td> --%>
-											
-											<%-- <td>
-												<button class="btn btn-info btn-fill pull-right">
-													<a href="/admin/editorder?id=${orders.id}"
-														style="color: white">HỦY</a>
-												</button>
-											</td>  --%>
-											
 											<td>
 												<button class="btn btn-info btn-fill pull-right">
 													<a href="/admin/updateStatusToShipping?id=${orders.id}"
