@@ -1,6 +1,4 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="select" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -29,60 +27,65 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
-    <script src=/resources/assets/js/jquery.validate.min.js"></script>
-
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">THÊM CHI TIẾT PHIẾU NHẬP</h4>
+                        <h4 class="title">THÊM PHIẾU NHẬP</h4>
                     </div>
-                    <div class="content">
-                        ${message}
-                        <form:form action="/admin/addReceiptionDetail" method="post" modelAttribute="product">
-                            <div class="row">
-                                <div class="col-md-10">
+                   <div class="content">
+                   ${message}
+                        <form:form action="/admin/import" method="post" enctype="multipart/form-data" modelAttribute="receip">
+                             <%-- <div class="row">
+                                <div class="col-md-5">
                                     <div class="form-group">
-                                        <label>Tên Sản Phẩm</label>
-                                        <form:select items="${list}" itemLabel="name"
-                                                     itemValue="id" path="products.id" class="form-control">
-                                        </form:select>
+                                        <label>Người tạo</label>
+                                        <form:input type = "text" path="customer.id" class="form-control" required = "true" value = "${FullName}" readonly="true"></form:input>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-2" style = "display: none">
+                                <div class="col-md-5">
                                     <div class="form-group">
-                                        <label>Mã Phiếu Nhập</label>
-                                        <form:input path="receiption.id" class="form-control" required="true" value="${product1 }" readonly="true"></form:input>
+                                        <label>Ngày lập phiếu nhập</label>                                           
+                                        <form:input type = "text" path="createDate" class="form-control" required="true" value = "${dateNow }" readonly="true"></form:input>  
+                                    </div>
+                                </div> 
+                            </div>  --%>
+                            
+                            <div class = "row">
+                            	 <%-- <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Mã Phiếu Đặt</label>                            
+                                        <form:select items="${idOrderList}" path="orderForSupplierId" class="form-control"></form:select>
+	                                    </div>
+                                </div> --%>
+                                 
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Import file Excel</label>
+                                        <input name="file" type="file" class="form-control" required="true">
                                     </div>
                                 </div>
                             </div>
-							
-							<div class="row">
-								<div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Số lượng đặt</label>
-                                        <form:input type="number" path="quantity" class="form-control" min="1" required="true"></form:input>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Đơn Giá Nhập</label>
-                                        <form:input path="unitPrice" class="form-control" required="true"></form:input>
-                                    </div>
+
+							<div class = "row">
+								<div class="col-md-5">
+                                    <button type="submit" class="btn btn-info btn-fill pull-right" >Thêm</button>
+                            		<div class="clearfix"></div>
                                 </div>
 							</div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">THÊM</button>
-                            <div class="clearfix"></div>
+							
                         </form:form>
-                    </div>
+                    </div> 
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
@@ -91,6 +94,7 @@
 
 </div>
 </div>
+
 </body>
 
 <!--   Core JS Files   -->
@@ -119,7 +123,7 @@
 
         $.notify({
             icon: 'pe-7s-gift',
-            message: "Chào Mừng Bạn <b>Đến Với Trang Thống Kê</b> Chúc cửa hàng bạn luôn thành công."
+            message: "Chào Mừng Bạn đến với trang Admin"
 
         }, {
             type: 'info',

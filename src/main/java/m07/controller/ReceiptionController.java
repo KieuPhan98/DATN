@@ -1,5 +1,10 @@
 package m07.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,10 +14,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.html.FormSubmitEvent.MethodType;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
@@ -25,6 +32,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import m07.entity.OrderForSuplierDetail;
@@ -32,6 +41,7 @@ import m07.entity.OrderForSupplier;
 import m07.entity.Product;
 import m07.entity.ReceipDetail;
 import m07.entity.Receiption;
+import m07.entity.ViewReceiptionDetail;
 import m07.repository.CustomersRepository;
 import m07.repository.OrderForSupplierRepository;
 import m07.repository.OrderForSupplyDetailRepository;
@@ -41,10 +51,18 @@ import m07.repository.ReceiptionRepository;
 
 @Controller
 @RequestMapping(value = "/")
-public class ReceiptionController {
+public class ReceiptionController implements ServletContextAware{
 
 	private int item;
 	private String loginID;
+
+	public int getItem() {
+		return item;
+	}
+
+	public void setItem(int item) {
+		this.item = item;
+	}
 
 	@Autowired
 	ReceiptionRepository receiptionRepository;
@@ -126,54 +144,91 @@ public class ReceiptionController {
 		int id = Integer.valueOf(receip.getOrderForSupplierId());
 		OrderForSupplier order = orderForSupplierRepository.findOne(id);
 		order.setStatus("da nhap hang");
-		
-		/*
-		 * String receipID = String.valueOf(receip.getId());
-		 * order.setReceiptionId(receipID);
-		 */
 
 		OrderForSupplier order1 = orderForSupplierRepository.save(order);
 		
-		List<OrderForSuplierDetail> listDetail = (List<OrderForSuplierDetail>) orderForSupplyDetailRepository
-				.listOrderForSupplyDetail(id);
-
-		System.out.println("receipID: " + receip.getId());
-		for (OrderForSuplierDetail i : listDetail) {
-
-			System.out.println("id orderdetail: " + i.getId());
-			System.out.println("id product: " + i.getProducts().getId());
-			System.out.println("quantity: " + i.getQuantity());
-			System.out.println("unitPrice: " + i.getUnitPrice());
-			System.out.println("===========");
-		}
-
 		return "redirect:/admin/importOrderFromSupplier";
 	}
 
-	@RequestMapping(value = "/admin/addReceiptionFromFile")
-	public String addReceiptionFromFile(Model model, HttpServletRequest request) {
-		Receiption receip = new Receiption();
-		model.addAttribute("importReceiption", receip);
+	
+	//================================ IMPORT RECEIPTION =================================
+	
+private ServletContext servletContext;
+	private int idR;
+	@RequestMapping(value = "/admin/importR", method = RequestMethod.GET)
+	public String index(Model model, HttpServletRequest request, @RequestParam("id") Integer id) {
+		idR = id;
+		return "admin/testImport";
+	}
+	
+	@RequestMapping(value = "/admin/import", method = RequestMethod.POST)
+	public String process(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException{
+		
+		String fileName = uploadExcelFile(file);
+		System.out.println("fileName: " + fileName);
+		
+		String excelPath = servletContext.getRealPath("/resources/fileEcxels/" + fileName);
+		System.out.println("excelPath: " + excelPath);
+		
+		// doc file excel
+		ArrayList<ViewReceiptionDetail> listview = new ArrayList<ViewReceiptionDetail>();
+		
+		ReceiptionExcelImport receiptionExcelImport = new ReceiptionExcelImport();
+        ReceiptionExcelImport.ReadFile(excelPath, listview);
+        
+        System.out.println("danh sach receipdetail");
+        double sum = 0;
+        for(ViewReceiptionDetail i : listview) {
+        	
+			ReceipDetail rd = new ReceipDetail();
 
-		HttpSession httpSession = request.getSession();
-		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
-		SecurityContextImpl context = (SecurityContextImpl) s;
-		String loggedInUser = context.getAuthentication().getName();
+			System.out.println("id product: " + i.getIdSp());
+			// tang so luong sp
+			Product prod = productRepository.findOne(i.getIdSp());
+			prod.setQuantity(prod.getQuantity() + i.getSoluong());
+			prod.setUnitPrice(i.getDongia() + 50);
+			prod = productRepository.save(prod);
+			
+			rd.setProducts(prod);
 
-		String name = customersRepository.getFullName(loggedInUser);
+			System.out.println("don gia: " + i.getDongia());
+			rd.setUnitPrice(i.getDongia());
 
-		loginID = loggedInUser;
-		System.out.println(name);
-		model.addAttribute("FullName", name);
-
-		DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-		String currentDateTime = dateFormatter.format(new Date());
-
-		model.addAttribute("dateNow", currentDateTime);
-
-		return "admin/addReceiptionFromFile";
+			System.out.println("so luong: " + i.getSoluong());
+			rd.setQuantity(i.getSoluong());
+			
+			sum += i.getDongia() * i.getSoluong();
+			System.out.println("tong: " + sum);
+			
+			System.out.println("id receiption: " + idR);
+			Receiption r = receiptionRepository.findOne(idR);
+			r.setTotalPrice(sum);
+			r = receiptionRepository.save(r);
+			rd.setReceiption(r);
+			
+			System.out.println("===================");
+			rd = receiptionDetailRepository.save(rd);
+        }
+        
+		return "redirect:/admin/importOrderFromSupplier";
 	}
 
+	private String uploadExcelFile(MultipartFile multipartFile) {
+		try {
+			byte []bytes = multipartFile.getBytes();
+			Path path = Paths.get(servletContext.getRealPath("/resources/fileEcxels/" + multipartFile.getOriginalFilename()));
+			Files.write(path, bytes);
+			return multipartFile.getOriginalFilename();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+	
 	// ============================ RECEIPTION DETAIL // ===================================
 	
 	@RequestMapping(value = "/admin/receiptionDetail", method = RequestMethod.GET)
@@ -228,7 +283,7 @@ public class ReceiptionController {
 			int productID = detial.getProducts().getId();
 			int quantity = detial.getQuantity();
 			double price = detial.getUnitPrice();
-			double sellPrice = detial.getSellPrice();
+			double newPrice = price + 50;
 
 			System.out.println(receipID + " ID RECEIP");
 			System.out.println(productID + " ID PRODUCT");
@@ -252,7 +307,7 @@ public class ReceiptionController {
 			
 			int old_quantity = product.getQuantity();
 			product.setQuantity(quantity + old_quantity);
-			product.setUnitPrice(sellPrice);
+			product.setUnitPrice(newPrice);
 			
 			System.out.println("old quantity: " + old_quantity);
 			
@@ -308,7 +363,7 @@ public class ReceiptionController {
 		
 		Product prod = productRepository.findOne(detail.getProducts().getId());
 		prod.setQuantity(prod.getQuantity() + detail.getQuantity());
-		prod.setUnitPrice(detail.getSellPrice());
+		prod.setUnitPrice(detail.getUnitPrice() + 50);
 		
 		productRepository.save(prod);
 		

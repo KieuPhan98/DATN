@@ -55,7 +55,7 @@
 							</button>	
 							
 							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
-								<a href="/admin/addReceiptionFromFile" style="color: white" >Import File Excel</a>
+								<a href="/admin/importR" style="color: white" >Import File Excel</a>
 							</button>
 						</div>
 	<div class="row">
@@ -71,7 +71,7 @@
 										<th class="col-sm-2">Ngày lập phiếu</th>
 										<th class="col-sm-2">Tổng tiền</th>
 										<th class="col-sm-1"></th>
-										
+										<th class="col-sm-1"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -83,9 +83,24 @@
 										<%-- <th class="col-sm-2">${item.orderForSupplier.supplier.name }</th> --%>
 										<th class="col-sm-2">${item.createDate }</th>
 										<th class="col-sm-2">${item.totalPrice}</th>
-										<th class="col-sm-1">
-											<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a>
-										</th>
+										<c:if test="${item.totalPrice != 0}">
+											<th class="col-sm-1">
+												<a class="btn btn-primary" style="display: none" href="/admin/importR">Import File Excel</a>
+											</th>
+											
+											<th class="col-sm-1">
+												<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a>
+											</th>
+										</c:if>
+										<c:if test="${item.totalPrice == 0}">
+											<th class="col-sm-1">
+												<a class="btn btn-primary" href="/admin/importR?id=${item.id }">Import File Excel</a>
+											</th>
+											
+											<th class="col-sm-1">
+												<a class="btn btn-primary" href="/admin/receiptionDetail?id=${item.id }">Xem chi tiết</a>
+											</th>
+										</c:if>
 									</tr>
 								</c:forEach>
 								</tbody>

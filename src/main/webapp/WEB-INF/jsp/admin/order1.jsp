@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -72,7 +74,7 @@
 											<td>${orders.receiver}</td>
 											<td>${orders.phone}</td>
 											<td>${orders.address} - ${orders.district}</td>
-											<td>${orders.totalPrice}</td>
+											<td>$ <f:formatNumber value="${orders.totalPrice}" pattern="#,###.00" /></td>
 											<td>
 												<button class="btn btn-info btn-fill pull-right">
 													<a href="/admin/updateStatusToShipping?id=${orders.id}"
