@@ -45,7 +45,6 @@ public class HomeController extends BaseController {
         return "home";
     }
 
-    /// list new product ở trang chủ
     @ModelAttribute("listproduct6")
     public List<Product> listproduct6(Model model) {
         List<Product> productList =
@@ -63,11 +62,9 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "detail")
-    public String showProductDetail(
-            @RequestParam("id") String id,
-            Model model) {
-        Product product =
-                productRepository.findOne(Integer.valueOf(id));
+    public String showProductDetail(@RequestParam("id") String id, Model model) {
+    	
+        Product product = productRepository.findOne(Integer.valueOf(id));
         model.addAttribute("product", product);
         return "detail";
     }

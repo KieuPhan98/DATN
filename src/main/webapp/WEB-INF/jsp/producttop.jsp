@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <title>Title</title>
@@ -22,8 +24,9 @@
                                 <figure>
                                     <div class="snipcart-item block">
                                         <div class="snipcart-thumb">
-                                            <a href="/detail?id=${report[3]}"><img title=" " alt=" "
-                                                                         src="/resources/images/${report[2]}" style="width: 150px; height: 150px;"></a>
+                                            <a href="/detail?id=${report[3]}">
+                                            	<img title=" " alt=" " src="/resources/images/${report[2]}" style="width: 150px; height: 150px;">
+                                            </a>
                                             <p><a href="/detail?id=${report[3]}">${report[0]}</a></p>
                                             <div class="stars">
                                                 <i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -32,8 +35,7 @@
                                                 <i class="fa fa-star blue-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star gray-star" aria-hidden="true"></i>
                                             </div>
-                                            <h4>${report[5]} VND</h4>
-                                            <h5 style="color: blue; font-size:15px;">Hiện còn ${report[1]} sản phẩm</h5>
+                                            <h4>$ <f:formatNumber value="${report[5]}" pattern="#,###.00"/></h4>
                                         </div>
                                           <c:if test="${report[1] eq 0}">
                                                <span> Hết hàng</span>

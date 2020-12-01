@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <title>Ping Shop</title>
@@ -60,15 +62,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><a><i class="fa fa-arrow-right"
                               aria-hidden="true"></i>Giá Cả</a></li>
                     <ul>
-                        <li><a href="productfiter?product"><i class="fa fa-arrow-right" aria-hidden="true"></i>0 VND - 100 VND</a></li>
+                        <li><a href="productfiter?product"><i class="fa fa-arrow-right" aria-hidden="true"></i>$ 0 - $ 100</a></li>
                         
-                        <li><a href="filterprice010"><i class="fa fa-arrow-right" aria-hidden="true"></i>100 VND - 300 VND</a></li>
+                        <li><a href="filterprice010"><i class="fa fa-arrow-right" aria-hidden="true"></i>$ 100 - $ 300</a></li>
                         
-                        <li><a href="filterprice1015"><i class="fa fa-arrow-right" aria-hidden="true"></i>300 VND - 450 VND</a></li>
+                        <li><a href="filterprice1015"><i class="fa fa-arrow-right" aria-hidden="true"></i>$ 300 - $ 450 </a></li>
                                                     
-                        <li><a href="filterprice1520"><i class="fa fa-arrow-right" aria-hidden="true"></i>450 VND - 600 VND</a></li>
+                        <li><a href="filterprice1520"><i class="fa fa-arrow-right" aria-hidden="true"></i>$ 450 - $ 600 </a></li>
                                                     
-                        <li><a href="filterprice20"><i class="fa fa-arrow-right" aria-hidden="true"></i>Trên 600 VND</a></li>
+                        <li><a href="filterprice20"><i class="fa fa-arrow-right" aria-hidden="true"></i>Trên $600 </a></li>
                     </ul>
                     <li><a><i class="fa fa-arrow-right" aria-hidden="true"></i>Danh Mục Sản Phẩm</a></li>
                     <ul>
@@ -87,7 +89,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li><a href="productbysupplier?supplierId=${supplierList.id}"><i class="fa fa-arrow-right" aria-hidden="true"></i>${supplierList.name}</a>
                         </li>
                         </c:forEach>
-
                     </ul>
                 </ul>
             </div>
@@ -117,8 +118,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 <a href="/detail?id=${productList.id}"><img title=" " alt=" "
                                                  src="/resources/images/${productList.image}" style=" width:150px; height: 150px;" /></a>
                                                 <a href="/detail?id=${productList.id}"><p>${productList.name}</p></a>
-                                                <h4>${productList.unitPrice} VND <span></span></h4>
-                                                <h5 style="color: blue; font-size:15px;">Hiện còn ${productList.quantity} sản phẩm</h5>
+                                                <h4>$ <f:formatNumber value="${productList.unitPrice}" pattern="#,###.00"/><span></span></h4>
                                             </div>                                        
                                             <c:if test="${productList.quantity eq 0}">
                                                 <span> Hết hàng</span>

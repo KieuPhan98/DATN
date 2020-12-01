@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -77,7 +79,7 @@
 										<th class="col-sm-3">${item.customer.fullname }</th>
 										<%-- <th class="col-sm-2">${item.orderForSupplier.supplier.name }</th> --%>
 										<th class="col-sm-2">${item.createDate }</th>
-										<th class="col-sm-2">${item.totalPrice}</th>
+										<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice}" pattern="#,###.00"/></th>
 										<c:if test="${item.totalPrice != 0}">
 											<th class="col-sm-1">
 												<a class="btn btn-primary" style="display: none" href="/admin/importR">Import File Excel</a>

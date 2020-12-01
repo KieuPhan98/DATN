@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -64,8 +66,8 @@
                             		</td> 
                                     <td>${orderDetails.product.name}</td>
                                     <td>${orderDetails.quantity}</td>
-                                    <td>${orderDetails.product.unitPrice}</td>
-                                    <td>${orderDetails.quantity * orderDetails.product.unitPrice}</td> 
+                                    <td>$ <f:formatNumber value="${orderDetails.product.unitPrice}" pattern="#,###.00"/></td>
+                                    <td>$ <f:formatNumber value="${orderDetails.quantity * orderDetails.product.unitPrice}" pattern="#,###.00"/></td> 
                                     <%-- <td><a href="/admin/editorder?id=${orderDetails.id}"> Edit</a></td> --%>
                                 </tr>
                             </c:forEach>

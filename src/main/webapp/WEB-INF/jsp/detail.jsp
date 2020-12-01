@@ -1,4 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <title>Ping Shop</title>
@@ -33,12 +37,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <div id="fb-root"></div>
 
-
 <jsp:include page="header.jsp"></jsp:include>
 <div class="products">
     <div class="container">
         <div class="agileinfo_single">
-
             <div class="col-md-4 agileinfo_single_left">
                 <img id="example" src="/resources/images/${product.image}" alt=" " class="img-responsive">
             </div>
@@ -61,11 +63,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="w3agile_description">
                     <h4>Description :</h4>
                     <p>${product.description}</p>
-                    <a> Ngày sản xuất  <p>${product.productDate}</p></a>
+                    <a> Thương hiệu: ${product.supplier.name}</a>
                 </div>
+                
+                <div class="w3agile_description">
+                    <a> Hiện còn ${product.quantity} sản phẩm</a>
+                </div>
+                
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                        <h4 class="m-sing" style="color: #00bbff">Giá : ${product.unitPrice} VND</h4>
+                        <h4 class="m-sing" style="color: #00bbff">Giá : $ <f:formatNumber value="${product.unitPrice}" pattern="#,###.00" /></h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
                         <form action="#" method="post">
@@ -80,13 +87,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
 
-
                                <tr> <a href="/addToCart?id=${product.id}" >
                                    <img src="/resources/images/cart.svg"  width="100" height="100" alt=" " class="img-responsive" /></a></tr>
                             </fieldset>
                         </form>
-
-
                     </div>
                 </div>
             </div>

@@ -86,7 +86,7 @@
         </div>
         <div class="w3l_search">
             <form action="/header" method="post">
-                <input type="search" name="name" placeholder="Search for a Product..." required id="input-search">
+                <input type="search" name="name" placeholder="Tìm kiếm..." required id="input-search">
                 <button type="submit" class="btn btn-default search" aria-label="Left Align">
                     <i class="fa fa-search" aria-hidden="true"> </i>
                 </button>

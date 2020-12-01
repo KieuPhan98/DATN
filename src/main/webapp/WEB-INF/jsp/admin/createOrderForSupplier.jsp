@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -92,7 +94,7 @@
 																<th class="col-sm-2">${item.supplier.name }</th>
 																<th class="col-sm-2">${item.customer.fullname}</th>
 																<th class="col-sm-2">${item.createDate }</th>
-																<th class="col-sm-2">${item.totalPrice }</th>
+																<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 																<th class="col-sm-1">
 																	<a href="/editStatusToCancel/${item.id}">
 	                                    								<img src="/resources/assets/img/icon/cancel.png " height="20" width="20">
@@ -131,17 +133,7 @@
 														<th class="col-sm-2">${item.supplier.name }</th>
 														<th class="col-sm-2">${item.customer.fullname }</th>
 														<th class="col-sm-2">${item.createDate }</th>
-														<th class="col-sm-2">${item.totalPrice }</th>
-														<!-- <th class="col-sm-1">
-															<a href="#}">
-                                    							<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
-                                    						</a>
-														</th>		
-														<th class="col-sm-1">
-															<a href="#">
-	                                    						<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
-	                                    					</a>
-														</th> -->		
+														<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>
 												</c:forEach>
@@ -171,17 +163,7 @@
 														<th class="col-sm-2">${item.supplier.name }</th>
 														<th class="col-sm-2">${item.customer.fullname }</th>
 														<th class="col-sm-2">${item.createDate }</th>
-														<th class="col-sm-2">${item.totalPrice }</th>
-														<!-- <th class="col-sm-1">
-															<a href="#}">
-                                    							<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
-                                    						</a>
-														</th>		
-														<th class="col-sm-1">
-															<a href="#">
-	                                    						<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
-	                                    					</a>
-														</th> -->		
+														<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>
 												</c:forEach>

@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
 <title>Ping Shop</title>
@@ -71,8 +73,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</td>
 						<td class="invert">${cart.product.name}</td>
-						<td class="invert">${cart.product.unitPrice}</td>
-						<td class="invert">${cart.product.unitPrice * cart.quantity}</td>
+						<td class="invert">$ <f:formatNumber value="${cart.product.unitPrice}" pattern="#,###.00"/></td>
+						<td class="invert">$ <f:formatNumber value="${cart.product.unitPrice * cart.quantity}" pattern="#,###.00"/></td>
 						
 						<td class="invert">
 							<div class="rem">
@@ -122,7 +124,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<div class="checkout-left">
 
-			<h2 style="margin: 15px">TỔNG TIỀN: ${total}</h2>
+			<h2 style="margin: 15px">TỔNG TIỀN: $ <f:formatNumber value="${total}" pattern="#,###.00"/></h2>
 			<div class="checkout-right-basket">
 
 				<c:if test="${id == null}">

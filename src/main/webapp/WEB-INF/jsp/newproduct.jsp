@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <title>Ping Shop</title>
@@ -47,47 +49,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                          aria-labelledby="expeditions-tab">
 
                         <div class="agile_top_brands_grids">
-                            <c:forEach items="${listproduct6}" var="u">
-                                <div class="col-md-4 top_brand_left">
-                                    <div class="hover14 column">
-                                        <div class="agile_top_brand_left_grid">
-                                            <div class="agile_top_brand_left_grid_pos">
-                                                <img  src="/resources/images/new.png" width="30" height="30" alt=" "
-                                                     class="img-responsive"/>
-                                            </div>
-                                            <div class="agile_top_brand_left_grid1">
-                                                <figure>
-                                                    <div class="snipcart-item block">
+								<c:forEach items="${listproduct6}" var="u">
+									<div class="col-md-4 top_brand_left">
+										<div class="hover14 column">
+											<div class="agile_top_brand_left_grid">
+												<div class="agile_top_brand_left_grid_pos">
+													<img src="/resources/images/new.png" width="30" height="30"
+														alt=" " class="img-responsive" />
+												</div>
+												<div class="agile_top_brand_left_grid1">
+													<figure>
+														<div class="snipcart-item block">
+															<div class="snipcart-thumb">
+																<a href="/detail?id=${u.id}">
+																	<img title=" " alt=" " src="/resources/images/${u.image}"style="width: 150px; height: 150px;" />
+																</a>
+																<p>
+																	<a href="/detail?id=${u.id}"> ${u.name}</a>
+																</p>
+																<h4>$ <f:formatNumber value="${u.unitPrice}" pattern="#,###.00"/></h4>
+															</div>
+															<c:if test="${u.quantity eq 0}">
+																<span> Hết hàng</span>
+															</c:if>
+															<c:if test="${u.quantity ne 0  }">
+																<div class="snipcart-details top_brand_home_details">
+																	<a href="/addToCart?id=${u.id}"> <img
+																		src="/resources/images/cart.svg" width="50"
+																		height="50" alt=" " class="img-responsive" /></a>
+																</div>
+															</c:if>
+														</div>
+													</figure>
+												</div>
+											</div>
+										</div>
+									</div>
 
-                                                        <div class="snipcart-thumb">
-                                                            <a href="/detail?id=${u.id}"><img title=" " alt=" "
-                                                                                         src="/resources/images/${u.image}" style="width: 150px; height: 150px;"/></a>
-
-                                                            <p><a href="/detail?id=${u.id}"> ${u.name}</a></p>
-                                                            <h4>${u.unitPrice} VND</h4>
-                                                            <h5 style="color: blue; font-size:15px;">Hiện còn ${u.quantity} sản phẩm</h5>
-                                                        </div>
-                                                        <c:if test="${u.quantity eq 0}">
-                                                        <span> Hết hàng</span>
-                                                        </c:if>		
-                                                        <c:if test="${u.quantity ne 0  }">
-                                                         <div class="snipcart-details top_brand_home_details">
-                                                            <a href="/addToCart?id=${u.id}">
-                                                                <img src="/resources/images/cart.svg" width="50"
-                                                                     height="50" alt=" " class="img-responsive"/></a>
-                                                        </div>  
-                                                        </c:if>												 
-                                                    </div>
-                                                </figure>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </c:forEach>
+								</c:forEach>
 
 
-                            <div class="clearfix"></div>
+								<div class="clearfix"></div>
                         </div>
                     </div>
 
@@ -108,31 +110,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
+	$(document).ready(function() {
+		/*
+		    var defaults = {
+		    containerID: 'toTop', // fading element id
+		    containerHoverID: 'toTopHover', // fading element hover id
+		    scrollSpeed: 1200,
+		    easingType: 'linear'
+		    };
+		 */
 
-        $().UItoTop({easingType: 'easeOutQuart'});
+		$().UItoTop({
+			easingType : 'easeOutQuart'
+		});
 
-    });
+	});
 </script>
 <!-- //here ends scrolling icon -->
 <script src="/resources/js/minicart.min.js"></script>
 <script>
-    // Mini Cart
-    paypal.minicart.render({
-        action: '#'
-    });
+	// Mini Cart
+	paypal.minicart.render({
+		action : '#'
+	});
 
-    if (~window.location.search.indexOf('reset=true')) {
-        paypal.minicart.reset();
-    }
+	if (~window.location.search.indexOf('reset=true')) {
+		paypal.minicart.reset();
+	}
 </script>
 <!-- main slider-banner -->
 <script src="/resources/js/skdslider.min.js"></script>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -66,7 +67,7 @@
                                     </td>
                                     <td>${productList.name}</td>
                                     <td>${productList.quantity}</td>
-                                    <td>${productList.unitPrice}</td>
+                                    <td>$ <f:formatNumber value="${productList.unitPrice}" pattern="#,###.00"/></td>
                                     <td>
                                     	<a href="/admin/editproduct?id=${productList.id}">
                                     		<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >

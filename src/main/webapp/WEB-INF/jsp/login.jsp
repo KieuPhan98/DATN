@@ -46,12 +46,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- login -->
 <div class="login">
     <div class="container">
-        <h2>Login Form</h2>
+        <h2>Đăng Nhập</h2>
 
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form action="j_spring_security_check" method="post">
-                Username:<input name="id" type="text"/><br/>
-                Password:<input name="password" type="password"/><br/>
+                Tên Đăng Nhập:<input name="id" type="text"/><br/>
+                Mật Khẩu:<input name="password" type="password"/><br/>
                 <input type="submit" value="Login">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
@@ -62,7 +62,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </p>
             </c:if>
         </div>
-        <p><a href="registered.html">Register Here</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+        <p><a href="registered.html">Đăng kí tài khoản </a> (Hoặc) quay về <a href="index.html">Trang chủ<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
     </div>
 </div>
 <!-- //login -->
