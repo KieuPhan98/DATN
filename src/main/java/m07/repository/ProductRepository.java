@@ -59,7 +59,7 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     		"           GROUP BY OD.productId) Xuat on  P.id = PC \r\n" + 
     		"ORDER BY P.id;\r\n" + 
     		"", nativeQuery = true)
-    public List<Object[]> tonkho(String date, String date1);
+    public List<Object[]> tonkho(java.util.Date date, java.util.Date date2);
     
     @Query(value = "SELECT P.id, P.name, ifnull(SL,0) TongSL_Xuat, ifnull(XTB,0) DGXTB, ifnull(NTB,0) DGNTB, ifnull(Xuat.SL*(Xuat.XTB - Nhap.NTB),0) LN\r\n" + 
     		"FROM products P\r\n" + 
@@ -73,7 +73,7 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     		"           (select id from orders AS O where O.orderDate <= ? )\r\n" + 
     		"           GROUP BY OD.productId) Xuat on  P.id = PC\r\n" + 
     		"ORDER BY P.id", nativeQuery = true)
-    public List<Object[]> loinhuan(String date, String date1);
+    public List<Object[]> loinhuan(java.util.Date date, java.util.Date date2);
     
     @Query(value = "SELECT P.image, P.id, P.name, ifnull(Xuat.QO,0) AS tongxuat, ifnull(Xuat.DT,0) AS doanhthu\r\n" + 
     		"FROM products P \r\n" + 
@@ -82,5 +82,5 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     		"           GROUP BY OD.productId) Xuat on  P.id = PC \r\n" + 
     		"ORDER BY P.id;\r\n" + 
     		"", nativeQuery = true)
-    public List<Object[]> doanhthu(String date);
+    public List<Object[]> doanhthu(java.util.Date date);
 }

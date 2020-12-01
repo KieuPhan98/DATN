@@ -354,21 +354,16 @@ public class OrderForSupplierController {
 	// ======================= EXPORT FILE EXCEL ===================
 		@RequestMapping(value = "admin/exportExcel")
 		public void exportToExcel(HttpServletResponse response) throws IOException {
+			
 			response.setContentType("application/octet-stream");
-
-			/*
-			 * DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-			 * String currentDateTime = dateFormatter.format(new Date());
-			 */
 
 			String headerKey = "Content-Disposition";
 			String headerValue = "attachment; filename=PhieuDatHang_" + item + ".xlsx";
 			response.setHeader(headerKey, headerValue);
 
-			// List<OrderForSuplierDetail> listOrders = service.listAll();
 			List<OrderForSuplierDetail> listOrders = orderForSupplyDetailRepository.listOrderForSupplyDetail(item);
-
-			OrderExcelExport excelExport = new OrderExcelExport(listOrders);
+			
+			ExportExcelOrder excelExport = new ExportExcelOrder(listOrders);
 
 			excelExport.export(response);
 		}

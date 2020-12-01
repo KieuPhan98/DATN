@@ -53,10 +53,6 @@
 							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
 								<a href="/admin/addReceiption" style="color: white" >+ Tạo Phiếu Nhập</a>
 							</button>	
-							
-							<button class="btn btn-info btn-fill pull-left" style = "margin:20px">
-								<a href="/admin/importR" style="color: white" >Import File Excel</a>
-							</button>
 						</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -70,7 +66,6 @@
 										<!-- <th class="col-sm-2">Nhà cung cấp</th> -->
 										<th class="col-sm-2">Ngày lập phiếu</th>
 										<th class="col-sm-2">Tổng tiền</th>
-										<th class="col-sm-1"></th>
 										<th class="col-sm-1"></th>
 									</tr>
 								</thead>

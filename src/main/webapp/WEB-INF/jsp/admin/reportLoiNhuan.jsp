@@ -1,15 +1,14 @@
-
 </html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+	<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Report Loi Nhuan</title>
+    <title>Report Loi Nhuan	</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -30,6 +29,31 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+    
+    <style>
+		input[type=date] {
+			/* display: block; */
+			padding: 0 15px;
+			color: #373d54;
+			width: 250px;
+			background: #f8fafc;
+			font-size: 14px;
+			height: 40px;
+			border: 1px solid #e0e4f6;
+			transition: all 0.2s;
+		}
+		[type="date"] {
+		  background:#f8fafc url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat !important ;
+		  
+		}
+		[type="date"]::-webkit-inner-spin-button {
+		  display: none;
+		}
+		[type="date"]::-webkit-calendar-picker-indicator {
+		  opacity: 0;
+		}
+	</style>
+	
 </head>
 <body>
 
@@ -38,12 +62,28 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+        	<div class="col-sm-12 ">
+        		<h3 class="title" style="margin-left: 400px; margin-bottom: 20px">THỐNG KÊ LỢI NHUẬN</h3>
+				<form action="admin/reportLoiNhuan" method="post">
+					<%-- <label>Từ ngày : </label>
+					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" required="required">  --%>	
+					<label style="margin-left: 350px;">Tính đến ngày : </label>
+					<input type = "date" id="todate" name="todate" value="${dateto }" required="required">
+					<button type="submit" class="btn btn-primary"> OK </button>
+				</form>		
+				<form action="admin/exportExcelLoiNhuan" method="post">
+					<%-- <input type = "date" id="fromdate" name="fromdate" value="${datefrom }" style="display: none"> --%>
+					<input type = "date" id="todate" name="todate" value="${dateto }" style="display: none">
+							
+					<c:if test = "${dateto != null }">
+						<button type="submit" class="btn btn-primary btnExport" style="float: left; margin-bottom: 20px"> Xuất file excel </button>
+					</c:if>
+				</form>
+			</div>
+        	<br>
+        	<c:if test = "${dateto != null }">
+        		<div class="col-md-12">
                 <div class="card">
-                    <div class="header">
-                        <h4 class="title">THỐNG KÊ LỢI NHUẬN</h4>
-                        <a class="btn btn-primary btn-export" href ="/admin/exportExcelLoiNhuan" style="margin-top: 20px; margin-left: 50px">Xuất file Excel</a>
-                    </div>
                     <div class="content table-responsive table-full-width">
                        <table class="table table-hover table-striped">
                             <thead>
@@ -61,8 +101,8 @@
                                     <td>${report[1]}</td>                                   
                                     <td>${report[2]}</td>
                                     <td>$ <f:formatNumber value="${report[3]}" pattern="#,###.00" /></td>
-                               		<td>${report[4]}</td>
-                                    <td>${report[5]}</td>
+                               		<td>$ <f:formatNumber value="${report[4]}" pattern="#,###.00" /></td>
+                                    <td>$ <f:formatNumber value="${report[5]}" pattern="#,###.00" /></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -70,6 +110,7 @@
                     </div>
                 </div>
             </div>
+        	</c:if>
         </div>
     </div>
 </div>
@@ -93,8 +134,6 @@
 
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="/resources/assets/js/demo.js"></script>
-
-
 
 </body>
 </html>

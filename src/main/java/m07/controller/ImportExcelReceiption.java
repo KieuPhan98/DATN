@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import m07.entity.ReceipDetail;
 import m07.entity.ViewReceiptionDetail;
 
-public class ReceiptionExcelImport {
+public class ImportExcelReceiption {
 
 	private Object getCellValue(Cell cell) {
 		CellType type = cell.getCellTypeEnum();

@@ -64,20 +64,21 @@
                                 </div>                                                        
                             </div>
 
-							<div class="row">                               
-                                <div class="col-md-12">
-                                        <label>Sản Phẩm</label>
-                                        <form:select items="${productList}" itemLabel="name"
-                                                     itemValue="id" path="products.id" class="form-control" readOnly="true">
-                                        </form:select>
-                                </div>                               
-                            </div> 
+							<div class="row">
+									<div class="col-md-12">
+										<label>Sản Phẩm</label>
+										<form:select items="${productList}" itemLabel="name"
+											itemValue="id" path="products.id" class="form-control"
+											readOnly="true">
+										</form:select>
+									</div>
+							</div> 
                             
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Số lượng</label>
-                                        <form:input type="number" min="1" path="quantity" class="form-control" required="true"></form:input>
+                                        <form:input type="number" min="1" max="${max}" path="quantity" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                                 

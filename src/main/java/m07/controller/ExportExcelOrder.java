@@ -23,14 +23,16 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExportExcelLoiNhuan {
+import m07.entity.OrderForSuplierDetail;
+
+public class ExportExcelOrder  {
 
 	private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<Object[]> listLN;
+    private List<OrderForSuplierDetail> listOrders;
     
-    public ExportExcelLoiNhuan(List<Object[]> listLN) {
-        this.listLN = listLN;
+    public ExportExcelOrder (List<OrderForSuplierDetail> listOrders) {
+        this.listOrders = listOrders;
         workbook = new XSSFWorkbook();
     }
     
@@ -206,8 +208,8 @@ public class ExportExcelLoiNhuan {
 		return style;
 	}
 	
-    private void writeHeaderLine(String name, String date){
-        sheet = workbook.createSheet("Thống Kê Lợi Nhuận");
+    private void writeHeaderLine(){
+        sheet = workbook.createSheet("Phiếu đặt hàng");
         
         Cell cell;
         
@@ -231,7 +233,7 @@ public class ExportExcelLoiNhuan {
         
         Row row4 = sheet.createRow(4);
         cell = row4.createCell(0, CellType.STRING);
-		cell.setCellValue("THỐNG KÊ LỢI NHUẬN");
+		cell.setCellValue("PHIẾU ĐẶT HÀNG");
 		XSSFCellStyle style4 = dong4(workbook, sheet, 0, 6);
 		cell.setCellStyle(style4);
         
@@ -239,27 +241,25 @@ public class ExportExcelLoiNhuan {
 		XSSFCellStyle normal1 = normal1(workbook);
 		XSSFCellStyle bold1 = bold1(workbook);
 		
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDateTime = dateFormatter.format(new Date());
+		
         Row row6 = sheet.createRow(6);
         cell = row6.createCell(0, CellType.STRING);
-		cell.setCellValue("Tính đến ngày: " + date);
+		cell.setCellValue("Ngày lập phiếu: " + currentDateTime);
 		XSSFCellStyle style5 = dong5(workbook, sheet, 0, 6);
 		cell.setCellStyle(style5);
-        
-        Row row7 = sheet.createRow(7);
-        cell = row7.createCell(0, CellType.STRING);
-		cell.setCellValue("Người Tạo: " + name);
-		XSSFCellStyle style6 = dong6(workbook, sheet, 0, 6);
-		cell.setCellStyle(style6);
         
 		Row row = sheet.createRow(10);
 		
 		createCell1(row, 0, "STT", bold1);      
         createCell1(row, 1, "Mã Sản Phẩm", bold1);       
         createCell1(row, 2, "Tên Sản Phẩm", bold1);    
-        createCell1(row, 3, "Tổng Số Lượng Xuất", bold1);
-        createCell1(row, 4, "Đơn Giá Xuất TB", bold1);
-        createCell1(row, 5, "Đơn Giá Nhập TB", bold1);
-        createCell1(row, 6, "Lợi Nhuận", bold1);
+        createCell1(row, 3, "Đơn Vị Tính", bold1);
+        createCell1(row, 4, "Số Lượng", bold1);
+        createCell1(row, 5, "Đơn Giá", bold1);
+        createCell1(row, 6, "Thành Tiền", bold1);
+        
     }
     
     private void createCell1(Row row, int columnCount, Object value, XSSFCellStyle style) {
@@ -289,10 +289,7 @@ public class ExportExcelLoiNhuan {
         int rowCount = 11;
         int stt = 1;
         int dem = 0;
-        int sumSL = 0;
-        double sumGX = 0;
-        double sumGN = 0;
-        double sumLN = 0;
+        double sum = 0;
         
         Cell cell;
         
@@ -300,58 +297,46 @@ public class ExportExcelLoiNhuan {
 		XSSFCellStyle normal1 = normal1(workbook);
 		XSSFCellStyle bold1 = bold1(workbook);
 		
-        for (Object[] item : listLN) {
+		Row row7 = sheet.createRow(7);
+        cell = row7.createCell(0, CellType.STRING);
+		XSSFCellStyle style6 = dong6(workbook, sheet, 0, 6);
+		cell.setCellStyle(style6);
+		
+        for (OrderForSuplierDetail order : listOrders) {
         	
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             
             createCell1(row, columnCount++, stt, normal1);
             stt++;
-            createCell1(row, columnCount++, item[0], normal1);
-            createCell1(row, columnCount++, item[1], normal1);
-            createCell1(row, columnCount++, item[2], normal1);
-            createCell1(row, columnCount++, item[3], normal1);
-            createCell1(row, columnCount++, item[4], normal1);
-            createCell1(row, columnCount++, item[5], normal1);
+            createCell1(row, columnCount++, order.getProducts().getId(), normal1);
+            createCell1(row, columnCount++, order.getProducts().getName(), normal1);
+            createCell1(row, columnCount++, order.getProducts().getUnitBrief(), normal1);
+            createCell1(row, columnCount++, order.getQuantity(), normal1);
+            createCell1(row, columnCount++, order.getUnitPrice(), normal1);
+            createCell1(row, columnCount++, order.getQuantity() * order.getUnitPrice(), normal1);
             
-            sumSL += Integer.parseInt(String.valueOf(item[2]));
-            sumGX += Double.parseDouble(String.valueOf(item[3]));
-            sumGN += Double.parseDouble(String.valueOf(item[4]));
-            sumLN += Double.parseDouble(String.valueOf(item[5]));
-            
+            sum += order.getQuantity() * order.getUnitPrice();
             dem = rowCount;
+            
+            cell.setCellValue("Nhà cung cấp: " + order.getOrderForSupplier().getSupplier().getName());
         }
-        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-        String currentDateTime = dateFormatter.format(new Date());
-        
         Row row = sheet.createRow(dem);
         
-        createCell1(row, 2, "Tổng: " , bold1);
-        createCell1(row, 3, sumSL , bold1);
-        createCell1(row, 4, sumGX , bold1);
-        createCell1(row, 5, sumGN , bold1);
-        createCell1(row, 6, sumLN , bold1);
-        
-        Row row2 = sheet.createRow(dem + 2);
-        cell = row2.createCell(5, CellType.STRING);
-		cell.setCellValue("TP.HCM, ngày " + currentDateTime);
-		XSSFCellStyle dongNgay = dongNgay(workbook, sheet, 5, 6, dem + 2);
-		cell.setCellStyle(dongNgay);
+        createCell1(row, 5, "Tổng: ", bold1);
+        createCell1(row, 6, sum, bold1);
     }
      
-    public void export(HttpServletResponse response, String name, Date date) throws IOException {
+    public void export(HttpServletResponse response) throws IOException {
     	
-    	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-    	String currentDateTime = dateFormatter.format(date);
-		
-        writeHeaderLine(name, currentDateTime);
+        writeHeaderLine();
         writeDataLines();
          
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();
-         
-        outputStream.close();
+          
+        outputStream.close();  
          
     }
 }

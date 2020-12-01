@@ -173,8 +173,8 @@ private ServletContext servletContext;
 		// doc file excel
 		ArrayList<ViewReceiptionDetail> listview = new ArrayList<ViewReceiptionDetail>();
 		
-		ReceiptionExcelImport receiptionExcelImport = new ReceiptionExcelImport();
-        ReceiptionExcelImport.ReadFile(excelPath, listview);
+		ImportExcelReceiption receiptionExcelImport = new ImportExcelReceiption();
+        ImportExcelReceiption.ReadFile(excelPath, listview);
         
         System.out.println("danh sach receipdetail");
         double sum = 0;
@@ -342,7 +342,9 @@ private ServletContext servletContext;
 	public String editProduct(@RequestParam("id") int id, ModelMap model) {
 		
 		ReceipDetail receipDetail = receiptionDetailRepository.findOne(id);
+		int max = receipDetail.getQuantity();
 		model.addAttribute("product", receipDetail);
+		model.addAttribute("max", max);
 		
 		Product prod = productRepository.findOne(receipDetail.getProducts().getId());
 		prod.setQuantity(prod.getQuantity() - receipDetail.getQuantity());
@@ -414,7 +416,7 @@ private ServletContext servletContext;
 		receip.setTotalPrice(sum);
 		receiptionRepository.save(receip);
 		// ===============
-
+  
 		String url = "redirect:/admin/receiptionDetail?id=" + item;
 
 		return url;

@@ -3,6 +3,7 @@ package m07.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,129 +41,177 @@ public class ReportController {
 	@Autowired
 	SuppliersRepository suppliersRepository;
 	
-	@RequestMapping(value = "/admin/reportTonKho")
-    public String tonKho(Model model) {
+	//======================= REPORT DOANH THU ============================
+	
+	@RequestMapping(value = "/admin/reportDoanhThu")
+	public String doanhthu(ModelMap model) {
+
+		return "/admin/reportDoanhThu";
+	}
+	
+	@RequestMapping(value = "admin/admin/reportDoanhThu", method = RequestMethod.POST)
+	public String doanhthu(Model model, HttpServletRequest req) throws ParseException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String currentDateTime = dateFormatter.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("fromdate"));
+
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
+
+		List<Object[]> listDoanhThu = productRepository.doanhthu(todate);
+		model.addAttribute("listDoanhThu", listDoanhThu);
 		
-		System.out.println(currentDateTime);
+		/* model.addAttribute("datefrom", req.getParameter("fromdate")); */
+		model.addAttribute("dateto", req.getParameter("todate"));
 		
-		List<Object[]> listTonKho = productRepository.tonkho(currentDateTime, currentDateTime);
-		
-		System.out.println("listTonKho[1]: " + listTonKho.get(0)[2]);
-		model.addAttribute("listTonKho", listTonKho);
-		
-        return "/admin/reportTonKho";
-    }
+		return "/admin/reportDoanhThu";
+	}
+	
+	//======================= REPORT LOI NHUAN ============================
 	
 	@RequestMapping(value = "/admin/reportLoiNhuan")
 	public String loinhuan(ModelMap model) {
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String currentDateTime = dateFormatter.format(new Date());
 		
-		List<Object[]> listLoiNhuan = productRepository.loinhuan(currentDateTime, currentDateTime);
+		return "/admin/reportLoiNhuan";
+	}
+	 
+	@RequestMapping(value = "admin/admin/reportLoiNhuan", method = RequestMethod.POST)
+	public String loinhuan(Model model, HttpServletRequest req) throws ParseException {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("fromdate"));
+
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
+
+		List<Object[]> listLoiNhuan = productRepository.loinhuan(todate, todate);
 		model.addAttribute("listLoiNhuan", listLoiNhuan);
+		
+		/* model.addAttribute("datefrom", req.getParameter("fromdate")); */
+		model.addAttribute("dateto", req.getParameter("todate"));
 		
 		return "/admin/reportLoiNhuan";
 	}
 	
-	//======================test=====================
+	//======================= REPORT LOI NHUAN ============================
 	
-	  @RequestMapping(value = "/admin/reportDoanhThu")
-	  public String doanhthu(ModelMap model){
-	  
-	  DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-	  String currentDateTime = dateFormatter.format(new Date());
-	  
-	  List<Object[]> listDoanhThu = productRepository.doanhthu(currentDateTime);
-	  model.addAttribute("listDoanhThu", listDoanhThu);
-	  
-	  return "/admin/reportDoanhThu";
-	  
-	  }
+	@RequestMapping(value = "/admin/reportTonKho")
+    public String tonKho(Model model) {
+		
+        return "/admin/reportTonKho";
+    }
+	
+	@RequestMapping(value = "admin/admin/reportTonKho", method = RequestMethod.POST)
+	public String tonkho(Model model, HttpServletRequest req) throws ParseException {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("fromdate"));  
+
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
+
+		List<Object[]> listTonKho = productRepository.tonkho(todate, todate);
+		model.addAttribute("listTonKho", listTonKho);
+		
+		/* model.addAttribute("datefrom", req.getParameter("fromdate")); */
+		model.addAttribute("dateto", req.getParameter("todate"));
+		
+		return "/admin/reportTonKho";
+	}
 	
 	//======================== XUAT FILE EXCEL =============================
 	  
-	@RequestMapping(value = "/admin/exportExcelLoiNhuan")
-	public void exportLoiNhuan(HttpServletResponse response, HttpServletRequest request) throws IOException {
+	@RequestMapping(value = "admin/admin/admin/exportExcelLoiNhuan")
+	public void exportLoiNhuan(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
+		
 		response.setContentType("application/octet-stream");
 
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String currentDateTime = dateFormatter.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("todate"));
+
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
 
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=ThongKeLoiNhuan.xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		List<Object[]> listLN = productRepository.loinhuan(currentDateTime, currentDateTime);
+		List<Object[]> listLN = productRepository.loinhuan(todate, todate);
 
 		ExportExcelLoiNhuan excelExport = new ExportExcelLoiNhuan(listLN);
 		
 		System.out.println(listLN.get(0)[4]);
 		
-		HttpSession httpSession = request.getSession();
+		HttpSession httpSession = req.getSession();
 		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl context = (SecurityContextImpl) s;
 		String loggedInUser = context.getAuthentication().getName();
 
 		String name = customersRepository.getFullName(loggedInUser);
 		
-		excelExport.export(response, name);
+		excelExport.export(response, name, todate);
 	}
 	
-	@RequestMapping(value = "/admin/exportExcelTonKho")
-	public void exportExcelTonKho(HttpServletResponse response, HttpServletRequest request) throws IOException {
+	@RequestMapping(value = "admin/admin/admin/exportExcelDoanhThu")
+	public void exportExcelDoanhThu(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
+		
 		response.setContentType("application/octet-stream");
 
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String currentDateTime = dateFormatter.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("todate"));
 
-		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=ThongKeTonKho.xlsx";
-		response.setHeader(headerKey, headerValue);
-
-		List<Object[]> listTK = productRepository.tonkho(currentDateTime, currentDateTime);
-
-		ExportExcelTonKho excelExport = new ExportExcelTonKho(listTK);
-		
-		System.out.println(listTK.get(0)[4]);
-		
-		HttpSession httpSession = request.getSession();
-		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
-		SecurityContextImpl context = (SecurityContextImpl) s;
-		String loggedInUser = context.getAuthentication().getName();
-
-		String name = customersRepository.getFullName(loggedInUser);
-		
-		excelExport.export(response, name);
-	}
-	
-	@RequestMapping(value = "/admin/exportExcelDoanhThu")
-	public void exportExcelDoanhThu(HttpServletResponse response, HttpServletRequest request) throws IOException {
-		response.setContentType("application/octet-stream");
-
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String currentDateTime = dateFormatter.format(new Date());
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
 
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=ThongKeDoanhThu.xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		List<Object[]> listDT = productRepository.doanhthu(currentDateTime);
+		List<Object[]> listDT = productRepository.doanhthu(todate);
 
 		ExportExcelDoanhThu excelExport = new ExportExcelDoanhThu(listDT);
 		
 		System.out.println(listDT.get(0)[4]);
 		
-		HttpSession httpSession = request.getSession();
+		HttpSession httpSession = req.getSession();
 		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl context = (SecurityContextImpl) s;
 		String loggedInUser = context.getAuthentication().getName();
 
 		String name = customersRepository.getFullName(loggedInUser);
 		
-		excelExport.export(response, name);
+		excelExport.export(response, name, todate);
+	}
+	
+	@RequestMapping(value = "admin/admin/admin/exportExcelTonKho")
+	public void exportExcelTonKho(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
+		
+		response.setContentType("application/octet-stream");
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("fromDate: " + req.getParameter("todate"));
+
+		/* Date fromdate = format.parse(req.getParameter("fromdate")); */
+		Date todate = format.parse(req.getParameter("todate"));
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=ThongKeTonKho.xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		List<Object[]> listTK = productRepository.tonkho(todate, todate);
+
+		ExportExcelTonKho excelExport = new ExportExcelTonKho(listTK);
+		
+		System.out.println(listTK.get(0)[4]);
+		
+		HttpSession httpSession = req.getSession();
+		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
+		SecurityContextImpl context = (SecurityContextImpl) s;
+		String loggedInUser = context.getAuthentication().getName();
+
+		String name = customersRepository.getFullName(loggedInUser);
+		
+		excelExport.export(response, name, todate);
 	}
 	
 }
