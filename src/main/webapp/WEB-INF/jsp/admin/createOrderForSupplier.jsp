@@ -100,12 +100,31 @@
 	                                    								<img src="/resources/assets/img/icon/cancel.png " height="20" width="20">
 	                                    							</a>
 																</th>
-																<th class="col-sm-1">
+																<%-- <th class="col-sm-1">
 																	<a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
 																</th>
 																<th class="col-sm-1">
 																	<a class="btn btn-primary btn-export" href ="/admin/exportExcel">Xuất file Excel</a>
-																</th>
+																</th> --%>
+
+																<c:if test="${item.totalPrice == 0}">
+																	<th class="col-sm-1"><a class="btn btn-primary"
+																		style="display: none" href="/admin/exportExcel">Xuất File Excel</a>
+																	</th>
+
+																	<th class="col-sm-1"><a class="btn btn-primary"
+																		href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
+																	</th>
+																</c:if>
+																<c:if test="${item.totalPrice != 0}">
+																	<th class="col-sm-1"><a class="btn btn-primary"
+																		href="/admin/exportExcel">Xuất File Excel</a>
+																	</th>
+
+																	<th class="col-sm-1"><a class="btn btn-primary"
+																		href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a>
+																	</th>
+																</c:if>
 															</tr>
 														</c:forEach>
 													</tbody>

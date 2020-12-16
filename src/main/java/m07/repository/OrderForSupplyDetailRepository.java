@@ -16,11 +16,6 @@ public interface OrderForSupplyDetailRepository extends JpaRepository<OrderForSu
 	@Query(value = "select id from orderforsuplierdetail where orderId = ? and productId = ?", nativeQuery = true)
 	public String idOrderDetail(int orderId, int productID);
 	
-	/*
-	 * @Query(value =
-	 * "select id, sum(quantity) as quantity,unitPrice, orderId, productId from orderforsuplierdetail where orderId = ? group by productId, orderId"
-	 * , nativeQuery = true) public List<OrderForSuplierDetail>
-	 * listOrderForSupplyDetails(int id);
-	 */
-	
+	@Query(value = "SELECT id FROM orderforsuplierdetail where productId = ? limit 1", nativeQuery = true)
+    public String checkExistProduct(int productId);
 }

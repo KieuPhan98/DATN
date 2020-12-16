@@ -58,7 +58,7 @@ public class Customer implements Serializable {
 	
 	@OneToMany(mappedBy = "customer")
 	Collection<Cmt_Cus> cmt_cus;
-
+	
 	@OneToMany(mappedBy = "customer")
 	Collection<OrderForSupplier> orderForSupplier;
 	

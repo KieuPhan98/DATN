@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,9 +22,9 @@ public class Cmt_Cus {
 	@Id
 	@GeneratedValue
 	Integer id;
-	
-/*	int customer;
-	int cmtId;*/
+
+	@Nationalized
+	String content;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")

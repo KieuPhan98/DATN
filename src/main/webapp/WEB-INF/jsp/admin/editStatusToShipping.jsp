@@ -30,7 +30,6 @@
     <link href="/resources/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     <script src=/resources/assets/js/jquery.validate.min.js"></script>
 
-
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -44,7 +43,6 @@
                         <h4 class="title">Update Order</h4>
                     </div> -->
                     <div class="content">
-                        ${message}
                         <form:form action="/admin/updateStatusToShipping" method="post" modelAttribute="order1" >
                             <div class="row">
                                 <div class="col-md-4">
@@ -83,7 +81,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Người nhận</label>
-                                        <form:input type="text" path="receiver" class="form-control" readonly="true"></form:input>
+                                        <form:input type="text" path="receiver" class="form-control"></form:input>
                                     </div>
                                 </div>
                             </div>
@@ -92,35 +90,48 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Địa chỉ</label>                                         
-                                        <form:input type="text" path="address" class="form-control" required="true" readonly="true"></form:input>
+                                        <form:input type="text" path="address" class="form-control" required="true" ></form:input>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Quận</label>                                         
-                                        <form:input type="text" path="district" class="form-control" required="true" readonly="true"></form:input>
-                                    </div>
+                                       <%--  <form:input type="text" path="district" class="form-control" required="true" ></form:input> --%>
+											<form:select itemValue="district" path="district"
+												class="form-control">
+												<form:option value="${districts}">${districts}</form:option>
+												<form:option value="Quận 1">Quận 1</form:option>
+												<form:option value="Quận 2">Quận 2</form:option>
+												<form:option value="Quận 3">Quận 3</form:option>
+												<form:option value="Quận 4">Quận 4</form:option>
+												<form:option value="Quận 5">Quận 5</form:option>
+												<form:option value="Quận 6">Quận 6</form:option>
+												<form:option value="Quận 7">Quận 7</form:option>
+												<form:option value="Quận 8">Quận 8</form:option>
+												<form:option value="Quận 9">Quận 9</form:option>
+												<form:option value="Quận 10">Quận 10</form:option>
+												<form:option value="Quận 11">Quận 11</form:option>
+												<form:option value="Quận 12">Quận 12</form:option>
+												<form:option value="Quận Thủ Đức">Quận Thủ Đức </form:option>
+												<form:option value="Quận Tân Phú">Quận Tân Phú</form:option>
+												<form:option value="Quận Gò Vấp">Quận Gò Vấp</form:option>
+												<form:option value="Quận Tân Bình">Quận Tân Bình</form:option>
+												<form:option value="Quận Bình Thạnh">Quận Bình Thạnh</form:option>
+												<form:option value="Quận Bình Tân">Quận Bình Tân</form:option>
+												<form:option value="Quận Phú Nhuận">Quận Phú Nhuận</form:option>
+											</form:select>
+										</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>description</label>                                         
-                                        <form:input type="text" path="description" class="form-control" readonly="true"></form:input>
+                                        <label>Mô tả</label>                                         
+                                        <form:input type="text" path="description" class="form-control" ></form:input>
                                     </div>
                                 </div>
                             </div>
-
-						<%-- 	<div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="display:none">
-                                        <label>Ngay giao</label>                                         
-                                        <form:input path="orderDate" class="form-control"></form:input>
-                                    </div>
-                                </div>
-                            </div>
-                             --%>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group" style="display:none">
@@ -131,19 +142,21 @@
                             </div>
                             
                             <div class="row">
-                                <%-- <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>shipperId</label>                                         
-                                        <form:select items="${listShipper}" path="shipperId" class="form-control"></form:select>
-                                    </div>
-                                </div> --%>
                                 
-                                <%-- <div class="col-md-6">
-                                    <div class="form-group" style="display:none">
-                                        <label>employeeId</label>                                         
-                                        <form:input type="text" path="employeeId" class="form-control" required="true"></form:input>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Người duyệt đơn hàng</label>                                         
+                                        <form:input type="text" path="employeeId" class="form-control" value = "${FullName}" readonly="true"></form:input>
                                     </div>
-                                </div> --%>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Người giao hàng</label>                                         
+                                        <form:select items="${listShipper}" itemLabel="fullname" itemValue="id" 
+                                        			path="shipperId" class="form-control"></form:select>
+                                    </div>
+                                </div>
                                 
                             </div>
                             <div class="row">

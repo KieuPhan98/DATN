@@ -75,7 +75,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Logo</label>
-                                        <input name="file" type="file" class="form-control">
+                                        <input name="file" type="file" class="form-control" required = "true">
                                     </div>
                                 </div>
                             </div>

@@ -69,37 +69,27 @@
                             </div>
 
                             <div class="row">
-                            	<div class="col-md-6">
+                            	<div class="col-md-4">
                                     <div class="form-group">
                                         <label>Đơn vị tính</label>
                                         <form:input path="unitBrief" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Số lượng</label>
                                         <form:input type="number" path="quantity" class="form-control" min="1" required="true"></form:input>
                                     </div>
                                 </div>
                                 
-                            </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Giá</label>
                                         <form:input path="unitPrice" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Ngày nhập </label>
-                                        <form:input type="date" path="productDate" class="form-control"
-                                                    required="true"></form:input>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="row">

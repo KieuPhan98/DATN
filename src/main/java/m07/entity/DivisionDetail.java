@@ -13,11 +13,12 @@ public class DivisionDetail {
 	@Id
 	@GeneratedValue
 	Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="employeeId")
+
+	@JoinColumn(name = "employeeId")
 	Employee employee;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "districtId")
 	District district;

@@ -38,11 +38,8 @@ public class OrderForSupplier {
 	@Nationalized 
 	String status;		
 	
-	
-	/*
-	 * @Column(unique=true) String receiptionId;
-	 */
-	 
+	//@Column(unique=true) 
+	int receiptionId;
 
 	/*
 	 * @OneToOne(mappedBy = "orderForSupplier", fetch = FetchType.EAGER)
@@ -116,8 +113,14 @@ public class OrderForSupplier {
 		this.customer = customer;
 	}
 
-	
-	
+	public int getReceiptionId() {
+		return receiptionId;
+	}
+
+	public void setReceiptionId(int receiptionId) {
+		this.receiptionId = receiptionId;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderForSupplier [id=" + id + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status="

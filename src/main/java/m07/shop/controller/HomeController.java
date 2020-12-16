@@ -97,20 +97,18 @@ public class HomeController extends BaseController {
     @RequestMapping(value = "/header" , method = RequestMethod.POST)
     public String timkiem(Model model, @RequestParam("name") String search) {
         // c1
-        List<Product> productList =
-                (List<Product>) productRepository.findByNameContainingOrCategoryNameContaining(search, search);
+        List<Product> productList = (List<Product>) productRepository.findByNameContainingOrCategoryNameContaining(search, search);
 
-//        // c2
-//        List<Product> productList2 =
-//                (List<Product>) productRepository.findAll();
-//        List<Product> result = new ArrayList<>();
-//        for(Product product : productList2) {
-//            if (product.getName().contains(search)
-//                    || product.getCategory().getName().contains(search)) {
-//                result.add(product);
-//            }
-//        }
-
+		//c2 
+		/*
+		 * List<Product> productList2 = (List<Product>) productRepository.findAll();
+		 * List<Product> result = new ArrayList<>();
+		 * 
+		 * for (Product product : productList2) { if (product.getName().contains(search)
+		 * || product.getCategory().getName().contains(search)) { result.add(product); }
+		 * }
+		 */
+		 
         model.addAttribute("productList", productList);
         return "product";
     }

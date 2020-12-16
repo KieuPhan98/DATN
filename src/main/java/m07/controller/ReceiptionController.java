@@ -144,13 +144,14 @@ public class ReceiptionController implements ServletContextAware{
 		int id = Integer.valueOf(receip.getOrderForSupplierId());
 		OrderForSupplier order = orderForSupplierRepository.findOne(id);
 		order.setStatus("da nhap hang");
-
+		order.setReceiptionId(receiption.getId());
+		
 		OrderForSupplier order1 = orderForSupplierRepository.save(order);
+		System.out.println("id receiption: " + receiption.getId());
 		
 		return "redirect:/admin/importOrderFromSupplier";
 	}
 
-	
 	//================================ IMPORT RECEIPTION =================================
 	
 private ServletContext servletContext;
@@ -163,6 +164,8 @@ private ServletContext servletContext;
 	
 	@RequestMapping(value = "/admin/import", method = RequestMethod.POST)
 	public String process(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException{
+		
+		List<ViewReceiptionDetail> error = new ArrayList<>();
 		
 		String fileName = uploadExcelFile(file);
 		System.out.println("fileName: " + fileName);
@@ -178,36 +181,47 @@ private ServletContext servletContext;
         
         System.out.println("danh sach receipdetail");
         double sum = 0;
+        
+        int index=0;
+    	System.out.println("chieu dai: "+listview.size());
         for(ViewReceiptionDetail i : listview) {
-        	
-			ReceipDetail rd = new ReceipDetail();
+        	System.out.println(index++);
+        
+        	try {
+        		ReceipDetail rd = new ReceipDetail();
 
-			System.out.println("id product: " + i.getIdSp());
-			// tang so luong sp
-			Product prod = productRepository.findOne(i.getIdSp());
-			prod.setQuantity(prod.getQuantity() + i.getSoluong());
-			prod.setUnitPrice(i.getDongia() + 50);
-			prod = productRepository.save(prod);
-			
-			rd.setProducts(prod);
+    			System.out.println("id product: " + i.getIdSp());
+    			// tang so luong sp
+    			Product prod = productRepository.findOne(i.getIdSp());
+    			prod.setQuantity(prod.getQuantity() + i.getSoluong());
+    			prod.setUnitPrice(i.getDongia() + i.getDongia()*0.2);
+    			prod = productRepository.save(prod);
+    			
+    			rd.setProducts(prod);
 
-			System.out.println("don gia: " + i.getDongia());
-			rd.setUnitPrice(i.getDongia());
+    			System.out.println("don gia: " + i.getDongia());
+    			rd.setUnitPrice(i.getDongia());
 
-			System.out.println("so luong: " + i.getSoluong());
-			rd.setQuantity(i.getSoluong());
-			
-			sum += i.getDongia() * i.getSoluong();
-			System.out.println("tong: " + sum);
-			
-			System.out.println("id receiption: " + idR);
-			Receiption r = receiptionRepository.findOne(idR);
-			r.setTotalPrice(sum);
-			r = receiptionRepository.save(r);
-			rd.setReceiption(r);
-			
-			System.out.println("===================");
-			rd = receiptionDetailRepository.save(rd);
+    			System.out.println("so luong: " + i.getSoluong());
+    			rd.setQuantity(i.getSoluong());
+    			
+    			sum += i.getDongia() * i.getSoluong();
+    			System.out.println("tong: " + sum);
+    			
+    			System.out.println("id receiption: " + idR);
+    			Receiption r = receiptionRepository.findOne(idR);
+    			r.setTotalPrice(sum);
+    			r = receiptionRepository.save(r);
+    			rd.setReceiption(r);
+    			
+    			System.out.println("===================");
+    			rd = receiptionDetailRepository.save(rd);  
+			} catch (Exception e) {
+				// TODO: handle exception
+				error.add(i);
+				System.out.println("loi" + e.toString());
+				continue;
+			}
         }
         
 		return "redirect:/admin/importOrderFromSupplier";
@@ -283,7 +297,7 @@ private ServletContext servletContext;
 			int productID = detial.getProducts().getId();
 			int quantity = detial.getQuantity();
 			double price = detial.getUnitPrice();
-			double newPrice = price + 50;
+			double newPrice = price + price*0.2;
 
 			System.out.println(receipID + " ID RECEIP");
 			System.out.println(productID + " ID PRODUCT");
@@ -350,7 +364,7 @@ private ServletContext servletContext;
 		prod.setQuantity(prod.getQuantity() - receipDetail.getQuantity());
 		
 		productRepository.save(prod);
-		return "admin/editProductReceiption";
+		return "admin/editProductReceiption"; 
 	}
 
 	@RequestMapping(value = "/admin/editProductReceiption", method = RequestMethod.POST)

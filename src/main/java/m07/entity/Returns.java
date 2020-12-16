@@ -1,10 +1,12 @@
 package m07.entity;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +24,12 @@ public class Returns {
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	Date createDate;
 	
+	double totalPrice;
 	
 	int employeeId;
+	
 	int bill_Id;
+	
+	@OneToMany(mappedBy="returns")
+	Collection<ReturnDetail> returnDetail;
 }

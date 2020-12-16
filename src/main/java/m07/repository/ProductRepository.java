@@ -21,8 +21,7 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     @Query(value = "select  *from products where supplierId = ? ", nativeQuery = true)
     public List<Product> listproductBysupper (int supplierId);
 
-
-    @Query(value = "select *from products ORDER BY id desc", nativeQuery = true)
+    @Query(value = "select *from products where enable = 1 ORDER BY id desc", nativeQuery = true)
     public List<Product> listproductdesc ();
 
     @Query(value = "select *from products where name = ?", nativeQuery = true)
@@ -45,16 +44,21 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     @Query(value = "select  *from  products where unitPrice >= 600 " , nativeQuery = true)
     public List<Product> filterprice20();
 
-    // tÃ¬m kiáº¿m sáº£n pháº©m sale
+    @Query(value = "SELECT id FROM products where categoryId = ? limit 1;", nativeQuery = true)
+    public String checkExistCategory(int categoryId);
+    
+    @Query(value = "SELECT id FROM products where supplierId = ? limit 1;", nativeQuery = true)
+    public String checkExistSupplier(int supplierId);
+    
     /*@Query(value = "SELECT * FROM  products where discount = ?" , nativeQuery = true)
     public  List<Product> sale(Double discount);*/
 
-    @Query(value = "SELECT P.image, P.id, P.name, ifnull(Nhap.QI,0) AS tongnhap, ifnull(Xuat.QO,0) AS tongxuat, (ifnull(Nhap.QI,0) - ifnull(Xuat.QO,0) + ifnull(Xuat.QR,0)) AS tonkho\r\n" + 
+    @Query(value = "SELECT P.image, P.id, P.name, ifnull(Nhap.QI,0) AS tongnhap, ifnull(Xuat.QO,0) AS tongxuat, (ifnull(Nhap.QI,0) - ifnull(Xuat.QO,0)) AS tonkho\r\n" + 
     		"FROM products P \r\n" + 
     		"LEFT JOIN (select RD.productId PI, SUM(quantity) QI FROM receipdetail RD WHERE receiptionId in \r\n" + 
     		"           (select R.id from receiption AS R where R.createDate <= ?)\r\n" + 
     		"           GROUP BY RD.productId) Nhap on P.id = PI\r\n" + 
-    		"LEFT JOIN (select OD.productId PC, SUM(quantity) QO, SUM(re_quantity) QR FROM orderdetails OD WHERE orderId in \r\n" + 
+    		"LEFT JOIN (select OD.productId PC, SUM(quantity) QO FROM orderdetails OD WHERE orderId in \r\n" + 
     		"           (select O.id from orders AS O where (O.orderDate <= ? and (O.status = \"Hoan tat\" or O.status = \"Dang giao\")))\r\n" + 
     		"           GROUP BY OD.productId) Xuat on  P.id = PC \r\n" + 
     		"ORDER BY P.id;\r\n" + 

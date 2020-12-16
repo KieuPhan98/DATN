@@ -1,24 +1,27 @@
 package m07.entity;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roles")
-public class Roles {
-	@Id
-    @GeneratedValue
-    Integer id;
-	
-    String name;
+@Table(name = "ReturnDetail")
+public class ReturnDetail {
 
-	@OneToMany(mappedBy="role")
-	Collection<RoleDetail> roleDetails;
+	@Id
+	@GeneratedValue
+	int id;
+	
+	int quantity;
+	
+	double unitPrice;
+	
+	int orderDetail_id;
+	
+	@ManyToOne
+	@JoinColumn(name="returnID")
+	Returns returns;
 }

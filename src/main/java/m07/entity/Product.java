@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ public class Product implements Serializable {
 	@Nationalized
 	String description;
 	Integer quantity;
+	Integer enable;
 	
 	@ManyToOne
 	@JoinColumn(name="categoryId")
@@ -80,6 +82,7 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
+	
 	public String getName() {
 		return name;
 	}
@@ -148,7 +151,7 @@ public class Product implements Serializable {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(Category category) {  
 		this.category = category;
 	}
 
@@ -158,6 +161,14 @@ public class Product implements Serializable {
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
+	}
+
+	public Integer getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Integer enable) {
+		this.enable = enable;
 	}
 
 	public Collection<OrderDetail> getOrderDetails() {
@@ -175,5 +186,6 @@ public class Product implements Serializable {
 	public void setOrderForSuplierDetail(Collection<OrderForSuplierDetail> orderForSuplierDetail) {
 		this.orderForSuplierDetail = orderForSuplierDetail;
 	}
+	
 	
 }

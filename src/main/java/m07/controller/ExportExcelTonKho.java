@@ -207,7 +207,7 @@ public class ExportExcelTonKho   {
 	}
 	
     private void writeHeaderLine(String name, String date){
-        sheet = workbook.createSheet("Thống Kê Doanh Thu");
+        sheet = workbook.createSheet("Thống Kê Tồn Kho");
         
         Cell cell;
         

@@ -49,7 +49,7 @@ public class ReportController {
 		return "/admin/reportDoanhThu";
 	}
 	
-	@RequestMapping(value = "admin/admin/reportDoanhThu", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/reportDoanhThuTest", method = RequestMethod.POST)
 	public String doanhthu(Model model, HttpServletRequest req) throws ParseException {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -66,7 +66,7 @@ public class ReportController {
 		
 		return "/admin/reportDoanhThu";
 	}
-	
+
 	//======================= REPORT LOI NHUAN ============================
 	
 	@RequestMapping(value = "/admin/reportLoiNhuan")
@@ -75,7 +75,7 @@ public class ReportController {
 		return "/admin/reportLoiNhuan";
 	}
 	 
-	@RequestMapping(value = "admin/admin/reportLoiNhuan", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/reportLoiNhuanTest", method = RequestMethod.POST)
 	public String loinhuan(Model model, HttpServletRequest req) throws ParseException {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,7 +101,7 @@ public class ReportController {
         return "/admin/reportTonKho";
     }
 	
-	@RequestMapping(value = "admin/admin/reportTonKho", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/reportTonKhoTest", method = RequestMethod.POST)
 	public String tonkho(Model model, HttpServletRequest req) throws ParseException {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -121,7 +121,7 @@ public class ReportController {
 	
 	//======================== XUAT FILE EXCEL =============================
 	  
-	@RequestMapping(value = "admin/admin/admin/exportExcelLoiNhuan")
+	@RequestMapping(value = "admin/admin/exportExcelLoiNhuan")
 	public void exportLoiNhuan(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
 		
 		response.setContentType("application/octet-stream");
@@ -152,7 +152,7 @@ public class ReportController {
 		excelExport.export(response, name, todate);
 	}
 	
-	@RequestMapping(value = "admin/admin/admin/exportExcelDoanhThu")
+	@RequestMapping(value = "admin/admin/exportExcelDoanhThu")
 	public void exportExcelDoanhThu(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
 		
 		response.setContentType("application/octet-stream");
@@ -183,7 +183,7 @@ public class ReportController {
 		excelExport.export(response, name, todate);
 	}
 	
-	@RequestMapping(value = "admin/admin/admin/exportExcelTonKho")
+	@RequestMapping(value = "admin/admin/exportExcelTonKho")
 	public void exportExcelTonKho(HttpServletResponse response, HttpServletRequest req) throws IOException, ParseException {
 		
 		response.setContentType("application/octet-stream");

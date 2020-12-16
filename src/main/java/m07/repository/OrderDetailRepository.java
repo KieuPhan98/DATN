@@ -12,7 +12,6 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integ
     @Query(value = "SELECT * FROM orderdetails limit 2" , nativeQuery = true)
     public List<OrderDetail> toporder();
 
-    // thong ke san pham theo tháng // theo các Tháng
     @Query(value = "Select month(od.orderDate) , \n" +
             "SUM(o.quantity) as quantity ,    \n" +
             "SUM(o.quantity * o.total_price) as sum, \n" +
@@ -25,19 +24,15 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integ
 
     public List<Object[]> repowheremonth();
 
-    //Tìm kiểm don dat hang
    @Query(value = "select *from orderdetails where orderId = ?", nativeQuery = true)
     public List<OrderDetail> searchOrder(int id);
 
-    //Tìm kiểm sản phẩm
     @Query(value = "SELECT  productId, SUM(quantity) as quantity\n" +
             "FROM orderdetails \n" +
             "group by productId\n" +
             "order by quantity desc", nativeQuery = true)
     public List<OrderDetail> sanphamdathang();
 
-
-    //Top sản phẩm bán chạy
     @Query(value = "SELECT  p.name, p.quantity as productquantity,  p.image, o.productId, SUM(o.quantity) as quantity , p.unitPrice\n" +
             "FROM orderdetails o\n" +
             "INNER JOIN products p ON o.productId = p.id\n" +
@@ -46,25 +41,13 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integ
             "limit 4", nativeQuery = true)
     public List<Object[]> topdathangnhieu();
 
-
-   /* //Thông báo khi đặt
-    @Query(value = "select * from orderdetails where id  order by id desc limit 5", nativeQuery = true)
-    public List<OrderDetail> thongbaodathang();
-*/
-
-    //List Sản phẩm by nhà cung cấp
     @Query(value = "select * from orderdetails where id  = ? ", nativeQuery = true)
     public List<OrderDetail> lisorderby (int id);
 
-    //List Sản phẩm của đơn hàng có id=?
     @Query(value = "select * from orderdetails where orderId  = ? ", nativeQuery = true)
     public List<OrderDetail> listorderDetail(int id);
     
-    /*@Query(value = "select * from orders where id  = ? ", nativeQuery = true)
-    public Order getOrder(int id);*/
-/*
-    /// list order ở bảng report
-    @Query(value = "select *from orderdetails ORDER BY id desc\n ", nativeQuery = true)
-    public List<OrderDetail> lisorderbydesc ();*/
+    @Query(value = "SELECT id FROM orderdetails where productId = ? limit 1", nativeQuery = true)
+    public String checkExistProduct(int productId);
 
 }

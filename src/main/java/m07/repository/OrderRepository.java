@@ -31,4 +31,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "select *from orders where status = \"Da huy\" ORDER BY id desc", nativeQuery = true)
     public List<Order> lisorderbydesc3 ();
     
+    @Query(value = "SELECT shipperId FROM orders where id = ?", nativeQuery = true)
+    public String idShipper(int id);
+    
+    @Query(value = "SELECT employeeId FROM orders where id = ?", nativeQuery = true)
+    public String idEmployee(int id);
 }

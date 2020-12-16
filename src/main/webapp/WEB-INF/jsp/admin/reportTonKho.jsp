@@ -64,7 +64,7 @@
         <div class="row">
         	<div class="col-sm-12 ">
         		<h3 class="title" style="margin-left: 400px; margin-bottom: 20px">THỐNG KÊ TỒN KHO</h3>
-				<form action="admin/reportTonKho" method="post">
+				<form action="/admin/reportTonKhoTest" method="post">
 					<%-- <label>Từ ngày : </label>
 					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" required="required">  --%>	
 					<label style="margin-left: 350px;">Tính đến ngày : </label>

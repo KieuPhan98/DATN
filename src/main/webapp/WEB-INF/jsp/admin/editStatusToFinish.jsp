@@ -47,7 +47,6 @@
                         <h4 class="title">Update Order</h4>
                     </div>
                     <div class="content">
-                        ${message}
                         <form:form action="/admin/updateStatusToFinish" method="post" modelAttribute="order1" >
                             <div class="row">
                                 <div class="col-md-4">
@@ -109,21 +108,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>description</label>                                         
+                                        <label>Mô tả</label>                                         
                                         <form:input type="text" path="description" class="form-control" readonly="true"></form:input>
                                     </div>
                                 </div>
                             </div>
-
-						<%-- 	<div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="display:none">
-                                        <label>Ngay giao</label>                                         
-                                        <form:input path="orderDate" class="form-control"></form:input>
-                                    </div>
-                                </div>
-                            </div>
-                             --%>
+                            
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group" style="display:none">
@@ -134,19 +124,20 @@
                             </div>
                             
                             <div class="row">
+                                
                                 <div class="col-md-6">
-                                    <div class="form-group" style="display:none">
-                                        <label>shipperId</label>                                         
-                                        <form:input type="text" path="shipperId" class="form-control" required="true"></form:input>
+                                    <div class="form-group">
+                                        <label>Người duyệt đơn hàng</label>                                         
+                                        <form:input type="text" path="employeeId" class="form-control" readonly="true" value = "${nameEmployee }"></form:input>
                                     </div>
                                 </div>
                                 
-                                <%-- <div class="col-md-6">
-                                    <div class="form-group" style="display:none">
-                                        <label>employeeId</label>                                         
-                                        <form:input type="text" path="employeeId" class="form-control" required="true"></form:input>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Người giao hàng</label>                                         
+                                        <form:input type="text" path="shipperId" class="form-control" readonly="true" value = "${nameShipper }"></form:input>
                                     </div>
-                                </div> --%>
+                                </div>
                                 
                             </div>
                             <div class="row">
@@ -165,9 +156,7 @@
 											<label>Trạng thái</label>
 											<form:select itemValue="status" path="status" class="form-control">												
 												<form:option value="Hoan tat">HOÀN TẤT</form:option>
-												<%-- <form:option value="Huy">HỦY</form:option> --%>
 											</form:select>
-
 										</div>
 									</div>
                             </div>

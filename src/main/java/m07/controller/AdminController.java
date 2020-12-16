@@ -124,7 +124,17 @@ public class AdminController {
     /// delete Category
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String addCourse(@PathVariable("id") int id, ModelMap model) {
-        categoryRepository.delete(id);
+    	
+    	String idProduct = productRepository.checkExistCategory(id);
+    	System.out.println(idProduct);
+
+		if (idProduct == null) {
+			categoryRepository.delete(id);
+			model.addAttribute("message", "xoa thanh cong");
+		} else {
+			model.addAttribute("message", "khong duoc xoa");
+		}
+        
         return "redirect:/admin/listCategory";
     }
 

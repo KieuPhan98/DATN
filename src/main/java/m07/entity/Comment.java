@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Nationalized;
+
 @Entity
 @Table(name = "Comment")
 public class Comment {
@@ -15,12 +17,14 @@ public class Comment {
 	@GeneratedValue
 	int id;
 	
+	@Nationalized
 	String content;
 	
-	/*int productId;*/
+	int productId;
+
 	@OneToMany(mappedBy = "comment")
 	Collection<Cmt_Cus> cmt_cus;
 	
 	@OneToMany(mappedBy = "comment")
-	Collection<Cmt_Emp> cmt_emp;
+	Collection<Cmt_Emp> cmp_emp;
 }

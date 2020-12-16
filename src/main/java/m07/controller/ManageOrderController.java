@@ -4,7 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -40,6 +44,8 @@ public class ManageOrderController {
     @Autowired
     RoleRepository roleRepository;
 
+    private String loginID;
+    
     @ModelAttribute("orderList")
     public List<OrderDetail> showOrder(Model model) {
         List<OrderDetail> orderDetailList = (List<OrderDetail>) orderDetailRepository.findAll();
@@ -50,27 +56,36 @@ public class ManageOrderController {
     @RequestMapping(value = "/admin/orderNew")
     public String showproorders(Model model){
         List<Order> listOrder = (List<Order>) orderRepository.lisorderbydesc();
-//        List<Employee> listEmployees = (List<Employee>) employeeRepository.listEmployee();
-//        model.addAttribute("employees", listEmployees);
         model.addAttribute("orders",listOrder);
         return "/admin/order1";
     }
  // status to shipping
     @RequestMapping(value = "/admin/updateStatusToShipping", method = RequestMethod.GET)
-    public String editSupper(@RequestParam("id") int id,  ModelMap model) {
+    public String editSupper(@RequestParam("id") int id,  ModelMap model, HttpServletRequest request) {
     	
         model.addAttribute("order1", orderRepository.findOne(id));
         model.addAttribute("message","Updating");
         
-        List<Role> listRole = roleRepository.listRole();
-        List<String> listShipper = new ArrayList<>();
-        
-        for(Role item : listRole) {
-        	String name = customerRepository.getFullName(item.getCustomer().getId());
-        	listShipper.add(name);
-        }
+        List<Customer> listShipper = customerRepository.listEmployee();
         
         model.addAttribute("listShipper", listShipper);
+        
+        //==
+        HttpSession httpSession = request.getSession();
+		Object s = httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
+		SecurityContextImpl context = (SecurityContextImpl) s;
+		String loggedInUser = context.getAuthentication().getName();
+
+		System.out.println(loggedInUser);
+
+		String name = customerRepository.getFullName(loggedInUser);
+		model.addAttribute("FullName", name);
+		
+		loginID = loggedInUser;
+		System.out.println(name);
+		model.addAttribute("FullName", name);
+        //==
+		
         return "admin/editStatusToShipping";
     }
 
@@ -80,14 +95,13 @@ public class ManageOrderController {
     	
     	System.out.println("Order Info : ====================================");
     	System.out.println(order.toString());
-//        Order cs = orderRepository.save(order);
-    	/*Customer customer = order.getCustomer();*/
     	
     	Customer customer = customerRepository.getCustomer(order.getCustomer().getId());
     	System.out.println("Customer Info : ====================================");
     	System.out.println(customer.getFullname());    	
     	
     	order.setCustomer(customer);
+    	order.setEmployeeId(loginID);
     	
     	Order cs = orderRepository.save(order);
     	
@@ -102,33 +116,43 @@ public class ManageOrderController {
             model.addAttribute("order", order);
         }
         
-        if(order.getStatus().equals("Dang giao")) {
-        	return "redirect:/admin/orderNew";
-        }
-        else {
-        	return "redirect:/admin/orderNew";
-        }
+        return "redirect:/admin/orderNew";
     }
     
     // don hang dang giao
     @Transactional
     @RequestMapping(value = "/admin/orderShipping")
     public String showproorders1(Model model){
+    	
         List<Order> orders = (List<Order>) orderRepository.lisorderbydesc1();
-        System.out.println("========================== OUTPUT DATA ==================");
-        for (Order order : orders) {
-        	System.out.println(order.toString());
-        }
         model.addAttribute("orders",orders);
+        
+		/*
+		 * System.out.
+		 * println("========================== OUTPUT DATA =================="); for
+		 * (Order order : orders) { System.out.println(order.toString()); }
+		 */
+        
         return "/admin/order2";
     }
     
     // status to finish    
     @RequestMapping(value = "/admin/updateStatusToFinish", method = RequestMethod.GET)
-    public String editSupper1(@RequestParam("id") int id,
-                             ModelMap model) {
+    public String editSupper1(@RequestParam("id") int id, ModelMap model) {
+                             
         model.addAttribute("order1", orderRepository.findOne(id));
-        model.addAttribute("message","Updating");
+        /*
+        String idShipper = orderRepository.idShipper(id);
+        String nameShipper = customerRepository.getFullName(idShipper);
+        model.addAttribute("nameShipper", nameShipper);
+        
+        String idEmployee = orderRepository.idEmployee(id);
+        String nameEmployee = customerRepository.getFullName(idEmployee);
+        model.addAttribute("nameEmployee", nameEmployee);
+        */
+        Order order = orderRepository.findOne(id);
+        model.addAttribute("districts", order.getDistrict());
+        
         return "admin/editStatusToFinish";
     }
 
@@ -136,7 +160,7 @@ public class ManageOrderController {
     @Transactional
     public String editorder1(@ModelAttribute("order1") Order order, Model model, RedirectAttributes rs) {
     	
-    	System.out.println("Order Info : ====================================");
+    	System.out.println("Order Info : ====================================");  
     	System.out.println(order.toString());
 //        Order cs = orderRepository.save(order);
     	/*Customer customer = order.getCustomer();*/

@@ -21,8 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Employee implements Serializable {
 
 	@Id
-	@GeneratedValue
-	Integer id;
+	String id;
 	
 	@Nationalized
 	String LastName;
@@ -40,11 +39,14 @@ public class Employee implements Serializable {
 	@Nationalized
 	String Adress;
 	
+	@Nationalized
+	String District;
+	
 	String Phone;
-	/*tring Birthday;*/
 	String Email;
 	String Password;
 	
+	String roleID;
 	/*
 	 * @OneToMany(mappedBy = "employeeId") Collection<Returns> returns;
 	 */
@@ -59,34 +61,22 @@ public class Employee implements Serializable {
 	 * Collection<OrderForSupplier> orderForSupplier;
 	 */
 
-	@OneToMany(mappedBy = "employee")
-	Collection<Order> order;
+	/*
+	 * @OneToMany(mappedBy = "employee") Collection<Order> order;
+	 */
 
-	@OneToMany(mappedBy="employee")
+	
+	@OneToMany(mappedBy = "employee")
 	Collection<Cmt_Emp> cmt_emp;
 
-	/*
-	 * public Collection<Receiption> getReceiptions() { return receiptions; }
-	 * 
-	 * public void setReceiptions(Collection<Receiption> receiptions) {
-	 * this.receiptions = receiptions; }
-	 */
-
-	/*
-	 * public Collection<OrderForSupplier> getOrderForSupplier() { return
-	 * orderForSupplier; }
-	 * 
-	 * public void setOrderForSupplier(Collection<OrderForSupplier>
-	 * orderForSupplier) { this.orderForSupplier = orderForSupplier; }
-	 */
 	@OneToMany(mappedBy = "employee")
 	Collection<DivisionDetail> divisionDetails;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -144,14 +134,6 @@ public class Employee implements Serializable {
 
 	public void setPassword(String password) {
 		Password = password;
-	}
-
-	public Collection<Order> getOrder() {
-		return order;
-	}
-
-	public void setOrder(Collection<Order> order) {
-		this.order = order;
 	}
 
 	public Collection<Cmt_Emp> getCmt_emp() {

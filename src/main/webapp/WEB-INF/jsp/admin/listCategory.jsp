@@ -99,17 +99,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        demo.initChartist();
+    		$.notify({
+                icon: 'pe-7s-gift',
+                message: "Chào Mừng Bạn đến với trang Admin "
 
-        $.notify({
-            icon: 'pe-7s-gift',
-            message: "Chào Mừng Bạn đến với trang Admin "
-
-        }, {
-            type: 'info',
-            timer: 4000
-        });
-
+            }, {
+                type: 'info',
+                timer: 4000
+            });
     });
 </script>
 </body>

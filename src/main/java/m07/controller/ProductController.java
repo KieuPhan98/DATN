@@ -2,9 +2,12 @@ package m07.controller;
 
 
 import m07.entity.Category;
+import m07.entity.OrderDetail;
 import m07.entity.Product;
 import m07.entity.Supplier;
 import m07.repository.CategoryRepository;
+import m07.repository.OrderDetailRepository;
+import m07.repository.OrderForSupplyDetailRepository;
 import m07.repository.ProductRepository;
 import m07.repository.SuppliersRepository;
 import org.apache.commons.io.FileUtils;
@@ -13,6 +16,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,22 +41,25 @@ public class ProductController {
 
     @Autowired
     SuppliersRepository suppliersRepository;
+    
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
+    
+    @Autowired
+    OrderForSupplyDetailRepository orderForSupplyDetailRepository;
 
-
-    //// show trang add product
     @RequestMapping(value = "/admin/addproduct")
     public String addproduct(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
+        
         return "admin/addproduct";
     }
 
-    // them category
     @RequestMapping(value = "/admin/addproduct", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("product") Product product,
-                             ModelMap model,
-                             @RequestParam("file") MultipartFile file
-            , HttpServletRequest httpServletRequest) {
+    public String addProduct(@ModelAttribute("product") Product product, ModelMap model, @RequestParam("file") MultipartFile file,
+    		 HttpServletRequest httpServletRequest, BindingResult bindingResult) {
+    	
         String path = httpServletRequest.getSession().getServletContext().getRealPath("/") + "resources/uploads/";
 
         try {
@@ -62,7 +70,12 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        product.setImage(file.getOriginalFilename());
+        product.setImage(file.getOriginalFilename()); 
+        product.setEnable(1);
+        
+        Date date = new Date();
+        product.setProductDate(date);
+		
         Product p = productRepository.save(product);
         if (null != p) {
             model.addAttribute("message", "Update success");
@@ -74,7 +87,6 @@ public class ProductController {
         return "redirect:/admin/listproduct";
     }
 
-    // showw select option ở add
     @ModelAttribute("categoryList")
     public List<Category> showCaegory(Model model) {
         List<Category> categoryList =
@@ -89,14 +101,11 @@ public class ProductController {
         return supplierList;
     }
 
-    // Edit product
     @RequestMapping(value = "/admin/editproduct", method = RequestMethod.GET)
     public String editSupper(@RequestParam("id") int id, ModelMap model) {                          
         model.addAttribute("product1", productRepository.findOne(id));
         return "admin/editproduct";
     }
-
-    // product by category
 
     @RequestMapping(value = "/admin/editproduct", method = RequestMethod.POST)
     public String editSupp(@ModelAttribute("product") Product product, Model model,
@@ -126,10 +135,22 @@ public class ProductController {
         return "redirect:/admin/listproduct";
     }
 
-    ///delete Category
     @RequestMapping(value = "deletepro/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable("id") int id, ModelMap model) {
-        productRepository.delete(id);
+    	
+    	String order = orderDetailRepository.checkExistProduct(id);
+    	String orderForSup = orderForSupplyDetailRepository.checkExistProduct(id);
+    	
+    	if (order == null && orderForSup == null) {
+    		productRepository.delete(id);
+			model.addAttribute("message", "xoa thanh cong");
+		} else {
+			Product product = productRepository.findOne(id);
+			product.setEnable(0);
+			productRepository.save(product);
+			model.addAttribute("message", "khong duoc xoa");
+		}
+    	
         return "redirect:/admin/listproduct";
     }
 

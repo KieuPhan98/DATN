@@ -61,8 +61,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<td class="invert-image"><a href="single.html"><img
 								src="/resources/images/${cart.product.image}" alt=" "
 								class="img-responsive" style="width: 150px; height: 150px;" /></a></td>
-						<td class="invert">
-							<div class="quantity">
+						<td class="invert">${cart.quantity}
+							<%-- <div class="quantity">
 								<div class="quantity-select">
 									<div class="entry value-minus">&nbsp;</div>
 									<div class="entry value">
@@ -70,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 									<div class="entry value-plus active">&nbsp;</div>
 								</div>
-							</div>
+							</div> --%>
 						</td>
 						<td class="invert">${cart.product.name}</td>
 						<td class="invert">$ <f:formatNumber value="${cart.product.unitPrice}" pattern="#,###.00"/></td>

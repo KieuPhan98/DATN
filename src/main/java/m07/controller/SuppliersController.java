@@ -1,6 +1,8 @@
 package m07.controller;
 
 import m07.entity.Supplier;
+import m07.repository.OrderForSupplierRepository;
+import m07.repository.ProductRepository;
 import m07.repository.SuppliersRepository;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,12 @@ public class SuppliersController {
 
     @Autowired
     SuppliersRepository suppliersRepository;
+    
+    @Autowired
+    ProductRepository productRepository;
+    
+    @Autowired
+    OrderForSupplierRepository orderForSupplierRepository;
 
     @RequestMapping(value = "/admin/addsuppliers")
     public String addproduct(Model model) {
@@ -28,7 +36,6 @@ public class SuppliersController {
         return "admin/addsuppliers";
     }
 
-    // them category
     @RequestMapping(value = "/admin/addsuppliers", method = RequestMethod.POST)
     public String addCourse(@ModelAttribute("category") Supplier supplier, ModelMap model,
                             @RequestParam("file") MultipartFile file, HttpServletRequest httpServletRequest) {
@@ -56,7 +63,6 @@ public class SuppliersController {
         return "redirect:/admin/listSupplier";
     }
 
-    // Edit category
     @RequestMapping(value = "/admin/editsuppliers", method = RequestMethod.GET)
     public String editSupper(@RequestParam("id") int id, ModelMap model) {
         model.addAttribute("supplier1", suppliersRepository.findOne(id));
@@ -90,10 +96,19 @@ public class SuppliersController {
         return "redirect:/admin/listSupplier";
     }
 
-    ///delete Category
     @RequestMapping(value = "deletesup/{id}", method = RequestMethod.GET)
     public String deletesup(@PathVariable("id") int id, ModelMap model) {
-        suppliersRepository.delete(id);
+    	
+    	String idProduct = productRepository.checkExistSupplier(id);
+    	String order = orderForSupplierRepository.checkExistSupplier(id);
+    	
+    	if (idProduct == null && order == null) {
+    		suppliersRepository.delete(id);
+			model.addAttribute("message", "xoa thanh cong");
+		} else {
+			model.addAttribute("message", "khong duoc xoa");
+		}
+        
         return "redirect:/admin/listSupplier";
     }
 

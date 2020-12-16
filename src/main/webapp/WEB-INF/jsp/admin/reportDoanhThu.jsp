@@ -64,10 +64,10 @@
         <div class="row">
         	<div class="col-sm-12 ">
         		<h3 class="title" style="margin-left: 400px; margin-bottom: 20px">THỐNG KÊ DOANH THU</h3>
-				<form action="admin/reportDoanhThu" method="post">
-					<%-- <label>Từ ngày : </label>
-					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" required="required">  --%>	
-					<label style="margin-left: 350px;">Tính đến ngày : </label>
+				<form action="/admin/reportDoanhThuTest" method="post">
+					<label style="margin-left: 200px;">Từ ngày : </label>
+					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }">  	
+					<label>Đến ngày : </label>
 					<input type = "date" id="todate" name="todate" value="${dateto }" required="required">
 					<button type="submit" class="btn btn-primary"> OK </button>
 				</form>		

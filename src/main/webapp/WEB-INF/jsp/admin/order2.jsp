@@ -72,7 +72,7 @@
 										<tr>
 											<td>${orders.id}</td>
 											<td>${orders.customer.fullname}</td>  
-											<td>${orders.orderDate}</td>
+											<td>${orders.orderDate}</td> 
 											<td>${orders.receiver}</td>
 											<td>${orders.phone}</td>
 											<td>${orders.address} - ${orders.district}</td>

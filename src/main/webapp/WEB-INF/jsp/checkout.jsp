@@ -46,9 +46,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- register -->
 <div class="register">
     <div class="container">
-        <h2><spring:message code="checkout1" text="default text"/></h2>
+        <h2>ĐẶT HÀNG</h2>
         <div class="login-form-grids">
-            <h5><spring:message code="PROFILE" text="default text"/></h5>
+            <h5>THÔNG TIN NGƯỜI NHẬN HÀNG</h5>
            <form:form action="checkout" method="post" modelAttribute="orderModel"> 
                 <form:input path="receiver" placeholder="Tên Người nhận"  required="true" value="${fullName}"></form:input>
                 <form:input path="address" placeholder="Địa Chỉ..." required="true" value="${address}"></form:input>
@@ -82,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </form:select> --%>
 				
                 <form:input path="phone" placeholder="Số diện thoại..." required="true" value="${phone}"></form:input>
-               <form:input path="description" placeholder="Mô Tả" ></form:input>
+               <form:input path="description" placeholder="Mô Tả" required="true"></form:input>
                 <input type="submit" value = "Thanh toán">
             </form:form> 
                

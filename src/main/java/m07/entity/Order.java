@@ -27,14 +27,11 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	Integer Id;
-	//String customerId;
+	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	Date orderDate;
-/*	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="MM/dd/yyyy")
-	Date requireDate;
-	*/
+	
 	@Nationalized
 	String receiver;
 	
@@ -48,7 +45,6 @@ public class Order implements Serializable {
 	
 	@Nationalized
 	String description;
-	/*Double amount;*/
 	@Column(name = "total_price")
 	private double totalPrice;
 
@@ -56,6 +52,24 @@ public class Order implements Serializable {
 	@Nationalized 
 	private String status;
 	
+	@ManyToOne
+	@JoinColumn(name="customerId")
+	Customer customer;
+
+	@OneToMany(mappedBy="order")
+	Collection<OrderDetail> orderDetails;
+	
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name="employeeId") Employee employee;
+	 */
+
+	String shipperId;
+	String employeeId;
+	/*fk*/
+	int bill_Id;
+
 	public String getStatus() {
 		return status;
 	}
@@ -64,25 +78,17 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public int getShipperId() {
+	public String getShipperId() {
 		return shipperId;
 	}
 
-	public void setShipperId(int shipperId) {
+	public void setShipperId(String shipperId) {
 		this.shipperId = shipperId;
 	}
 
 	public int getBill_Id() {
 		return bill_Id;
-	}
+	}  
 
 	public void setBill_Id(int bill_Id) {
 		this.bill_Id = bill_Id;
@@ -103,18 +109,7 @@ public class Order implements Serializable {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-
-	@ManyToOne
-	@JoinColumn(name="customerId")
-	Customer customer;
-
-	@OneToMany(mappedBy="order")
-	Collection<OrderDetail> orderDetails;
 	
-	@ManyToOne
-	@JoinColumn(name="employeeId")
-	Employee employee;
-
 	public String getPhone() {
 		return phone;
 	}
@@ -138,14 +133,6 @@ public class Order implements Serializable {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
-
-/*	public Date getRequireDate() {
-		return requireDate;
-	}
-
-	public void setRequireDate(Date requireDate) {
-		this.requireDate = requireDate;
-	}*/
 
 	public String getReceiver() {
 		return receiver;
@@ -171,14 +158,6 @@ public class Order implements Serializable {
 		this.description = description;
 	}
 
-/*	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}*/
-
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -195,16 +174,20 @@ public class Order implements Serializable {
 		this.orderDetails = orderDetails;
 	}
 	
-	/*fk*/
-	int shipperId;
-	int bill_Id;
+	public String getEmployeeId() {
+		return employeeId;
+	}
 
-	@Override
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	@Override  
 	public String toString() {
 		return "Order [Id=" + Id + ", orderDate=" + orderDate + ", requireDate=" + ", receiver="
 				+ receiver + ", address=" + address + ", phone=" + phone + ", description=" + description
 				+ ", totalPrice=" + totalPrice + ", status=" + status + ", customer=" + customer + ", orderDetails="
-				+ orderDetails + ", employee=" + employee + ", shipperId=" + shipperId + ", bill_Id=" + bill_Id + "]";
+				+ orderDetails + ", shipperId=" + shipperId + ", bill_Id=" + bill_Id + "]";
 	}
 	
 }

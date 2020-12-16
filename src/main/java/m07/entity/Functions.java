@@ -5,20 +5,24 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "roles")
-public class Roles {
-	@Id
-    @GeneratedValue
-    Integer id;
-	
-    String name;
+import org.hibernate.annotations.Nationalized;
 
-	@OneToMany(mappedBy="role")
+@Entity
+@Table(name="Functions")
+public class Functions {
+
+	@Id
+	@GeneratedValue
+	Integer id;
+	
+	@Nationalized
+	String name;
+	
+	String url;
+	
+	@OneToMany(mappedBy="function")
 	Collection<RoleDetail> roleDetails;
 }
