@@ -206,7 +206,7 @@ public class ExportExcelLoiNhuan {
 		return style;
 	}
 	
-    private void writeHeaderLine(String name, String date){
+    private void writeHeaderLine(String name, String datefrom, String dateto){
         sheet = workbook.createSheet("Thống Kê Lợi Nhuận");
         
         Cell cell;
@@ -241,7 +241,7 @@ public class ExportExcelLoiNhuan {
 		
         Row row6 = sheet.createRow(6);
         cell = row6.createCell(0, CellType.STRING);
-		cell.setCellValue("Tính đến ngày: " + date);
+		cell.setCellValue("Tính đến ngày: " + datefrom + " đến ngày: " + dateto);
 		XSSFCellStyle style5 = dong5(workbook, sheet, 0, 6);
 		cell.setCellStyle(style5);
         
@@ -339,12 +339,13 @@ public class ExportExcelLoiNhuan {
 		cell.setCellStyle(dongNgay);
     }
      
-    public void export(HttpServletResponse response, String name, Date date) throws IOException {
+    public void export(HttpServletResponse response, String name, Date datefrom, Date dateto) throws IOException {
     	
     	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-    	String currentDateTime = dateFormatter.format(date);
-		
-        writeHeaderLine(name, currentDateTime);
+    	String dayfrom = dateFormatter.format(datefrom);
+    	String dayto = dateFormatter.format(dateto);
+    	
+        writeHeaderLine(name, dayfrom, dayto);
         writeDataLines();
          
         ServletOutputStream outputStream = response.getOutputStream();

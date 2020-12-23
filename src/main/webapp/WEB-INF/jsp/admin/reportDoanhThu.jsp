@@ -66,22 +66,24 @@
         		<h3 class="title" style="margin-left: 400px; margin-bottom: 20px">THỐNG KÊ DOANH THU</h3>
 				<form action="/admin/reportDoanhThuTest" method="post">
 					<label style="margin-left: 200px;">Từ ngày : </label>
-					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }">  	
+					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" required="required">  	
+					
 					<label>Đến ngày : </label>
 					<input type = "date" id="todate" name="todate" value="${dateto }" required="required">
+					
 					<button type="submit" class="btn btn-primary"> OK </button>
 				</form>		
 				<form action="admin/exportExcelDoanhThu" method="post">
-					<%-- <input type = "date" id="fromdate" name="fromdate" value="${datefrom }" style="display: none"> --%>
+					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" style="display: none"> 
 					<input type = "date" id="todate" name="todate" value="${dateto }" style="display: none">
 							
-					<c:if test = "${dateto != null }">
+					<c:if test = "${datefrom != null }">
 						<button type="submit" class="btn btn-primary btnExport" style="float: left; margin-bottom: 20px"> Xuất file excel </button>
 					</c:if>
 				</form>
 			</div>
         	<br>
-        	<c:if test = "${dateto != null }">
+        	<c:if test = "${datefrom != null }">
         		<div class="col-md-12">
                 <div class="card">
                     <div class="content table-responsive table-full-width">

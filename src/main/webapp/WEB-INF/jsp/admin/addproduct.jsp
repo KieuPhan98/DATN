@@ -79,7 +79,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Số lượng</label>
-                                        <form:input type="number" path="quantity" class="form-control" min="1" required="true"></form:input>
+                                        <form:input type="number" path="quantity" class="form-control" min="0" required="true"></form:input>
                                     </div>
                                 </div>
                                 

@@ -9,15 +9,12 @@ import java.util.List;
 
 public interface ProductRepository  extends CrudRepository<Product, Integer>{
 
-    //Hiá»ƒn thá»‹ danh sÃ¡ch product má»›i nháº¥t  á»Ÿ trang chá»§ LIMIT = 6
     @Query(value = " SELECT * FROM products ORDER BY productDate DESC limit 6" , nativeQuery = true)
     public List<Product> listproduct6 ();
 
-    //List Sáº£n pháº©m by danh má»¥c
     @Query(value = "select  *from products where categoryId = ? ", nativeQuery = true)
     public List<Product> listproductBycategory (int categoryId);
 
-    //List Sáº£n pháº©m by nhÃ  cung cáº¥p
     @Query(value = "select  *from products where supplierId = ? ", nativeQuery = true)
     public List<Product> listproductBysupper (int supplierId);
 
@@ -69,22 +66,21 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     		"FROM products P\r\n" + 
     		"LEFT JOIN (select RD.productId PI, (SUM(ifnull(RD.unitPrice,0)*ifnull(RD.quantity,0))/ SUM(ifnull(RD.quantity,1))) NTB \r\n" + 
     		"           FROM receipdetail RD WHERE receiptionId in \r\n" + 
-    		"           (select id from receiption AS R where R.createDate <= ? )\r\n" + 
+    		"           (select id from receiption AS R where R.createDate >= ? and R.createDate <= ?)\r\n" + 
     		"           GROUP BY RD.productId) Nhap on P.id = PI\r\n" + 
     		"           \r\n" + 
     		"LEFT JOIN (select OD.productId PC, (sUM(ifnull(OD.unitPrice,0)*ifnull(OD.quantity,0))/ SUM(ifnull(quantity,1))) XTB , SUM(ifnull(OD.quantity,0)) SL \r\n" + 
     		"           FROM orderdetails OD WHERE orderId in \r\n" + 
-    		"           (select id from orders AS O where O.orderDate <= ? )\r\n" + 
+    		"           (select id from orders AS O where O.orderDate >= ? and O.orderDate <= ?)\r\n" + 
     		"           GROUP BY OD.productId) Xuat on  P.id = PC\r\n" + 
     		"ORDER BY P.id", nativeQuery = true)
-    public List<Object[]> loinhuan(java.util.Date date, java.util.Date date2);
+    public List<Object[]> loinhuan(java.util.Date date, java.util.Date date2, java.util.Date date3, java.util.Date date4);
     
     @Query(value = "SELECT P.image, P.id, P.name, ifnull(Xuat.QO,0) AS tongxuat, ifnull(Xuat.DT,0) AS doanhthu\r\n" + 
     		"FROM products P \r\n" + 
     		"LEFT JOIN (select OD.productId PC, SUM(quantity) QO, SUM(quantity * unitPrice) DT FROM orderdetails OD WHERE orderId in \r\n" + 
-    		"           (select O.id from orders AS O where (O.orderDate <= ? and O.status = \"Hoan tat\"))\r\n" + 
+    		"           (select O.id from orders AS O where (O.orderDate >= ? and O.orderDate <= ? and O.status = \"Hoan tat\"))\r\n" + 
     		"           GROUP BY OD.productId) Xuat on  P.id = PC \r\n" + 
-    		"ORDER BY P.id;\r\n" + 
-    		"", nativeQuery = true)
-    public List<Object[]> doanhthu(java.util.Date date);
+    		"ORDER BY P.id;", nativeQuery = true)
+    public List<Object[]> doanhthu(java.util.Date date, java.util.Date date2);
 }

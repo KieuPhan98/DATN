@@ -72,16 +72,16 @@
 					<button type="submit" class="btn btn-primary"> OK </button>
 				</form>		
 				<form action="admin/exportExcelLoiNhuan" method="post">
-					<%-- <input type = "date" id="fromdate" name="fromdate" value="${datefrom }" style="display: none"> --%>
+					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" style="display: none"> 
 					<input type = "date" id="todate" name="todate" value="${dateto }" style="display: none">
 							
-					<c:if test = "${dateto != null }">
+					<c:if test = "${datefrom != null }">
 						<button type="submit" class="btn btn-primary btnExport" style="float: left; margin-bottom: 20px"> Xuất file excel </button>
 					</c:if>
 				</form>
 			</div>
         	<br>
-        	<c:if test = "${dateto != null }">
+        	<c:if test = "${datefrom != null }">
         		<div class="col-md-12">
                 <div class="card">
                     <div class="content table-responsive table-full-width">
