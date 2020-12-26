@@ -363,9 +363,16 @@ public class OrderForSupplierController {
 
 			List<OrderForSuplierDetail> listOrders = orderForSupplyDetailRepository.listOrderForSupplyDetail(item);
 			
+			System.out.println("ma ddh: " + item);
+			String employeeId = orderForSupplierRepository.getEmployeeId(item);
+			String fullName = customersRepository.getFullName(employeeId);
+			
+			System.out.println("ho ten nhan vien: " + fullName);
+			
+			
 			ExportExcelOrder excelExport = new ExportExcelOrder(listOrders);
 
-			excelExport.export(response);
+			excelExport.export(response, fullName);  
 			
 			/*
 			OrderForSupplier order = orderForSupplierRepository.findOne(item);

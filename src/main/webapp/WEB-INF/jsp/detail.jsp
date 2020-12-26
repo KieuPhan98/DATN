@@ -86,7 +86,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="hidden" name="currency_code" value="USD">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
-
+                                
+                                <input type="number" name="cancel_return" value="1" min="1" max = "${product.quantity}">
+                                
                                <tr> <a href="/addToCart?id=${product.id}" >
                                    <img src="/resources/images/cart.svg"  width="100" height="100" alt=" " class="img-responsive" /></a></tr>
                             </fieldset>

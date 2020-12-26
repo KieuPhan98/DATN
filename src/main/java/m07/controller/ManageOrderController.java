@@ -22,10 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import m07.entity.Customer;
 import m07.entity.Order;
 import m07.entity.OrderDetail;
+import m07.entity.Product;
 import m07.entity.Role;
 import m07.repository.CustomersRepository;
 import m07.repository.OrderDetailRepository;
 import m07.repository.OrderRepository;
+import m07.repository.ProductRepository;
 import m07.repository.RoleRepository;
 
 @Controller
@@ -43,6 +45,9 @@ public class ManageOrderController {
     
     @Autowired
     RoleRepository roleRepository;
+    
+    @Autowired
+    ProductRepository productRepository;
 
     private String loginID;
     
@@ -107,6 +112,20 @@ public class ManageOrderController {
     	
     	System.out.println("Order Info status : ====================================");
     	System.out.println(order.getStatus());
+    	
+    	// neu don hang bi huy thi cap nhat lai so luong ton
+    	if(order.getStatus().equals("Da huy")) {
+    		List<OrderDetail> listProduct = orderDetailRepository.searchOrder(order.getId());
+    		
+    		for(OrderDetail detail : listProduct) {
+    			System.out.println("id product: " + detail.getProduct().getId());
+    			System.out.println("quantity: " + detail.getQuantity());
+    			
+    			Product product = productRepository.findOne(detail.getProduct().getId());
+    			product.setQuantity(product.getQuantity() + detail.getQuantity());
+    			productRepository.save(product);
+    		}
+    	}
     	
         if (null != cs) {
             model.addAttribute("message", "Update success");

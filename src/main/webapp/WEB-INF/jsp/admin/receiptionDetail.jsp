@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>Chi Tiết Phiếu Nhập</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -41,9 +41,9 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Chi Tiết Phiếu Nhập</h4>
-                        <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
+                        <!-- <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
 								<a href="admin/addReceiptionDetail" style="color: white" >+ Thêm sản phẩm</a>
-						</button>
+						</button> -->
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">
@@ -53,8 +53,8 @@
 	                            <th>Số lượng</th>
 	                            <th>Đơn giá</th>
 	                            <th>Thành tiền</th>
-	                            <th></th>
-                            	<th></th>
+	                            <!-- <th></th>
+                            	<th></th> -->
                             </thead>
                             <tbody>
                             <c:forEach items="${detail}" var="detail">
@@ -66,7 +66,7 @@
                                     <td>${detail.quantity}</td>
                                     <td>$ <f:formatNumber value="${detail.unitPrice}" pattern="#,###.00"/></td>
                                     <td>$ <f:formatNumber value="${detail.quantity * detail.unitPrice}" pattern="#,###.00"/></td> 
-                                    <td>
+                                    <%-- <td>
                                     	<a href="/admin/editProductReceiption?id=${detail.id}">
                                     		<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
                                     	</a>
@@ -76,7 +76,7 @@
 	                                    <a href="/deleteProductReceiption/${detail.id}">
 	                                    	<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
 	                                    </a>
-                                    </td>
+                                    </td> --%>
                                 </tr>
                             </c:forEach>
                             </tbody>

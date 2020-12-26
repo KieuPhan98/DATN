@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>Quản lí NCC</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -67,7 +67,8 @@
                                             <td>${supplierList.name}</td>
                                             <td>${supplierList.phone}</td>
                                             <td><a href="/admin/editsuppliers?id=${supplierList.id}"><img src="/resources/assets/img/icon/edit.svg " height="20" width="20"></a></td>
-                                            <td><a href="/deletesup/${supplierList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20" width="20"></a></td>
+                                            <td><a onclick="if (!(confirm('Bạn chắc chắn muốn xóa nhà cung cấp này ?'))) return false"
+                                            href="/deletesup/${supplierList.id}"><img src="/resources/assets/img/icon/delete.svg " height="20" width="20"></a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

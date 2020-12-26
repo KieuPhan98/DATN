@@ -73,7 +73,7 @@ public class HomeController extends BaseController {
     @RequestMapping(value = "productbycategory")
     public String showproductbyid(Model model, @RequestParam("categoryId") int categoryId) {
         List<Product> productList =
-                (List<Product>) productRepository.listproductBycategory(categoryId);
+                (List<Product>) productRepository.listProductByCategory(categoryId);
         model.addAttribute("productList", productList);
         return "product";
     }

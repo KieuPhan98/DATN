@@ -10,7 +10,7 @@
 	href="/resources/assets/img/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>Light Bootstrap Dashboard by Creative Tim</title>
+<title>Phiếu nhập hàng</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -78,7 +78,7 @@
 										<th class="col-sm-1">${item.orderForSupplierId }</th>
 										<th class="col-sm-3">${item.customer.fullname }</th>
 										<%-- <th class="col-sm-2">${item.orderForSupplier.supplier.name }</th> --%>
-										<th class="col-sm-2">${item.createDate }</th>
+										<th class="col-sm-2"><f:formatDate value="${item.createDate }" pattern="dd/MM/yyyy" /></th>
 										<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice}" pattern="#,###.00"/></th>
 										<c:if test="${item.totalPrice != 0}">
 											<th class="col-sm-1">

@@ -10,7 +10,7 @@
 	href="/resources/assets/img/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>Light Bootstrap Dashboard by Creative Tim</title>
+<title>Đơn hàng mới</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -68,9 +68,10 @@
 								<tbody>
 									<c:forEach items="${orders}" var="orders">
 										<tr>
-											<td>${orders.id}</td>
+											<td>${orders.id}</td>	
 											<td>${orders.customer.fullname}</td>
-											<td>${orders.orderDate}</td>
+											<%-- <td>${orders.orderDate}</td> --%>
+											<td><f:formatDate value="${orders.orderDate}" pattern="dd/MM/yyyy" /></td>
 											<td>${orders.receiver}</td>
 											<td>${orders.phone}</td>
 											<td>${orders.address} - ${orders.district}</td>

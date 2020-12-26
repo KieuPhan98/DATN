@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>Sửa Sản Phẩm</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -71,19 +71,30 @@
                             </div>
 
                             <div class="row">
-                               <div class="col-md-6">
+                               <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Đơn vị tính</label>
                                         <form:input path="unitBrief" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Số lượng</label>
                                         <form:input type="number" min="1"  path="quantity" class="form-control" required="true"></form:input>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Trạng thái</label>
+                                        <form:select itemValue="enable" path="enable" class="form-control">	
+											<form:option value="0">Ngừng kinh doanh</form:option>
+											<form:option value="1">Đang kinh doanh</form:option>
+										</form:select>
+                                    </div>
+                                </div>
+                                
                             </div>
 
                             <div class="row">

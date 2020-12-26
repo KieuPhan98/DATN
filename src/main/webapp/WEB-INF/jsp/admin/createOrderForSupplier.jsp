@@ -10,7 +10,7 @@
 	href="/resources/assets/img/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>Light Bootstrap Dashboard by Creative Tim</title>
+<title>Đơn đặt hàng đến NCC</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -93,7 +93,7 @@
 																<th class="col-sm-1">${item.id }</th>
 																<th class="col-sm-2">${item.supplier.name }</th>
 																<th class="col-sm-2">${item.customer.fullname}</th>
-																<th class="col-sm-2">${item.createDate }</th>
+																<th class="col-sm-2"><f:formatDate value="${item.createDate }" pattern="dd/MM/yyyy" /></th>
 																<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 																<th class="col-sm-1">
 																	<a href="/editStatusToCancel/${item.id}">
@@ -151,7 +151,7 @@
 														<th class="col-sm-1">${item.id }</th>
 														<th class="col-sm-2">${item.supplier.name }</th>
 														<th class="col-sm-2">${item.customer.fullname }</th>
-														<th class="col-sm-2">${item.createDate }</th>
+														<th class="col-sm-2"><f:formatDate value="${item.createDate }" pattern="dd/MM/yyyy" /></th>
 														<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>
@@ -181,7 +181,7 @@
 														<th class="col-sm-1">${item.id }</th>
 														<th class="col-sm-2">${item.supplier.name }</th>
 														<th class="col-sm-2">${item.customer.fullname }</th>
-														<th class="col-sm-2">${item.createDate }</th>
+														<th class="col-sm-2"><f:formatDate value="${item.createDate }" pattern="dd/MM/yyyy" /></th>
 														<th class="col-sm-2">$ <f:formatNumber value="${item.totalPrice }" pattern="#,###.00"/></th>
 														<th class="col-sm-1"><a class="btn btn-primary" href="/admin/detailOrderForSupplier?id=${item.id }">Xem chi tiết</a></th>
 													</tr>

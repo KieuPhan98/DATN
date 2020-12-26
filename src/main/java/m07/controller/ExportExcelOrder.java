@@ -141,6 +141,23 @@ public class ExportExcelOrder  {
 		return style;
 	}
 	
+	private static XSSFCellStyle dong7(XSSFWorkbook workbook, XSSFSheet sheet, int from, int to) {
+		sheet.addMergedRegion(new CellRangeAddress(8, 8, from, to));
+		// Font
+		XSSFFont font = workbook.createFont();
+
+		// Font Height
+		font.setFontHeightInPoints((short) 14);
+
+		font.setFontName("Times New Roman");
+
+		// Style
+		XSSFCellStyle style = workbook.createCellStyle();
+		style.setFont(font);
+
+		return style;
+	}
+	
 	private static XSSFCellStyle dongNgay(XSSFWorkbook workbook, XSSFSheet sheet, int cot1, int cot2, int row) {
 		sheet.addMergedRegion(new CellRangeAddress(row, row, cot1, cot2));
 		// Font
@@ -208,7 +225,7 @@ public class ExportExcelOrder  {
 		return style;
 	}
 	
-    private void writeHeaderLine(){
+    private void writeHeaderLine(String nameEmployee){
         sheet = workbook.createSheet("Phiếu đặt hàng");
         
         Cell cell;
@@ -250,6 +267,12 @@ public class ExportExcelOrder  {
 		XSSFCellStyle style5 = dong5(workbook, sheet, 0, 6);
 		cell.setCellStyle(style5);
         
+		Row row8 = sheet.createRow(8);
+        cell = row8.createCell(0, CellType.STRING);
+		cell.setCellValue("Người lập phiếu: " + nameEmployee);
+		XSSFCellStyle style7 = dong7(workbook, sheet, 0, 6);
+		cell.setCellStyle(style7);
+		
 		Row row = sheet.createRow(10);
 		
 		createCell1(row, 0, "STT", bold1);      
@@ -327,9 +350,9 @@ public class ExportExcelOrder  {
         createCell1(row, 6, sum, bold1);
     }
      
-    public void export(HttpServletResponse response) throws IOException {
+    public void export(HttpServletResponse response, String nameEmployee) throws IOException {
     	
-        writeHeaderLine();
+        writeHeaderLine(nameEmployee);
         writeDataLines();
          
         ServletOutputStream outputStream = response.getOutputStream();

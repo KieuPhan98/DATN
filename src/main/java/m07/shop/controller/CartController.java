@@ -62,7 +62,7 @@ public class CartController extends BaseController   {
     
     @Autowired
     DistrictRepository districtRepository;
-
+    
     @RequestMapping(value = "addToCart", method = RequestMethod.GET)
     public String addToCart(@RequestParam(value = "id") String id, HttpServletRequest request){
                             

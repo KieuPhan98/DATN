@@ -9,36 +9,36 @@ import java.util.List;
 
 public interface ProductRepository  extends CrudRepository<Product, Integer>{
 
-    @Query(value = " SELECT * FROM products ORDER BY productDate DESC limit 6" , nativeQuery = true)
+    @Query(value = " SELECT * FROM products where enable = 1 ORDER BY productDate DESC limit 6" , nativeQuery = true)
     public List<Product> listproduct6 ();
 
-    @Query(value = "select  *from products where categoryId = ? ", nativeQuery = true)
-    public List<Product> listproductBycategory (int categoryId);
+    @Query(value = "select  *from products where enable = 1 and categoryId = ? ", nativeQuery = true)
+    public List<Product> listProductByCategory (int categoryId);
 
-    @Query(value = "select  *from products where supplierId = ? ", nativeQuery = true)
+    @Query(value = "select  *from products where enable = 1 and supplierId = ? ", nativeQuery = true)
     public List<Product> listproductBysupper (int supplierId);
 
-    @Query(value = "select *from products where enable = 1 ORDER BY id desc", nativeQuery = true)
+    @Query(value = "select *from products ORDER BY id desc", nativeQuery = true)
     public List<Product> listproductdesc ();
 
-    @Query(value = "select *from products where name = ?", nativeQuery = true)
+    @Query(value = "select *from products where enable = 1 and name = ?", nativeQuery = true)
     public List<Product> searchProduct(String name);
  
     List<Product> findByNameContainingOrCategoryNameContaining(String productName, String categoryName);
 
-    @Query(value = "SELECT * FROM products WHERE unitPrice >= 1 AND unitPrice <= 100 " , nativeQuery = true)
+    @Query(value = "SELECT * FROM products WHERE enable = 1 AND unitPrice >= 1 AND unitPrice <= 100 " , nativeQuery = true)
     public List<Product> filterprice();
 
-    @Query(value = "SELECT * FROM products WHERE unitPrice >= 100 AND unitPrice <= 300 " , nativeQuery = true)
+    @Query(value = "SELECT * FROM products WHERE enable = 1 AND unitPrice >= 100 AND unitPrice <= 300 " , nativeQuery = true)
     public List<Product> filterprice010();
 
-    @Query(value = "SELECT * FROM products WHERE unitPrice >= 300 AND unitPrice <= 450 " , nativeQuery = true)
+    @Query(value = "SELECT * FROM products WHERE enable = 1 AND unitPrice >= 300 AND unitPrice <= 450 " , nativeQuery = true)
     public List<Product> filterprice1015();
 
-    @Query(value = "SELECT * FROM products WHERE unitPrice >= 450 AND unitPrice <= 600 " , nativeQuery = true)
+    @Query(value = "SELECT * FROM products WHERE enable = 1 AND unitPrice >= 450 AND unitPrice <= 600 " , nativeQuery = true)
     public List<Product> filterprice1520();
 
-    @Query(value = "select  *from  products where unitPrice >= 600 " , nativeQuery = true)
+    @Query(value = "select  *from  products WHERE enable = 1 AND unitPrice >= 600 " , nativeQuery = true)
     public List<Product> filterprice20();
 
     @Query(value = "SELECT id FROM products where categoryId = ? limit 1;", nativeQuery = true)

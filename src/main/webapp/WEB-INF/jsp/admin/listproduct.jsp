@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>Quản lí sản phẩm</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -41,7 +41,6 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Quản Lý Sản Phẩm</h4>
-                        
                         <button class="btn btn-info btn-fill pull-left" style="margin-top: 10px; margin-bottom: 10px">
 								<a href="/admin/addproduct" style="color: white" >+ Thêm sản phẩm</a>
 						</button>
@@ -55,6 +54,7 @@
                             <th>Tên Sản Phẩm</th>
                             <th>Số Lượng Tồn</th>
                             <th>Đơn Giá</th>
+                            <th>Trạng Thái</th>
                             <th></th>
                             <th></th>
                             </thead>
@@ -68,6 +68,15 @@
                                     <td>${productList.name}</td>
                                     <td>${productList.quantity}</td>
                                     <td>$ <f:formatNumber value="${productList.unitPrice}" pattern="#,###.00"/></td>
+                                    
+                                    <c:if test="${productList.enable == 0}">
+                                    	<td>Ngừng kinh doanh</td>
+                                    </c:if>
+                                    
+                                    <c:if test="${productList.enable != 0}">
+                                    	<td>Đang kinh doanh</td>
+                                    </c:if>
+                                    
                                     <td>
                                     	<a href="/admin/editproduct?id=${productList.id}">
                                     		<img src="/resources/assets/img/icon/edit.svg " height="20" width="20" >
@@ -75,9 +84,10 @@
                                     </td>
                                         
                                     <td>
-	                                    <a href="/deletepro/${productList.id}">
+	                                    <a onclick="if (!(confirm('Bạn chắc chắn muốn xóa sản phẩm này ?'))) return false"
+	                                    href="/deletepro/${productList.id}">
 	                                    	<img src="/resources/assets/img/icon/delete.svg " height="20" width="20">
-	                                    </a>
+	                                    </a>	
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -110,7 +120,7 @@
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="/resources/assets/js/demo.js"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function () {
 
         demo.initChartist();
@@ -125,7 +135,7 @@
         });
 
     });
-</script>
+</script> -->
 
 </body>
 </html>

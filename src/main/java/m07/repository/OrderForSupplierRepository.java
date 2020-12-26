@@ -23,4 +23,7 @@ public interface OrderForSupplierRepository extends JpaRepository<OrderForSuppli
     
     @Query(value = "SELECT id FROM orderforsupplier where supplyId = ? limit 1;", nativeQuery = true)
     public String checkExistSupplier(int supplierId);
+    
+    @Query(value = "SELECT employeeId FROM yumishop2.orderforsupplier where id = ?", nativeQuery = true)
+    public String getEmployeeId(int orderId);
 }
