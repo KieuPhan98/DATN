@@ -63,9 +63,9 @@
     <div class="container-fluid">
         <div class="row">
         	<div class="col-sm-12 ">
-        		<h3 class="title" style="margin-left: 400px; margin-bottom: 20px">THỐNG KÊ DOANH THU</h3>
+        		<h3 class="title" style="margin-left: 470px; margin-bottom: 20px">THỐNG KÊ DOANH THU</h3>
 				<form action="/admin/reportDoanhThuTest" method="post">
-					<label style="margin-left: 200px;">Từ ngày : </label>
+					<label style="margin-left: 270px;">Từ ngày : </label>
 					<input type = "date" id="fromdate" name="fromdate" value="${datefrom }" required="required">  	
 					
 					<label>Đến ngày : </label>
@@ -78,7 +78,8 @@
 					<input type = "date" id="todate" name="todate" value="${dateto }" style="display: none">
 							
 					<c:if test = "${datefrom != null }">
-						<button type="submit" class="btn btn-primary btnExport" style="float: left; margin-bottom: 20px"> Xuất file excel </button>
+						<button type="submit" class="btn btn-primary btnExport" style="float: right; margin-right: 60px; margin-top: -20px;" > Xuất file excel </button>
+						<h5 style="font-weight: bold;">Tổng Doanh Thu: $ <f:formatNumber value="${tongDT}" pattern="#,###.00" /></h5>
 					</c:if>
 				</form>
 			</div>

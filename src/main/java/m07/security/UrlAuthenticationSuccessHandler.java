@@ -52,7 +52,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
         }
 
         if (isUser) {
-            return "/"; // normal user
+            return "/viewCart"; // normal user
         } else if (isAdmin) {
             return "/admin/orderNew/"; // admin user, /admin: request mapping
         } else {

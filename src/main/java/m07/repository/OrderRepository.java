@@ -12,8 +12,17 @@ import m07.entity.OrderForSupplier;
 //public interface OrderRepository extends CrudRepository<Order, Integer> {
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     //List order by custommer ID
-    @Query(value = "select *from orders where customerId = ?", nativeQuery = true)
+    @Query(value = "select *from orders where customerId = ? and status = \"Cho duyet\" ORDER BY id desc", nativeQuery = true)
     public List<Order> listoderbycus (String customerId);
+    
+    @Query(value = "select *from orders where customerId = ? and status = \"Dang giao\" ORDER BY id desc", nativeQuery = true)
+    public List<Order> listoderbycus1 (String customerId);
+    
+    @Query(value = "select *from orders where customerId = ? and status = \"Hoan tat\" ORDER BY id desc", nativeQuery = true)
+    public List<Order> listoderbycus2 (String customerId);
+    
+    @Query(value = "select *from orders where customerId = ? and status = \"Da huy\" ORDER BY id desc", nativeQuery = true)
+    public List<Order> listoderbycus3 (String customerId);
 
     // loc don hang co trang thai cho duyet
     @Query(value = "select *from orders where status = \"Cho duyet\" ORDER BY id desc", nativeQuery = true)

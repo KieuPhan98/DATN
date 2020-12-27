@@ -1,6 +1,7 @@
 package m07.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -64,7 +65,16 @@ public class ReportController {
 
 		model.addAttribute("datefrom", req.getParameter("fromdate"));
 		model.addAttribute("dateto", req.getParameter("todate"));
+		
+		Double sumDT = (double) 0;
+		for(Object[] listDT : listDoanhThu) {
+			sumDT += Double.valueOf((Double) listDT[4]);
+		}
 
+		System.out.println("sum: " + sumDT);
+		
+		model.addAttribute("tongDT", sumDT);
+		
 		return "/admin/reportDoanhThu";
 	}
 
@@ -91,6 +101,15 @@ public class ReportController {
 
 		model.addAttribute("datefrom", req.getParameter("fromdate"));  
 		model.addAttribute("dateto", req.getParameter("todate"));
+		
+		Double sumLN = (double) 0;
+		for(Object[] listLN : listLoiNhuan) {
+			sumLN += Double.valueOf((Double) listLN[5]);
+		}
+
+		System.out.println("sum: " + sumLN);
+		
+		model.addAttribute("tongLN", sumLN);
 
 		return "/admin/reportLoiNhuan";
 	}
